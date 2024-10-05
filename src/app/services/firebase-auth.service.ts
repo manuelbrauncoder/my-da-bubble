@@ -50,6 +50,8 @@ export class FirebaseAuthService {
   guestUser: boolean = false;
   idleService = inject(IdleService);
 
+  // TEST
+
   currentUserSig = signal<AuthUser | null | undefined>(undefined);
 
   constructor(private router: Router, private firestore: Firestore) {
