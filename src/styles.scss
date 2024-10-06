@@ -51,6 +51,10 @@ app-root {
   }
 }
 
+app-login, app-registration {
+  padding: 1rem;
+}
+
 app-header-for-usermanagement {
   display: flex;
   justify-content: space-between;

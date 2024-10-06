@@ -46,6 +46,11 @@ form {
 
   >p {
     font-size: 1.2rem;
+    text-align: center;
+    max-width: 41ch;
+    @media(max-width: 999px) {
+      max-width: 31ch;
+    }
   }
 
   >span {
@@ -79,6 +84,9 @@ form {
         top: 100%;
         left: 1rem;
       }
+    }
+    @media(max-width: 999px) {
+      gap: 1.5rem;
     }
   }
 

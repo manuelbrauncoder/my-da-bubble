@@ -23,7 +23,7 @@ import {
   sendPasswordResetEmail,
   confirmPasswordReset,
   verifyPasswordResetCode,
-  signInWithPopup
+  signInWithPopup,
 } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
 import { AuthUser } from '../interfaces/auth-user';
@@ -39,7 +39,7 @@ import { IdleService } from './idle.service';
 })
 export class FirebaseAuthService {
   fireService = inject(FirestoreService);
-  provider = new GoogleAuthProvider;
+  provider = new GoogleAuthProvider();
   auth = inject(Auth);
   user$ = user(this.auth);
   uiService = inject(UiService);
@@ -49,34 +49,36 @@ export class FirebaseAuthService {
   googleUser: boolean = false;
   guestUser: boolean = false;
   idleService = inject(IdleService);
+  showLoginErr = false;
 
-  // TEST
 
   currentUserSig = signal<AuthUser | null | undefined>(undefined);
 
-  constructor(private router: Router, private firestore: Firestore) {
-  }
-
+  constructor(private router: Router, private firestore: Firestore) {}
 
   /**
-  * Stored Data from Registration Form 
-  */
-  private tempRegData: { email: string; username: string; password: string } | null = null;
+   * Stored Data from Registration Form
+   */
+  private tempRegData: {
+    email: string;
+    username: string;
+    password: string;
+  } | null = null;
 
   storeRegistrationData(email: string, username: string, password: string) {
     this.tempRegData = { email, username, password };
   }
 
   /**
-  * Get the stored data
-  */
+   * Get the stored data
+   */
   getStoredRegistrationData() {
     return this.tempRegData;
   }
 
   /**
-  * Delete the stored data 
-  */
+   * Delete the stored data
+   */
   clearStoredRegistrationData() {
     this.tempRegData = null;
   }
@@ -88,37 +90,39 @@ export class FirebaseAuthService {
    */
   googleLogin() {
     const provider = new GoogleAuthProvider();
-    return signInWithPopup(this.auth, provider).then(async (result) => {
-      const user = result.user;
-      this.googleUser = true;
-  
-      if (user) {        
-        const userData = {
-          uid: user.uid,
-          username: user.displayName || 'No Username',
-          email: user.email || 'No Email',
-          avatar: user.photoURL || 'default-avatar-url',
-          status: 'online',
-          createdAt: this.getCurrentTimestamp(),
-        };
-  
-        let userExists = false;
-  
-        this.fireService.users.forEach((firestoreUser) => {
-          if (user.uid === firestoreUser.uid) {
+    return signInWithPopup(this.auth, provider)
+      .then(async (result) => {
+        const user = result.user;
+        this.googleUser = true;
+
+        if (user) {
+          const userData = {
+            uid: user.uid,
+            username: user.displayName || 'No Username',
+            email: user.email || 'No Email',
+            avatar: user.photoURL || 'default-avatar-url',
+            status: 'online',
+            createdAt: this.getCurrentTimestamp(),
+          };
+
+          let userExists = false;
+
+          this.fireService.users.forEach((firestoreUser) => {
+            if (user.uid === firestoreUser.uid) {
+              this.fireService.addUser(userData);
+              userExists = true;
+            }
+          });
+
+          if (!userExists) {
             this.fireService.addUser(userData);
-            userExists = true;
           }
-        });
-  
-        if (!userExists) {
-          this.fireService.addUser(userData);
         }
-      }
-    }).catch((error) => {
-      console.error('Google sign-in error:', error);
-      this.logout();
-    });
+      })
+      .catch((error) => {
+        console.error('Google sign-in error:', error);
+        this.logout();
+      });
   }
 
   /**
@@ -134,7 +138,7 @@ export class FirebaseAuthService {
    */
   handleGoogleSignInRedirect() {
     return getRedirectResult(this.auth)
-      .then(result => {
+      .then((result) => {
         if (result) {
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential?.accessToken;
@@ -143,7 +147,7 @@ export class FirebaseAuthService {
           this.router.navigate(['/dabubble']);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         const errorCode = err.code;
         const errorMessage = err.message;
         const email = err.customData.email;
@@ -151,7 +155,6 @@ export class FirebaseAuthService {
         console.warn(errorCode, errorMessage, email, credential);
       });
   }
-
 
   /**
    * Registers a new user with Firebase Authentication.
@@ -161,14 +164,20 @@ export class FirebaseAuthService {
    * save the new user with the uid in firestore
    *
    * @param {string} email
-   * @param {string} username 
-   * @param {string} password 
+   * @param {string} username
+   * @param {string} password
    * @returns {Observable<void>} An observable that completes when the user is successfully registered and the profile is updated.
    */
-   register(email: string, username: string, password: string, avatar: string): Observable<void> {
-    const promise = createUserWithEmailAndPassword(this.auth, email, password).then((response) => {
-      this.handleUserData(response, email, username, avatar);
-    })
+  register(
+    email: string,
+    username: string,
+    password: string,
+    avatar: string
+  ): Observable<void> {
+    const promise = createUserWithEmailAndPassword(this.auth, email, password)
+      .then((response) => {
+        this.handleUserData(response, email, username, avatar);
+      })
       .catch((err) => {
         console.error('Error register new User', err);
         throw err;
@@ -176,19 +185,26 @@ export class FirebaseAuthService {
     return from(promise);
   }
 
-  handleUserData(response: any, email: string, username: string, avatar: string){
+  handleUserData(
+    response: any,
+    email: string,
+    username: string,
+    avatar: string
+  ) {
     updateProfile(response.user, { displayName: username });
-      this.saveNewUserInFirestore(email, username, response.user.uid, avatar);
-      this.addNewUserToWelcomeChannel(response.user.uid);
-      this.currentUserSig.set({
-        email: response.user.email!,
-        username: response.user.displayName!,
-        uid: response.user.uid!
-      })
+    this.saveNewUserInFirestore(email, username, response.user.uid, avatar);
+    this.addNewUserToWelcomeChannel(response.user.uid);
+    this.currentUserSig.set({
+      email: response.user.email!,
+      username: response.user.displayName!,
+      uid: response.user.uid!,
+    });
   }
 
-  addNewUserToWelcomeChannel(uid: string){
-    const channelIndex = this.fireService.channels.findIndex(channel => channel.name.toLowerCase() === 'welcome');
+  addNewUserToWelcomeChannel(uid: string) {
+    const channelIndex = this.fireService.channels.findIndex(
+      (channel) => channel.name.toLowerCase() === 'welcome'
+    );
     if (channelIndex !== -1) {
       const channel = new Channel(this.fireService.channels[channelIndex]);
       channel.users.push(uid);
@@ -196,15 +212,20 @@ export class FirebaseAuthService {
     }
   }
 
-  async saveNewUserInFirestore(email: string, username: string, uid: string, avatar: string) {
+  async saveNewUserInFirestore(
+    email: string,
+    username: string,
+    uid: string,
+    avatar: string
+  ) {
     let newUser = {
       uid: uid,
       username: username,
       email: email,
       createdAt: this.getCurrentTimestamp(),
       avatar: avatar,
-      status: 'online'
-    }
+      status: 'online',
+    };
     await this.fireService.addUser(newUser);
   }
 
@@ -220,34 +241,36 @@ export class FirebaseAuthService {
   updateUsername(newName: string) {
     const currentUser = this.auth.currentUser;
     if (currentUser) {
-      updateProfile(currentUser, {displayName: newName}).then(()=>{
-        this.currentUserSig.set({
-          username: newName,
-          email: currentUser.email!,
-          uid: currentUser.uid
+      updateProfile(currentUser, { displayName: newName })
+        .then(() => {
+          this.currentUserSig.set({
+            username: newName,
+            email: currentUser.email!,
+            uid: currentUser.uid,
+          });
         })
-      }).catch((err)=>{
-        console.log('Error updating Username', err);
-      }) 
+        .catch((err) => {
+          console.log('Error updating Username', err);
+        });
     }
   }
 
   /**
-  * Logs in a user with Firebase Authentication.
-  *
-  * If the login is successful, it changes the login state in firestore
-  * 
-  * @returns {Observable<void>} An observable that completes when the login process is successful.
-  */
+   * Logs in a user with Firebase Authentication.
+   *
+   * If the login is successful, it changes the login state in firestore
+   *
+   * @returns {Observable<void>} An observable that completes when the login process is successful.
+   */
   login(email: string, password: string): Observable<void> {
     const promise = signInWithEmailAndPassword(this.auth, email, password)
       .then((response) => {
         this.changeLoginState('online', response.user.uid);
         this.idleService.startWatching();
+        this.router.navigate(['/dabubble']);
       })
       .catch((error) => {
-        console.error('Login failed in FirebaseAuthService:', error);
-        throw error;
+        this.showLoginErr = true;
       });
     return from(promise);
   }
@@ -255,9 +278,9 @@ export class FirebaseAuthService {
   /**
    * changes login state in firestore
    * call this method after login and logout
-   * 
+   *
    * @param loggedInState true after login, false after logout
-   * @param uid 
+   * @param uid
    */
   changeLoginState(userStatus: 'online' | 'offline' | 'away', uid: string) {
     this.fireService.users.forEach((user) => {
@@ -265,7 +288,7 @@ export class FirebaseAuthService {
         user.status = userStatus;
         this.fireService.addUser(user);
       }
-    })
+    });
   }
 
   /**
@@ -275,13 +298,15 @@ export class FirebaseAuthService {
    */
   logout(): Observable<void> {
     const currentUserUid = this.currentUserSig()?.uid;
-    const promise = signOut(this.auth).then(() => {
-      this.changeLoginState('offline', currentUserUid!);
-      this.guestUser = false;
-      this.googleUser = false;
-    }).catch((err) => {
-      console.log('Error logging User out', err);
-    });
+    const promise = signOut(this.auth)
+      .then(() => {
+        this.changeLoginState('offline', currentUserUid!);
+        this.guestUser = false;
+        this.googleUser = false;
+      })
+      .catch((err) => {
+        console.log('Error logging User out', err);
+      });
     return from(promise);
   }
 
@@ -290,7 +315,7 @@ export class FirebaseAuthService {
    */
   guestLogin() {
     const guestEmail = 'guest@gmail.com';
-    const guestPw = '123456'
+    const guestPw = '123456';
     this.login(guestEmail, guestPw);
     this.guestUser = true;
     this.idleService.startWatching();
@@ -316,12 +341,14 @@ export class FirebaseAuthService {
   deleteUserAccount() {
     const currentUser = this.auth.currentUser;
     if (currentUser) {
-      deleteUser(currentUser).then(() => {
-        console.log('User deleted', currentUser);
-        this.deleteUserInFirestore(currentUser.uid);
-      }).catch((err) => {
-        console.log('Error deleting User', err);
-      });
+      deleteUser(currentUser)
+        .then(() => {
+          console.log('User deleted', currentUser);
+          this.deleteUserInFirestore(currentUser.uid);
+        })
+        .catch((err) => {
+          console.log('Error deleting User', err);
+        });
     } else {
       console.log('No user is currently logged in.');
     }
@@ -329,52 +356,54 @@ export class FirebaseAuthService {
 
   /**
    * deletes the user with uid in firestore
-   * @param uid 
+   * @param uid
    */
   deleteUserInFirestore(uid: string) {
     this.fireService.users.forEach((user) => {
       if (uid === user.uid) {
         this.fireService.deleteDocument(user.uid, 'users');
       }
-    })
+    });
   }
 
   /**
-  * This method is for updating the users email
-  * If the last login was too long ago, the user has to be re-authenticate
-  * We need a popup, where the user can log in again
-  * in this popup, call the reAuthenticateUser() method
-  * after that, the user can update his email
-  * @param newEmail 
-  */
+   * This method is for updating the users email
+   * If the last login was too long ago, the user has to be re-authenticate
+   * We need a popup, where the user can log in again
+   * in this popup, call the reAuthenticateUser() method
+   * after that, the user can update his email
+   * @param newEmail
+   */
   updateUserEmail(newEmail: string) {
     const currentUser = this.auth.currentUser;
     if (currentUser) {
-      updateEmail(currentUser, newEmail).then(() => {
-        this.handleEmailUpdating(currentUser, newEmail);
-      }).catch((err) => {
-        this.handleUpdateEmailError(err);
-      });
+      updateEmail(currentUser, newEmail)
+        .then(() => {
+          this.handleEmailUpdating(currentUser, newEmail);
+        })
+        .catch((err) => {
+          this.handleUpdateEmailError(err);
+        });
     }
   }
 
-  handleEmailUpdating(currentUser: any, newEmail: string){
+  handleEmailUpdating(currentUser: any, newEmail: string) {
     this.uiService.toggleProfileChangeConfirmationPopup();
-        this.fireService.users.forEach((user) => {
-          if (currentUser.uid === user.uid) {
-            user.email = newEmail;
-            this.fireService.addUser(user);
-          }
-        })
+    this.fireService.users.forEach((user) => {
+      if (currentUser.uid === user.uid) {
+        user.email = newEmail;
+        this.fireService.addUser(user);
+      }
+    });
   }
 
-  handleUpdateEmailError(err: string){
+  handleUpdateEmailError(err: string) {
     let code = AuthErrorCodes.EMAIL_CHANGE_NEEDS_VERIFICATION;
-        if (code) {
-          this.loginTooLongAgo = true;
-          this.uiService.toggleVerifyPassword();
-        }
-        console.log(err);
+    if (code) {
+      this.loginTooLongAgo = true;
+      this.uiService.toggleVerifyPassword();
+    }
+    console.log(err);
   }
 
   /**
@@ -383,11 +412,13 @@ export class FirebaseAuthService {
    */
   verifyUsersEmail() {
     if (this.auth.currentUser) {
-      sendEmailVerification(this.auth.currentUser).then(() => {
-        console.log('email sent!');
-      }).catch((err) => {
-        console.warn('Error sending Email', err);
-      })
+      sendEmailVerification(this.auth.currentUser)
+        .then(() => {
+          console.log('email sent!');
+        })
+        .catch((err) => {
+          console.warn('Error sending Email', err);
+        });
     }
   }
 
@@ -397,26 +428,27 @@ export class FirebaseAuthService {
   reAuthenticateUser(email: string, password: string) {
     const credential = EmailAuthProvider.credential(email, password);
     if (this.auth.currentUser) {
-      reauthenticateWithCredential(this.auth.currentUser, credential).then(() => {
-        console.log('User reauthenticated', email, password, credential);
-        if (this.updateEmail) {
-          this.updateUserEmail(this.newEmailAddress);
-        }
-      }).catch((err) => {
-        console.warn('Error', err)
-      });
+      reauthenticateWithCredential(this.auth.currentUser, credential)
+        .then(() => {
+          console.log('User reauthenticated', email, password, credential);
+          if (this.updateEmail) {
+            this.updateUserEmail(this.newEmailAddress);
+          }
+        })
+        .catch((err) => {
+          console.warn('Error', err);
+        });
     }
   }
 
-
   /**
- * Sends an email to the user to reset the password
- * @param {string} email
- */
+   * Sends an email to the user to reset the password
+   * @param {string} email
+   */
   sendPasswordResetMail(email: string) {
     sendPasswordResetEmail(this.auth, email)
       .then(() => {
-        console.log('Password reset email sent!')
+        console.log('Password reset email sent!');
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -427,11 +459,14 @@ export class FirebaseAuthService {
   }
 
   /**
- * Confirm the password reset with a token called oobCode
- * @param {string} newPassword
- * @param {string} oobCode
- */
-  async confirmPasswordReset(oobCode: string, newPassword: string): Promise<void> {
+   * Confirm the password reset with a token called oobCode
+   * @param {string} newPassword
+   * @param {string} oobCode
+   */
+  async confirmPasswordReset(
+    oobCode: string,
+    newPassword: string
+  ): Promise<void> {
     try {
       await confirmPasswordReset(this.auth, oobCode, newPassword);
       console.log('Password has been reset successfully');
@@ -442,9 +477,9 @@ export class FirebaseAuthService {
   }
 
   /**
- * Verifies the passwordresetcode 
- * @param {string} oobCode
- */
+   * Verifies the passwordresetcode
+   * @param {string} oobCode
+   */
   async verifyPasswordResetCode(oobCode: string): Promise<void> {
     try {
       await verifyPasswordResetCode(this.auth, oobCode);
@@ -454,5 +489,3 @@ export class FirebaseAuthService {
     }
   }
 }
-
-

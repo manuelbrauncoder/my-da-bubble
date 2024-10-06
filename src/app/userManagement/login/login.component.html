@@ -4,8 +4,12 @@
 
 <form #loginForm="ngForm">
   <h2>Anmeldung</h2>
-  <p *ngIf="!loginFailed">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
-  <span *ngIf="loginFailed">Falsches Passwort oder E-Mail...Bitte noch einmal versuchen.</span>
+  <!-- @if (authService.showLoginErr) { -->
+    <p>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
+  <!-- } -->
+  @if (authService.showLoginErr) {
+    <span>Falsches Passwort oder E-Mail...Bitte noch einmal versuchen.</span>
+  }
   <div class="input-wrapper">
     <div>
       <label for="email"></label>
