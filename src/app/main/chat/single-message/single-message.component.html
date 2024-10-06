@@ -16,7 +16,11 @@
             class="content">
             <span>{{ currentMessage.content }}</span>
             @if (currentMessage.data.length > 0) {
-            <img (click)="openDataDetailView(currentMessage.data[0])" class="data-preview" src="{{currentMessage.data[0]}}" alt="">
+                @if (fireStorageService.isFilePdf(fireStorageService.getFileName(currentMessage.data))) {
+                    <span>Datei: {{ fireStorageService.getFileName(currentMessage.data) }}</span>
+                } @else {
+                    <img (click)="openDataDetailView(currentMessage.data)" class="data-preview" src="{{currentMessage.data}}" alt="">
+                }
             }
         </div>
         }
@@ -103,7 +107,7 @@
     </div>
 
     @if (showDataDetailView) {
-        <app-data-detail-view (closeDetailView)="closeDataDetailView()" @fadeIn [data]="currentMessage.data[0]"></app-data-detail-view>
+        <app-data-detail-view (closeDetailView)="closeDataDetailView()" @fadeIn [data]="currentMessage.data"></app-data-detail-view>
         <div class="popup-background" @fadeIn (click)="closeDataDetailView()"></div>
         }
 </div>

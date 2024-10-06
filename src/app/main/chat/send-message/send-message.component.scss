@@ -132,10 +132,14 @@ app-popup-taggable-users {
   justify-content: center;
   gap: 0.5rem;
   overflow-x: auto;
-  max-width: 14rem;
+  max-width: 32rem;
 }
 
 .file-preview {
   max-height: 36px;
   object-fit: cover;
+}
+
+.fileErr{
+  color: $color-error-red;
 }

@@ -7,7 +7,7 @@ export class Message{
     sender: string;
     content: string;
     thread?: Thread;
-    data: any[];
+    data: string;
     reactions: Reaction[];
 
     constructor(obj?: Partial<Message>){
@@ -16,7 +16,7 @@ export class Message{
         this.sender = obj?.sender ?? '';
         this.content = obj?.content ?? '';
         this.thread = obj?.thread;
-        this.data = obj?.data ?? [];
+        this.data = obj?.data ?? '';
         this.reactions = obj?.reactions ?? [];
     }   
 }

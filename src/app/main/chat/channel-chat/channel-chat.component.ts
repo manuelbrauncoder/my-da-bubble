@@ -137,13 +137,13 @@ export class ChannelChatComponent implements AfterViewChecked {
     return `Hallo ${name}, ich würde gerne zu dem Channel ${this.channelService.fireService.currentChannel.name} eingeladen werden :)`
   }
 
-  createMessage(content: string, data?: string[]): Message {
+  createMessage(content: string, data?: string): Message {
     return new Message({
       time: this.authService.getCurrentTimestamp(),
       sender: this.userService.getCurrentUser().uid,
       content: content,
       thread: new Thread,
-      data: data || [],
+      data: data || '',
       reactions: []
     });
   }

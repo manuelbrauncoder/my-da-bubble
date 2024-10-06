@@ -44,10 +44,14 @@ export class SendMessageComponent implements OnInit, OnChanges {
 
   @ViewChild('textArea') textArea!: ElementRef;
 
+  @ViewChild('uploadInput') uploadInput!: ElementRef;
+  fileType: string | null = null;
+  selectedFile: File | null = null;
+  filePreview: string | ArrayBuffer | null | undefined = null;
+  fileErrMsg = '';
+
   content: string = ''; // content of the message
-  data: any[] = []; // message data, e.g. photos
-  selectedFiles: File[] = [];
-  filePreviews: string[] = [];
+  data = ''; // message data, e.g. photos
 
   showEmojiPicker = false;
 
@@ -96,7 +100,8 @@ export class SendMessageComponent implements OnInit, OnChanges {
    * @returns True if the input is disabled or no content/files are provided.
    */
   isBtnDisabled() {
-    return this.disableInput || (this.content.trim().length === 0 && this.selectedFiles.length === 0);
+    return this.disableInput || (this.content.trim().length === 0 && this.selectedFile === null);
+    
   }
 
   /**
@@ -215,13 +220,13 @@ export class SendMessageComponent implements OnInit, OnChanges {
    * @param content from the message
    * @returns a Message Object
    */
-  createMessage(content: string, data?: string[]): Message {
+  createMessage(content: string, data?: string): Message {
     return new Message({
       time: this.authService.getCurrentTimestamp(),
       sender: this.userService.getCurrentUser().uid,
       content: content,
       thread: new Thread,
-      data: data || [],
+      data: data || '',
       reactions: []
     });
   }
@@ -230,9 +235,9 @@ export class SendMessageComponent implements OnInit, OnChanges {
    * handle differtent recipients (channel or direct message)
    */
   async saveNewMessage() {
-    if (this.selectedFiles.length > 0) {
-      const fileUrls = await this.storageService.uploadFiles(this.selectedFiles);
-      this.data = fileUrls;
+    if (this.selectedFile) {
+      await this.storageService.uploadFile(this.selectedFile);
+      this.data = this.storageService.filePath;
     }
     if (this.currentRecipient instanceof Channel) {
       await this.handleChannelMessage();
@@ -249,9 +254,9 @@ export class SendMessageComponent implements OnInit, OnChanges {
   setDefaultsAndSyncMessages() {
     this.userService.fireService.getMessagesPerDayForThread();
     this.content = '';
-    this.data = [];
-    this.filePreviews = [];
-    this.selectedFiles = [];
+    this.data = '';
+    this.filePreview = null;
+    this.selectedFile = null;
     this.threadService.scrolledToBottomOnStart = false;
     this.redirectToChat();
   }
@@ -271,51 +276,39 @@ export class SendMessageComponent implements OnInit, OnChanges {
     }
   }
 
-  /**
-   * Extracts the filename from a file preview URL.
-   * @param {string} preview - The preview URL.
-   * @returns {string} The filename.
-   */
-  getFileName(preview: string): string {
-    return this.storageService.extractFileName(preview);
+  clearUploadInput(){
+    this.uploadInput.nativeElement.value = '';
+    this.filePreview = null;
+    this.selectedFile = null;
   }
 
-/**
- * Handles file selection and generates previews.
- * Limits file size to 500KB and accepts only image and PDF files.
- * @param {Event} event - The file input event.
- */
-onFilesSelected(event: any) {
-  const files: FileList = event.target.files;
-  const maxSize = 500 * 1024;
-  const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
-
-  if (files.length > 0) {
-    this.selectedFiles = [];
-    this.filePreviews = [];
-
-    Array.from(files).forEach(file => {
-      if (!allowedTypes.includes(file.type)) {
-        alert('Nur Bilddateien (.jpg, .jpeg, .png) und PDF-Dateien sind erlaubt.');
-        return;
+  onFileSelected(event: Event) {
+    this.fileErrMsg = '';
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      this.selectedFile = input.files[0];
+      if (this.selectedFile.size > 500 * 1024) {
+        this.clearUploadInput();
+        this.fileErrMsg = '*maximale Dateigröße ist 500kb'
+      } else {
+        this.fileType = this.selectedFile.type;
+        this.setFilePreview();
       }
+    }
+  }
 
-      if (file.size > maxSize) {
-        alert(`Die Datei ${file.name} überschreitet die maximale Größe von 500KB.`);
-        return;
-      }
-
-      this.selectedFiles.push(file);
-
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.filePreviews.push(e.target.result);
+  setFilePreview() {
+    const reader = new FileReader();
+      reader.onload = (e) => {
+        this.filePreview = e.target?.result;
       };
-
-      reader.readAsDataURL(file);
-    });
+    if (this.fileType!.startsWith('image/')) {
+      
+      reader.readAsDataURL(this.selectedFile!);
+    } else {
+      this.filePreview = null;
+    }
   }
-}
 
   /**
    * Sets the ID for the file input based on the message type (thread or chat).

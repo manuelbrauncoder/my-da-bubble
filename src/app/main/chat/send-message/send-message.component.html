@@ -13,7 +13,7 @@
                     <label [for]="setidforFileInput()" class="custom-file-upload">
                         <img src="assets/icons/channel-chat/plusIcon.svg" alt="Upload Icon">
                     </label>
-                    <input class="file-upload" [id]="setidforFileInput()" type="file" (change)="onFilesSelected($event)"/>
+                    <input #uploadInput class="file-upload" accept="image/*, application/pdf" [id]="setidforFileInput()" type="file" (change)="onFileSelected($event)"/>
                 </div>
             </div>
 
@@ -35,13 +35,15 @@
         
         <div class="preview-btn-wrapper">
             <div class="file-preview-container">
-                <div *ngFor="let preview of filePreviews; let i = index">
-                    <img *ngIf="preview.startsWith('data:image')" [src]="preview" alt="Bild-Vorschau" class="file-preview" />
-
-                    <p *ngIf="selectedFiles[i].name.endsWith('.pdf')">{{ getFileName(selectedFiles[i].name) }}</p>
-
-                    <p *ngIf="!preview.startsWith('data:image') && !selectedFiles[i].name.endsWith('.pdf')">{{ getFileName(selectedFiles[i].name) }}</p>
-                </div>
+                    @if (filePreview) {
+                        <img [src]="filePreview" alt="Bild-Vorschau" class="file-preview">
+                    }
+                    @if (selectedFile) {
+                        <p>{{ selectedFile.name }}</p>
+                    }
+                    @if (fileErrMsg !== '') {
+                        <p class="fileErr">{{ fileErrMsg }}</p>
+                    }
             </div>
         </div>
         

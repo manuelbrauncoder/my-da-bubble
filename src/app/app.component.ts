@@ -69,11 +69,13 @@ export class AppComponent implements OnInit, OnDestroy {
   unsubUsersList;
   unsubChannelList;
   unsubConversationList;
+  unsubUploadInfoList;
 
   constructor(private router: Router) {
     this.unsubUsersList = this.fireService.getUsersList();
     this.unsubChannelList = this.fireService.getChannelList();
     this.unsubConversationList = this.fireService.getConversationList();
+    this.unsubUploadInfoList = this.fireService.getUploadList();
   }
 
   private showNoFooterRoutes: string[] = ['/dabubble'];
@@ -107,6 +109,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.unsubUsersList();
     this.unsubChannelList();
     this.unsubConversationList();
+    this.unsubUploadInfoList();
     if (this.idleSubscription) {
       this.idleSubscription.unsubscribe();
     }

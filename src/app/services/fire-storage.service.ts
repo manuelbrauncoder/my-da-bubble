@@ -2,88 +2,75 @@
  * This Service handles up- and downloads to Firebase Storage
  */
 
-import { Injectable } from '@angular/core';
-import { initializeApp, getApps } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { inject, Injectable } from '@angular/core';
 import {
-  getStorage,
   ref,
   uploadBytes,
   getDownloadURL,
   deleteObject,
-} from 'firebase/storage';
+  Storage,
+} from '@angular/fire/storage';
+import { v4 as uuidv4 } from 'uuid';
+import { Upload } from '../interfaces/upload.interface';
+import { FirestoreService } from './firestore.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FireStorageService {
-  private storage;
-  private auth;
+  private storage = inject(Storage)
+  private firestoreService = inject(FirestoreService);
+  public filePath = '';
 
-  firebaseConfig = {
-    apiKey: 'your-api-key',
-    authDomain: 'your-auth-domain',
-    projectId: 'your-project-id',
-    storageBucket: 'gs://da-bubble-f85f7.appspot.com',
-    messagingSenderId: 'your-messaging-sender-id',
-    appId: 'your-app-id',
-  };
-
-  constructor() {
-    let firebaseApp;
-    if (!getApps().length) {
-      firebaseApp = initializeApp(this.firebaseConfig);
-    } else {
-      firebaseApp = getApps()[0];
-    }
-
-    this.storage = getStorage(firebaseApp);
-    this.auth = getAuth(firebaseApp);
-  }
-
-  async uploadFile(filePath: string, file: File): Promise<string> {
+  async uploadFile(file: File) {
+    const fileRef = ref(this.storage, `uploads/${file.name}`);
+  
     try {
-      const storageRef = ref(this.storage, filePath);
-      await uploadBytes(storageRef, file);
-      return await getDownloadURL(storageRef);
-    } catch (error) {
-      console.error('Error uploading file: ', error);
-      throw new Error('File upload failed');
+      // Zuerst die Datei hochladen
+      const snapshot = await uploadBytes(fileRef, file);
+      
+      // Jetzt den Download-Link nach erfolgreichem Upload abrufen
+      this.filePath = await getDownloadURL(fileRef);
+  
+      // Objekt für Firestore erstellen und speichern
+      const upload = this.createUploadObject(snapshot.metadata.name, this.filePath);
+      this.firestoreService.saveUpload(upload);
+    } catch (err) {
+      console.log('Error uploading File', err);
     }
   }
 
-  async uploadFiles(files: File[]): Promise<string[]> {
-    const uploadPromises: Promise<string>[] = files.map(async (file) => {
-      const filePath = `uploads/${this.auth.currentUser?.uid}/${Date.now()}_${
-        file.name
-      }`;
-      return await this.uploadFile(filePath, file);
-    });
-
-    const urls = await Promise.all(uploadPromises);
-    return urls;
-  }
-
-  async getFileUrl(filePath: string): Promise<string> {
-    const storageRef = ref(this.storage, filePath);
-    return await getDownloadURL(storageRef);
-  }
-
-  async deleteFile(filePath: string): Promise<void> {
-    const storageRef = ref(this.storage, filePath);
-    await deleteObject(storageRef);
-  }
-
-  extractFileName(filePath: string): string {
-    if (filePath.startsWith('data:')) {
-      return 'Vorschau';
+  createUploadObject(title: string, path: string): Upload{
+    return {
+      id: uuidv4(),
+      originalFileName: title,
+      filePath: path
     }
-
-    const parts = filePath.split('/');
-    return parts[parts.length - 1];
   }
 
+  isFilePdf(fileName: string) {
+    const extension = fileName.split('.').pop()?.toLowerCase() as string;
+    return extension === 'pdf';
+  }
 
+  deleteFile(fileName: string){
+    const fileRef = ref(this.storage, `${fileName}`);
+    deleteObject(fileRef)
+      .then(() => {
+        this.deleteFileInFirestore(`${fileName}`);
+        console.log('deleted');
+      })
+      .catch((err) => {
+        console.log('Error deleting file:', err, fileName);
+      })
+  }
+
+  async deleteFileInFirestore(fileName: string){
+    const uploadIndex = this.firestoreService.uploadInfos.findIndex(upload => upload.filePath === fileName);
+    await this.firestoreService.deleteUpload(this.firestoreService.uploadInfos[uploadIndex]);
+  }
+
+  
   /**
    * Downloads a file from Firebase Storage given a file path
    * @param filePath to the file in firebase storage
@@ -92,11 +79,15 @@ export class FireStorageService {
     try {
       const url = await getDownloadURL(ref(this.storage, filePath));
       const blob = await this.fetchBlob(url);
-      const fileExtension = this.getFileExtension(blob.type);
-      this.downloadBlob(blob, `downloadedFile${fileExtension}`);
+      this.downloadBlob(blob, `${this.getFileName(filePath)}`);
     } catch (error) {
       console.error('Fehler beim Abrufen der Datei:', error);
     }
+  }
+
+  getFileName(filePath: string) {
+    const uploadIndex = this.firestoreService.uploadInfos.findIndex(upload => upload.filePath === filePath);
+    return this.firestoreService.uploadInfos[uploadIndex].originalFileName;
   }
   
   /**
@@ -115,19 +106,6 @@ export class FireStorageService {
     });
   }
   
-  /**
-   * 
-   * @param mimeType of the file
-   * @returns the corresponding file extension
-   */
-  private getFileExtension(mimeType: string): string {
-    switch (mimeType) {
-      case 'image/jpeg': return '.jpg';
-      case 'image/png': return '.png';
-      case 'application/pdf': return '.pdf';
-      default: return '';
-    }
-  }
   
   /**
    * Initiates the download of the given blob as a file

@@ -162,7 +162,7 @@ export class SingleMessageComponent implements OnInit {
 
   openDataDetailView(path: string) {
     this.uiService.currentDataPath = path;
-    this.showDataDetailView = true;
+    this.showDataDetailView = true;    
   }
 
   showEditContainer() {

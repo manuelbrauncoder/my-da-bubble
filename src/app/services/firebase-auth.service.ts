@@ -314,7 +314,7 @@ export class FirebaseAuthService {
    * call this method for guest login
    */
   guestLogin() {
-    const guestEmail = 'guest@gmail.com';
+    const guestEmail = 'guest@da-bubble.com';
     const guestPw = '123456';
     this.login(guestEmail, guestPw);
     this.guestUser = true;

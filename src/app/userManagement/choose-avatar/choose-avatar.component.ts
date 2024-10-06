@@ -43,13 +43,11 @@ export class ChooseAvatarComponent {
         let avatarUrl = this.selectedAvatar;
   
         if (this.selectedFile) {
-          const filePath = `avatars/${this.regData.username}_${Date.now()}`;
-          avatarUrl = await this.storageService.uploadFile(filePath, this.selectedFile);
+          this.storageService.uploadFile(this.selectedFile);
         }
   
         this.authService.register(this.regData.email, this.regData.username, this.regData.password, avatarUrl).subscribe({
           next: () => {
-            console.log('Registration complete with avatar:', avatarUrl);
             this.authService.clearStoredRegistrationData();
             this.showPopup = true;
   

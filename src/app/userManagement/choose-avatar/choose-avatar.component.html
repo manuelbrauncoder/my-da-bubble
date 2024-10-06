@@ -22,7 +22,7 @@
     <span>Eigenes Bild verwenden</span>
     <button class="file-button">
       Datei hochladen
-      <input type="file" (change)="onFileSelected($event)" />
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
     </button>
   </div>
   <div class="btn-wrapper">

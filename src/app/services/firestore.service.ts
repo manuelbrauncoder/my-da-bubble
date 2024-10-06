@@ -10,6 +10,7 @@ import { Channel } from '../models/channel.class';
 import { DateMessages, Message, Reaction } from '../models/message.class';
 import { Conversation, Participants } from '../models/conversation.class';
 import { Thread } from '../models/thread.class';
+import { Upload } from '../interfaces/upload.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class FirestoreService {
   users: User[] = []; // all users stored here
   channels: Channel[] = []; // all channels stored here
   conversations: Conversation[] = []; // all conversations stored here
+  uploadInfos: Upload[] = [];
 
   messagesPerDay: any = []; // for channels
   messagesPerDayConversation: any = []; // for conversations
@@ -193,6 +195,42 @@ export class FirestoreService {
       console.log('Error deleting Document', err);
     })
   }
+
+  // ================= Upload Methods ========================
+
+  getUploadList(){
+    const uploadsRef = collection(this.firestore, 'uploads');
+    return onSnapshot(uploadsRef, (list) => {
+      this.uploadInfos = [];
+      list.forEach((element) => {
+        const upload = this.setUploadObject(element.data());
+        this.uploadInfos.push(upload);
+      })
+    })
+  }
+
+  setUploadObject(upload: any): Upload{
+    return {
+      id: upload.id,
+      originalFileName: upload.originalFileName,
+      filePath: upload.filePath
+    }
+  }
+
+  async saveUpload(upload: Upload){
+    const id = upload.id;
+    const uploadRef = doc(this.firestore, 'uploads', id);
+    await setDoc(uploadRef, upload).catch((err) => {
+      console.log('errorCode:', err.code);
+      console.log('errorMessage:', err.message);
+    })
+  }
+
+  async deleteUpload(upload: Upload) {
+    const uploadRef = doc(this.firestore, 'uploads', upload.id);
+    await deleteDoc(uploadRef);
+  }
+
 
   // ================= User Methods ========================
 
