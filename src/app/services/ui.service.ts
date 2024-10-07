@@ -200,6 +200,11 @@ export class UiService {
     this.showChangeAvatarContainer = false;
   }
 
+  toggleCurrentUserPopup(){
+    this.showEditUserAndLogoutPopup = !this.showEditUserAndLogoutPopup
+    this.showViewProfilePopup = !this.showViewProfilePopup;
+  }
+
   /**
    * Toggles the visibility of the popup for viewing the user profile.
    */

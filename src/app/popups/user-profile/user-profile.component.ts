@@ -1,6 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { User } from '../../models/user.class';
 import { UiService } from '../../services/ui.service';
+import { ConversationService } from '../../services/conversation.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,9 +13,19 @@ import { UiService } from '../../services/ui.service';
 export class UserProfileComponent {
   @Input() user: User | null = null
   uiService = inject(UiService);
+  conversationService = inject(ConversationService);
 
   closeProfile(){
-    this.uiService.toggleUserProfile()
+    if (this.conversationService.isSelfTalking()) {
+      this.uiService.toggleViewProfile();
+    } else {
+      this.uiService.toggleUserProfile()
+    }
+  }
+
+  openDirectMessage(){
+    this.conversationService.openConversation(this.user?.uid!);
+    this.closeProfile();
   }
 }
 

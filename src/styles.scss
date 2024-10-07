@@ -223,6 +223,14 @@ $color-error-red: #ed1e79;
   background-color: $color-away-gray;
 }
 
+.offline-icon {
+  height: 0.875rem;
+  width: 0.875rem;
+  border-radius: 100%;
+  border: 0.125rem solid white;
+  background-color: $color-offline-red;
+}
+
 // 
 
 // input fields for channel

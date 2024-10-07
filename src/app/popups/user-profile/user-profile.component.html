@@ -14,12 +14,21 @@
     <div class="name-editBtn-onlineStatus">
         <div class="name-editBtn">
             <p class="name">{{ user?.username }}</p>
-            
+
         </div>
 
         <div class="onlineStatus">
+            @if (user?.status === 'online') {
             <img src="assets/icons/statusOnline.png">
-            <p>Aktiv</p>
+            <p class="online">Aktiv</p>
+            } @else if (user?.status === 'offline') {
+                <hr class="offline-icon">
+                <p class="offline">Offline</p>
+            } @else {
+                <img src="assets/icons/statusAway.png" alt="">
+                <p class="away">Abwesend</p>
+            }
+
         </div>
     </div>
 
@@ -31,4 +40,6 @@
             <p>{{ user?.email }}</p>
         </div>
     </div>
+
+    <button (click)="openDirectMessage()" class="primary-btn message-btn"><img src="assets/icons/mode_comment.png" alt="">Nachricht</button>
 </div>

@@ -115,9 +115,20 @@
       p {
         font-weight: 400;
         font-size: 1.25rem;
-        color: #92c83e;
       }
     }
+  }
+
+  .online{
+    color: $color-online-green;
+  }
+
+  .away{
+    color: $color-away-gray;
+  }
+
+  .offline{
+    color: $color-offline-red;
   }
   
   .email-address-container {
@@ -150,6 +161,10 @@
       }
     }
   }
+
+  .message-btn{
+    gap: 10px;
+  }
   
   .editBtn-mobile {
     display: none;
@@ -178,11 +193,7 @@
     }
   }
   
-  @media (max-width: 999px) {
-    .view-profile {
-      top: 4rem;
-    }
-  }
+  
   
   @media (max-width: 600px) {
     

@@ -47,4 +47,12 @@ export class DirectMessageComponent implements AfterViewChecked {
       return this.conversationService.getConversationPartner();
     }
   }
+
+  togglePopup(){
+    if (this.conversationService.isSelfTalking()) {
+      this.uiService.toggleCurrentUserPopup()
+    } else {
+      this.uiService.toggleUserProfile()
+    }
+  }
 }

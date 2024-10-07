@@ -15,7 +15,7 @@
     <div [ngStyle]="conversationService.fireService.currentConversation.messages.length === 0 ? {'margin-top': 'auto'} : {'margin-top': '0'}"
         class="message-recipient">
         <div class="name">
-            <img (click)="uiService.toggleUserProfile()" [src]="conversationService.getConversationPartner().avatar" alt="">
+            <img (click)="togglePopup()" [src]="conversationService.getConversationPartner().avatar" alt="">
             <h3>{{ conversationService.getConversationPartner().username }} @if (conversationService.isSelfTalking()){(Du)}</h3>
         </div>
         <div class="info">
@@ -34,6 +34,6 @@
 <app-send-message [currentRecipient]="conversationService.fireService.currentConversation"></app-send-message>
 
 @if (uiService.showUserProfile) {
-    <div (click)="uiService.toggleUserProfile()" class="popup-background"></div>
+    <div (click)="togglePopup()" class="popup-background"></div>
     <app-user-profile [user]="getUserForChild()"></app-user-profile>
 }
