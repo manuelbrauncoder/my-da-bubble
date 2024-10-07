@@ -46,7 +46,7 @@ export class AddChannelPopup2Component implements OnInit {
       this.filteredUsers = [];
     } else {
       this.filteredUsers = this.availableUsers.filter((uid) =>
-       this.userService.getUserData(uid).username.toLowerCase().includes(this.searchInput));
+       this.userService.getUserData(uid).username.toLowerCase().includes(this.searchInput.toLowerCase()));
     }
   }
 

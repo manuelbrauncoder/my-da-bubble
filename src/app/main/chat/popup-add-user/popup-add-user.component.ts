@@ -92,7 +92,7 @@ export class PopupAddUserComponent implements OnInit {
       this.filteredUsers = [];
     } else {
       const searchedUsers = this.availableUsers.filter((uid) =>
-        this.userService.getUserData(uid).username.toLowerCase().includes(this.searchInput));
+        this.userService.getUserData(uid).username.toLowerCase().includes(this.searchInput.toLowerCase()));
       this.filteredUsers = searchedUsers;
      }
   }
