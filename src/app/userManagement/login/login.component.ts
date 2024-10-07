@@ -31,14 +31,11 @@ export class LoginComponent {
     }, 1000);
   }
 
-  
 
-  
   async login() {
     this.authService.login(this.loginData.email, this.loginData.password);
   }
 
-  
   guestLogin() {
     this.authService.guestLogin();
   }

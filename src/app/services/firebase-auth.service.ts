@@ -45,6 +45,7 @@ export class FirebaseAuthService {
   idleService = inject(IdleService);
   showLoginErr = false;
   showConfirmationPopup = false;
+  googleErr = '';
 
   currentUserSig = signal<AuthUser | null | undefined>(undefined);
 
@@ -88,9 +89,20 @@ export class FirebaseAuthService {
         this.router.navigate(['/dabubble']);
       })
       .catch((error) => {
-        // handle error
+        this.handleGoogleErr(error.code);
       });
     return from(promise);
+  }
+
+  handleGoogleErr(errCode: string){
+    switch (errCode) {
+      case 'auth/email-already-exists':
+        this.googleErr = 'Email bereits vorhanden.';
+        break;
+      default:
+        this.googleErr = 'Irgendetwas ist schief gelaufen.'
+        break;
+    }
   }
 
   async saveGoogleUserInFirebase(user: UserCredential) {
@@ -138,7 +150,6 @@ export class FirebaseAuthService {
         this.handleUserData(response, email, username, avatar);
       })
       .catch((err) => {
-        console.error('Error register new User', err);
         throw err;
       });
     return from(promise);

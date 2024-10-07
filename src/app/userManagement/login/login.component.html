@@ -4,11 +4,12 @@
 
 <form #loginForm="ngForm">
   <h2>Anmeldung</h2>
-  <!-- @if (authService.showLoginErr) { -->
     <p>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
-  <!-- } -->
   @if (authService.showLoginErr) {
     <span>Falsches Passwort oder E-Mail...Bitte noch einmal versuchen.</span>
+  }
+  @if (authService.googleErr.length > 0) {
+    <span>{{ authService.googleErr }}</span>
   }
   <div class="input-wrapper">
     <div>
