@@ -48,7 +48,11 @@ export class UiService {
   showMobilePopup: boolean = false;
 
   mobilePopupContent: 'addUser' = 'addUser';
+  showUserProfile = false;
 
+  toggleUserProfile(){
+    this.showUserProfile = !this.showUserProfile;
+  }
 
   toggleMobilePopup() {
     this.showMobilePopup = !this.showMobilePopup;

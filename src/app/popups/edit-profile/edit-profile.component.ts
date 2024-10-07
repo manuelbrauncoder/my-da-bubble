@@ -44,6 +44,10 @@ export class EditProfileComponent implements OnInit {
     this.editProfileData.email = this.authService.auth.currentUser?.email!;
   }
 
+  isGuestUser(){
+    return this.userService.getCurrentUser().email === 'guest@da-bubble.com';
+  }
+
 
   /**
    * Saves the edited profile data if any changes have been made.

@@ -1,0 +1,34 @@
+<div class="view-profile">
+    <div class="profile-header">
+        <p>Profil</p>
+
+        <div class="bounding-box" (click)="closeProfile()">
+            <img src="assets/icons/close.svg">
+        </div>
+    </div>
+
+    <div class="profile-img">
+        <img [src]="user?.avatar">
+    </div>
+
+    <div class="name-editBtn-onlineStatus">
+        <div class="name-editBtn">
+            <p class="name">{{ user?.username }}</p>
+            
+        </div>
+
+        <div class="onlineStatus">
+            <img src="assets/icons/statusOnline.png">
+            <p>Aktiv</p>
+        </div>
+    </div>
+
+    <div class="email-address-container">
+        <img src="assets/icons/mail.png">
+
+        <div class="address">
+            <p>E-Mail-Adresse</p>
+            <p>{{ user?.email }}</p>
+        </div>
+    </div>
+</div>

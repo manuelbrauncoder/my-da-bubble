@@ -13,6 +13,10 @@
   top: 6rem;
 }
 
+.email-input:disabled{
+  cursor: not-allowed !important;
+}
+
 .popup-top {
   width: 100%;
   position: relative;

@@ -24,15 +24,9 @@ export class FireStorageService {
 
   async uploadFile(file: File) {
     const fileRef = ref(this.storage, `uploads/${file.name}`);
-  
     try {
-      // Zuerst die Datei hochladen
       const snapshot = await uploadBytes(fileRef, file);
-      
-      // Jetzt den Download-Link nach erfolgreichem Upload abrufen
       this.filePath = await getDownloadURL(fileRef);
-  
-      // Objekt für Firestore erstellen und speichern
       const upload = this.createUploadObject(snapshot.metadata.name, this.filePath);
       this.firestoreService.saveUpload(upload);
     } catch (err) {
