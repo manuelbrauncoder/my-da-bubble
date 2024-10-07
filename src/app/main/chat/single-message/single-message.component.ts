@@ -19,6 +19,7 @@ import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
 import { AutofocusDirective } from '../../../shared/directives/autofocus.directive';
 import { PopupViewOtherUsersProfileComponent } from '../popup-view-other-users-profile/popup-view-other-users-profile.component';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-single-message',
@@ -57,6 +58,22 @@ export class SingleMessageComponent implements OnInit {
   showEmojiPickerInEditMode = false;
   editContent = '';
   showReactionPopups: boolean[] = [];
+  sanitizedUrl: SafeResourceUrl | null = null;
+
+  constructor(private sanitizer: DomSanitizer){}
+
+  ngOnInit(): void {
+    this.currentMessage = new Message(this.currentMessage);
+    this.loadSafeUrl();
+  }
+
+  openPdfInNewTab(){
+    window.open(`${this.currentMessage.data}`, '_blank');
+  }
+
+  loadSafeUrl() {
+    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.currentMessage.data);
+  }
 
   handleEditEmoji(emoji: string){
     this.editContent += emoji;
@@ -347,10 +364,7 @@ export class SingleMessageComponent implements OnInit {
     'Sonntag',
   ];
 
-  ngOnInit(): void {
-    this.currentMessage = new Message(this.currentMessage);
-  }
-
+  
   formatAnswerCount() {
     return this.currentMessage.thread?.messages.length === 1
       ? 'Antwort'
