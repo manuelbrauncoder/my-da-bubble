@@ -8,7 +8,7 @@
         @if (!editMode) {
         <div [ngStyle]="{'flex-direction': userService.isMessageFromCurrentUser(currentMessage) ? 'row-reverse' : 'row'}"
             class="name-and-time">
-            <h3 (click)="openOtherUsersProfile()">{{ userService.getUserData(currentMessage.sender).username }}</h3>
+            <h3 (click)="openUserProfile()">{{ userService.getUserData(currentMessage.sender).username }}</h3>
             <span>{{ getFormattedTime(currentMessage.time) }}</span>
         </div>
 
@@ -17,7 +17,7 @@
             <span>{{ currentMessage.content }}</span>
             @if (currentMessage.data.length > 0) {
                 @if (fireStorageService.isFilePdf(fireStorageService.getFileName(currentMessage.data))) {
-                    <a class="pdfLink" target="_blank" [href]="currentMessage.data">{{ fireStorageService.getFileName(currentMessage.data) }}</a>
+                    <a class="pdf-link" [ngStyle]="{'color': userService.isMessageFromCurrentUser(currentMessage) ? 'white' : 'black'}" target="_blank" [href]="currentMessage.data">{{ fireStorageService.getFileName(currentMessage.data) }}</a>
                     <div class="frame-wrapper">
                         <iframe [src]="sanitizedUrl" width="200" height="300px" frameborder="0"></iframe>
                     </div>
@@ -115,7 +115,7 @@
         }
 </div>
 
-@if (uiService.showOtherUsersProfile) {
-    <app-popup-view-other-users-profile @fadeIn></app-popup-view-other-users-profile>
-    <div class="popup-background" @fadeIn (click)="closeOtherUsersProfile()"></div>
+@if (showUserProfile) {
+    <div @fadeIn (click)="closeUserProfile()" class="popup-background"></div>
+    <app-user-profile @fadeIn [useUiCache]="true" (triggerClose)="closeUserProfile()"></app-user-profile>
 }

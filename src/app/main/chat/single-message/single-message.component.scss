@@ -1,12 +1,14 @@
 @import '../../../../styles.scss';
 @import '../../../../mixins.scss';
 
+.pdf-link {
+    transition: 125ms ease-out;
 
-
-.pdfLink {
-    color: white;
+    &:hover {
+        font-weight: 500;
+        transition: 125ms ease-out;
+    }
 }
-
 
 .message-container {
     position: relative;
@@ -81,6 +83,12 @@
         line-height: 1.534rem;
         text-align: left;
         color: black;
+        transition: 125ms ease-out;
+
+        &:hover {
+            color: $color-purple-1;
+            transition: 125ms ease-out;
+        }
     }
 
     span {
@@ -196,6 +204,7 @@
     box-shadow: 0px 0.375rem 0.875rem 0px #00000033;
     padding: 0.625rem 1.25rem;
     border-radius: 0 1.875rem 1.875rem 1.875rem;
+
     @media(max-width: 999px) {
         top: 100%;
         left: 0;
@@ -233,11 +242,11 @@
         background-color: $color-active-channel;
         transition: 150ms ease-in;
     }
-    
+
 }
 
 .svg-hover {
-    
+
     transition: 150ms ease-in;
 
     &:hover svg {
@@ -262,13 +271,15 @@
 
         .btns {
             @include dFlex($g: 2rem);
+
             @media(max-width: 999px) {
                 flex-direction: column;
                 gap: 0.5rem;
             }
         }
     }
-    form{
+
+    form {
         display: block;
         padding: 0;
         margin-right: auto;
@@ -323,6 +334,7 @@ app-data-detail-view {
     position: absolute;
     top: 50px;
     left: 0;
+
     @media(max-width: 999px) {
         top: 40px;
         left: -20px;
@@ -334,6 +346,7 @@ app-data-detail-view {
     position: absolute;
     top: 50px;
     right: 0;
+
     @media(max-width: 999px) {
         top: 40px;
         right: -20px;

@@ -15,37 +15,37 @@ export class UiService {
   fireService = inject(FirestoreService);
 
   currentDataPath = '';
+  currentUidForProfilePopup = '';
 
-  showWorkspaceMenu: boolean = true; // workspace menu in main-content
-  showDirectMessages: boolean = true; // user list in workspace menu
-  showChannels: boolean = true; // channel list in workspace menu
+  showWorkspaceMenu = true; // workspace menu in main-content
+  showDirectMessages = true; // user list in workspace menu
+  showChannels = true; // channel list in workspace menu
 
-  showChannelEditPopup: boolean = false; // opens in channel-chat-component
-  showAddUserToChannelPopup: boolean = false;
-  showChannelUsersPopup: boolean = false;
-  showChannelUsersAddUser: boolean = false;
-  showChannelUsers: boolean = true;
+  showChannelEditPopup = false; // opens in channel-chat-component
+  showAddUserToChannelPopup = false;
+  showChannelUsersPopup = false;
+  showChannelUsersAddUser = false;
+  showChannelUsers = true;
 
   mainContent: 'channelChat' | 'newMessage' | 'directMessage' = 'newMessage';
 
-  showChat: boolean = true; // chat window in main-content
-  showThread: boolean = false; // thread window in main-content
-  showAddChannelPopup: boolean = false; // add new channel popup
-  showAddChannelInlinePopup1: boolean = true; // name and description
-  showAddChannelInlinePopup2: boolean = false;  // users
-  channelPopup2Searchbar: boolean = false // search users for channel
+  showChat = true; // chat window in main-content
+  showThread = false; // thread window in main-content
+  showAddChannelPopup = false; // add new channel popup
+  showAddChannelInlinePopup1 = true; // name and description
+  showAddChannelInlinePopup2 = false;  // users
+  channelPopup2Searchbar = false // search users for channel
 
-  showEditUserAndLogoutPopup: boolean = false;
-  showViewProfilePopup: boolean = false;
-  showEditProfilePopup: boolean = false;
-  showVerifyPasswordPopup: boolean = false;
-  showChangeAvatarContainer: boolean = false;
-  showProfileChangeConfirmationPopup: boolean = false;
-  showTaggableUsersPopup: boolean = false;
-  showOtherUsersProfile: boolean = false;
+  showEditUserAndLogoutPopup = false;
+  showViewProfilePopup = false;
+  showEditProfilePopup = false;
+  showVerifyPasswordPopup = false;
+  showChangeAvatarContainer = false;
+  showProfileChangeConfirmationPopup = false;
+  showTaggableUsersPopup = false;
 
-  showMobileNavigation: boolean = false;
-  showMobilePopup: boolean = false;
+  showMobileNavigation = false;
+  showMobilePopup = false;
 
   mobilePopupContent: 'addUser' = 'addUser';
   showUserProfile = false;
@@ -249,9 +249,7 @@ export class UiService {
     this.showTaggableUsersPopup = !this.showTaggableUsersPopup;
   }
 
-  toggleOtherUsersProfile() {
-    this.showOtherUsersProfile = !this.showOtherUsersProfile;
-  }
+
 
   constructor() { }
 }

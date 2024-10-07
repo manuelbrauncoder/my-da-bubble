@@ -18,8 +18,8 @@ import { EmojiPickerComponent } from '../../../shared/emoji-picker/emoji-picker.
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
 import { AutofocusDirective } from '../../../shared/directives/autofocus.directive';
-import { PopupViewOtherUsersProfileComponent } from '../popup-view-other-users-profile/popup-view-other-users-profile.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { UserProfileComponent } from '../../../popups/user-profile/user-profile.component';
 
 @Component({
   selector: 'app-single-message',
@@ -34,7 +34,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
     EmojiComponent,
     ClickOutsideDirective,
     AutofocusDirective,
-    PopupViewOtherUsersProfileComponent
+    UserProfileComponent,
   ],
   templateUrl: './single-message.component.html',
   styleUrl: './single-message.component.scss',
@@ -59,27 +59,43 @@ export class SingleMessageComponent implements OnInit {
   editContent = '';
   showReactionPopups: boolean[] = [];
   sanitizedUrl: SafeResourceUrl | null = null;
+  showUserProfile = false;
 
-  constructor(private sanitizer: DomSanitizer){}
+  constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.currentMessage = new Message(this.currentMessage);
     this.loadSafeUrl();
   }
 
-  openPdfInNewTab(){
+  openUserProfile() {
+    if (this.userService.getCurrentUser().uid === this.currentMessage.sender) {
+      this.uiService.toggleCurrentUserPopup();
+    } else {
+      this.uiService.currentUidForProfilePopup = this.currentMessage.sender;
+      this.showUserProfile = true;
+    }
+  }
+
+  closeUserProfile() {
+    this.showUserProfile = false;
+  }
+
+  openPdfInNewTab() {
     window.open(`${this.currentMessage.data}`, '_blank');
   }
 
   loadSafeUrl() {
-    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.currentMessage.data);
+    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.currentMessage.data
+    );
   }
 
-  handleEditEmoji(emoji: string){
+  handleEditEmoji(emoji: string) {
     this.editContent += emoji;
   }
 
-  toggleEditEmojiPicker(){
+  toggleEditEmojiPicker() {
     this.showEmojiPickerInEditMode = !this.showEmojiPickerInEditMode;
   }
 
@@ -179,7 +195,7 @@ export class SingleMessageComponent implements OnInit {
 
   openDataDetailView(path: string) {
     this.uiService.currentDataPath = path;
-    this.showDataDetailView = true;    
+    this.showDataDetailView = true;
   }
 
   showEditContainer() {
@@ -364,7 +380,6 @@ export class SingleMessageComponent implements OnInit {
     'Sonntag',
   ];
 
-  
   formatAnswerCount() {
     return this.currentMessage.thread?.messages.length === 1
       ? 'Antwort'
@@ -525,13 +540,5 @@ export class SingleMessageComponent implements OnInit {
     );
     this.fireService.currentChannel.messages[updateId] = this.currentMessage;
     await this.fireService.addChannel(this.fireService.currentChannel);
-  }
-
-  openOtherUsersProfile() {
-    this.uiService.toggleOtherUsersProfile();
-  }
-
-  closeOtherUsersProfile() {
-    this.uiService.toggleOtherUsersProfile();
   }
 }
