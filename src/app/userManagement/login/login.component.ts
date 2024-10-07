@@ -14,7 +14,6 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   authService = inject(FirebaseAuthService);
   router = inject(Router);
-  loginFailed: boolean = false;
   showStartScreen: boolean = true;
   logoState: 'center' | 'corner' = 'center';
 
@@ -34,31 +33,15 @@ export class LoginComponent {
 
   
 
-  /**
-   * Login for user. Checks if email and pwd is in the database
-   * and link to the main page.
-   */
+  
   async login() {
     this.authService.login(this.loginData.email, this.loginData.password);
   }
 
-  /**
-   * Guestlogin. Links to the main page.
-   */
+  
   guestLogin() {
     this.authService.guestLogin();
   }
 
-  /**
-   * Googlelogin. Uses Method from Authservice. After login links to the main page.
-   */
-  async googleLogin() {
-    try {
-      await this.authService.googleLogin();
-      this.router.navigate(['/dabubble']);
-    } catch (error) {
-      console.error('Google login error in LoginComponent:', error);
-      this.loginFailed = true;
-    }
-  }
+  
 }

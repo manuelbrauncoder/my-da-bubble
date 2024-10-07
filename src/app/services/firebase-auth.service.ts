@@ -17,6 +17,7 @@ import {
   updateProfile,
   user,
   signInWithPopup,
+  UserCredential,
 } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
 import { AuthUser } from '../interfaces/auth-user';
@@ -44,7 +45,6 @@ export class FirebaseAuthService {
   idleService = inject(IdleService);
   showLoginErr = false;
   showConfirmationPopup = false;
-
 
   currentUserSig = signal<AuthUser | null | undefined>(undefined);
 
@@ -77,78 +77,43 @@ export class FirebaseAuthService {
     this.tempRegData = null;
   }
 
-  /**
-   * Google Login with a popup
-   * Checks if user is already in the database or not
-   * If not then saves a new user. If yes then update the data.
-   */
-  googleLogin() {
+  googleLogin(): Observable<void> {
     const provider = new GoogleAuthProvider();
-    return signInWithPopup(this.auth, provider)
-      .then(async (result) => {
-        const user = result.user;
-        this.googleUser = true;
-
-        if (user) {
-          const userData = {
-            uid: user.uid,
-            username: user.displayName || 'No Username',
-            email: user.email || 'No Email',
-            avatar: user.photoURL || 'default-avatar-url',
-            status: 'online',
-            createdAt: this.getCurrentTimestamp(),
-          };
-
-          let userExists = false;
-
-          this.fireService.users.forEach((firestoreUser) => {
-            if (user.uid === firestoreUser.uid) {
-              this.fireService.addUser(userData);
-              userExists = true;
-            }
-          });
-
-          if (!userExists) {
-            this.fireService.addUser(userData);
-          }
-        }
+    const promise = signInWithPopup(this.auth, provider)
+      .then((result) => {
+        const user: UserCredential = result;
+        this.saveGoogleUserInFirebase(user);
+      })
+      .then(() => {
+        this.router.navigate(['/dabubble']);
       })
       .catch((error) => {
-        console.error('Google sign-in error:', error);
-        this.logout();
+        // handle error
       });
+    return from(promise);
   }
 
-  /**
-   * Google Login with a redirect
-   */
-  // googleLoginRedirect() {
-  //   const provider = new GoogleAuthProvider();
-  //   return signInWithRedirect(this.auth, provider);
-  // }
+  async saveGoogleUserInFirebase(user: UserCredential) {
+    if (this.isUserInFirestore(user.user.uid)) {
+      let fireUser = this.fireService.users.find(u => u.uid === user.user.uid);
+      if (fireUser) {
+        fireUser.status = 'online';
+        await this.fireService.addUser(fireUser);
+      }
+    } else {
+      await this.saveNewUserInFirestore(
+        user.user.email!,
+        user.user.displayName!,
+        user.user.uid,
+        user.user.photoURL!
+      );
+      this.addNewUserToWelcomeChannel(user.user.uid);
+    }
+  }
 
-  /**
-   * Google login with a redirect to the main page
-   */
-  // handleGoogleSignInRedirect() {
-  //   return getRedirectResult(this.auth)
-  //     .then((result) => {
-  //       if (result) {
-  //         const credential = GoogleAuthProvider.credentialFromResult(result);
-  //         const token = credential?.accessToken;
-  //         const user = result.user;
-  //         console.log(credential, token, user);
-  //         this.router.navigate(['/dabubble']);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       const errorCode = err.code;
-  //       const errorMessage = err.message;
-  //       const email = err.customData.email;
-  //       const credential = GoogleAuthProvider.credentialFromError(err);
-  //       console.warn(errorCode, errorMessage, email, credential);
-  //     });
-  // }
+  isUserInFirestore(uid: string) {
+    return this.fireService.users.some((user) => user.uid === uid);
+  }
 
   /**
    * Registers a new user with Firebase Authentication.

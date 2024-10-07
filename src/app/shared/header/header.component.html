@@ -41,7 +41,7 @@
         }
 
         <div class="avatar-container">
-            <img [src]="userService.getCurrentUsersAvatar()" class="avatar-img">
+            <img [src]="userService.getCurrentUser().avatar" class="avatar-img">
             @if (userService.getCurrentUser().status === 'online') {
                 <img src="assets/icons/statusOnline.png" class="online-status">
             } @else if (userService.getCurrentUser().status === 'away') {
