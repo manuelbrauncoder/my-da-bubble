@@ -1,27 +1,43 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FirebaseAuthService } from '../../services/firebase-auth.service';
+import { Auth, sendPasswordResetEmail } from '@angular/fire/auth';
+import { from, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-send-mail',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './send-mail.component.html',
-  styleUrl: './send-mail.component.scss'
+  styleUrl: './send-mail.component.scss',
 })
 export class SendMailComponent {
-  authService = inject(FirebaseAuthService);
+  private auth = inject(Auth);
   email: string = '';
-  showPopup: boolean = false;
+  confirmPopup = false;
 
-  async sendMail() {
-    try {
-      await this.authService.sendPasswordResetMail(this.email);
-      this.showPopup = true;
-      setTimeout(() => this.showPopup = false, 3000);
-    } catch (error) {
-      console.error('Error:', error);
-    }
+  sendMail() {
+    this.sendPasswordResetMail(this.email);
+  }
+
+  sendPasswordResetMail(email: string): Observable<void> {
+    const promise = sendPasswordResetEmail(this.auth, email)
+      .then(() => {
+        this.confirmPopup = true;
+        this.hidePopup();
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error('Error Code:', errorCode);
+        console.error('Error Message:', errorMessage);
+      });
+      return from(promise);
+  }
+
+  hidePopup(){
+    setTimeout(() => {
+      this.confirmPopup = false;
+    }, 3000);
   }
 }

@@ -9,20 +9,13 @@ import {
   createUserWithEmailAndPassword,
   deleteUser,
   EmailAuthProvider,
-  getRedirectResult,
   GoogleAuthProvider,
   reauthenticateWithCredential,
-  sendEmailVerification,
   signInWithEmailAndPassword,
-  signInWithRedirect,
   signOut,
   updateEmail,
-  updatePassword,
   updateProfile,
   user,
-  sendPasswordResetEmail,
-  confirmPasswordReset,
-  verifyPasswordResetCode,
   signInWithPopup,
 } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
@@ -50,6 +43,7 @@ export class FirebaseAuthService {
   guestUser: boolean = false;
   idleService = inject(IdleService);
   showLoginErr = false;
+  showConfirmationPopup = false;
 
 
   currentUserSig = signal<AuthUser | null | undefined>(undefined);
@@ -128,33 +122,33 @@ export class FirebaseAuthService {
   /**
    * Google Login with a redirect
    */
-  googleLoginRedirect() {
-    const provider = new GoogleAuthProvider();
-    return signInWithRedirect(this.auth, provider);
-  }
+  // googleLoginRedirect() {
+  //   const provider = new GoogleAuthProvider();
+  //   return signInWithRedirect(this.auth, provider);
+  // }
 
   /**
    * Google login with a redirect to the main page
    */
-  handleGoogleSignInRedirect() {
-    return getRedirectResult(this.auth)
-      .then((result) => {
-        if (result) {
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential?.accessToken;
-          const user = result.user;
-          console.log(credential, token, user);
-          this.router.navigate(['/dabubble']);
-        }
-      })
-      .catch((err) => {
-        const errorCode = err.code;
-        const errorMessage = err.message;
-        const email = err.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(err);
-        console.warn(errorCode, errorMessage, email, credential);
-      });
-  }
+  // handleGoogleSignInRedirect() {
+  //   return getRedirectResult(this.auth)
+  //     .then((result) => {
+  //       if (result) {
+  //         const credential = GoogleAuthProvider.credentialFromResult(result);
+  //         const token = credential?.accessToken;
+  //         const user = result.user;
+  //         console.log(credential, token, user);
+  //         this.router.navigate(['/dabubble']);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       const errorCode = err.code;
+  //       const errorMessage = err.message;
+  //       const email = err.customData.email;
+  //       const credential = GoogleAuthProvider.credentialFromError(err);
+  //       console.warn(errorCode, errorMessage, email, credential);
+  //     });
+  // }
 
   /**
    * Registers a new user with Firebase Authentication.
@@ -407,22 +401,6 @@ export class FirebaseAuthService {
   }
 
   /**
-   * This method sends a Email to the current User
-   * If the user clicks on the link in it, his email is verified
-   */
-  verifyUsersEmail() {
-    if (this.auth.currentUser) {
-      sendEmailVerification(this.auth.currentUser)
-        .then(() => {
-          console.log('email sent!');
-        })
-        .catch((err) => {
-          console.warn('Error sending Email', err);
-        });
-    }
-  }
-
-  /**
    * This method is for reauthenticate the user
    */
   reAuthenticateUser(email: string, password: string) {
@@ -438,54 +416,6 @@ export class FirebaseAuthService {
         .catch((err) => {
           console.warn('Error', err);
         });
-    }
-  }
-
-  /**
-   * Sends an email to the user to reset the password
-   * @param {string} email
-   */
-  sendPasswordResetMail(email: string) {
-    sendPasswordResetEmail(this.auth, email)
-      .then(() => {
-        console.log('Password reset email sent!');
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error('Error Code:', errorCode);
-        console.error('Error Message:', errorMessage);
-      });
-  }
-
-  /**
-   * Confirm the password reset with a token called oobCode
-   * @param {string} newPassword
-   * @param {string} oobCode
-   */
-  async confirmPasswordReset(
-    oobCode: string,
-    newPassword: string
-  ): Promise<void> {
-    try {
-      await confirmPasswordReset(this.auth, oobCode, newPassword);
-      console.log('Password has been reset successfully');
-    } catch (error) {
-      console.error('Error resetting password:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Verifies the passwordresetcode
-   * @param {string} oobCode
-   */
-  async verifyPasswordResetCode(oobCode: string): Promise<void> {
-    try {
-      await verifyPasswordResetCode(this.auth, oobCode);
-    } catch (error) {
-      console.error('Error verifying password reset code:', error);
-      throw error;
     }
   }
 }

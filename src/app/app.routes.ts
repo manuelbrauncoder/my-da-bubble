@@ -16,7 +16,7 @@ export const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'avatar', component: ChooseAvatarComponent },
   { path: 'sendmail', component: SendMailComponent },
-  { path: 'resetpwd', component: ResetPasswordComponent },
+  { path: 'resetpwd/__/auth/action', component: ResetPasswordComponent },
   { path: 'privacy_policy', component: PrivacyPoliciyComponent },
   { path: 'imprint', component: ImprintComponent },
 
