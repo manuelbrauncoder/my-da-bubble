@@ -23,7 +23,7 @@
         
                     <div [ngClass]="showInEditChannelPopup ? 'users-in-edit-channel' : 'users'">
                         @if (authService.auth.currentUser) {
-                            <div class="user">
+                            <div (click)="uiService.toggleCurrentUserPopup()" class="user">
                                 <div class="img-wrapper">
                                     <hr class="online-state">
                                     <img class="profile-img" [src]="userService.getCurrentUsersAvatar()" alt="">
@@ -33,7 +33,7 @@
                         }
                         @for (uid of channelService.fireService.currentChannel.users; track $index) {
                             @if (uid !== authService.auth.currentUser?.uid) {
-                                <div class="user">
+                                <div (click)="setUserForPopup(uid)" class="user">
                                     <div class="img-wrapper">
                                          <hr [ngClass]="{
                                             'online-state': userService.getUserData(uid).status === 'online',
@@ -67,7 +67,10 @@
         </section>
     }
     
-    
+    @if (uiService.showUserProfile) {
+        <div (click)="uiService.toggleUserProfile()" class="popup-background"></div>
+        <app-user-profile [isPopupInChannel]="true" [user]="userForProfilePupup"></app-user-profile>
+    }
             
-        
+     
 </main>

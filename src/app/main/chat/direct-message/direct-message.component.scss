@@ -61,6 +61,7 @@ header {
 
     .name {
         @include dFlex($g: 1.563rem, $ai: flex-end);
+        cursor: pointer;
 
         img {
             border-radius: 100%;

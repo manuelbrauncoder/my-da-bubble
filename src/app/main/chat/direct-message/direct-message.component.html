@@ -1,5 +1,5 @@
 <header>
-    <div>
+    <div (click)="togglePopup()">
         <img [src]="conversationService.getConversationPartner().avatar" alt="">
         <h3>{{ conversationService.getConversationPartner().username }} @if (conversationService.isSelfTalking()) {(Du)}</h3>
     </div>
@@ -14,8 +14,8 @@
     
     <div [ngStyle]="conversationService.fireService.currentConversation.messages.length === 0 ? {'margin-top': 'auto'} : {'margin-top': '0'}"
         class="message-recipient">
-        <div class="name">
-            <img (click)="togglePopup()" [src]="conversationService.getConversationPartner().avatar" alt="">
+        <div (click)="togglePopup()" class="name">
+            <img [src]="conversationService.getConversationPartner().avatar" alt="">
             <h3>{{ conversationService.getConversationPartner().username }} @if (conversationService.isSelfTalking()){(Du)}</h3>
         </div>
         <div class="info">
@@ -24,7 +24,7 @@
                 oder bewahre Links und Dateien griffbereit auf. Du kannst hier auch gerne Dinge mit dir selbst
                 besprechen.</span>
             } @else {
-            <span>Diese Unterhaltung findet nur zwischen <span class="user-name">&#64;{{
+            <span>Diese Unterhaltung findet nur zwischen <span (click)="togglePopup()" class="user-name">&#64;{{
                     conversationService.getConversationPartner().username }} </span>und dir statt.</span>
             }
         </div>

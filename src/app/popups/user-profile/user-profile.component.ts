@@ -12,15 +12,19 @@ import { ConversationService } from '../../services/conversation.service';
 })
 export class UserProfileComponent {
   @Input() user: User | null = null
+  @Input() isPopupInChannel = false;
   uiService = inject(UiService);
   conversationService = inject(ConversationService);
 
   closeProfile(){
-    if (this.conversationService.isSelfTalking()) {
+    if (this.isPopupInChannel) {
+      this.uiService.toggleUserProfile()
+    } else if (this.conversationService.isSelfTalking()){
       this.uiService.toggleViewProfile();
     } else {
       this.uiService.toggleUserProfile()
     }
+      
   }
 
   openDirectMessage(){
