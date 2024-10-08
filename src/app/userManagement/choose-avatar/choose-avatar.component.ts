@@ -4,13 +4,18 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FireStorageService } from '../../services/fire-storage.service';
+import {
+  ImageCropperComponent,
+  ImageCroppedEvent,
+  LoadedImage,
+} from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-choose-avatar',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ImageCropperComponent],
   templateUrl: './choose-avatar.component.html',
-  styleUrl: './choose-avatar.component.scss'
+  styleUrl: './choose-avatar.component.scss',
 })
 export class ChooseAvatarComponent {
   authService = inject(FirebaseAuthService);
@@ -22,50 +27,63 @@ export class ChooseAvatarComponent {
   registrationFailed: boolean = false;
   errorMassage: String = '';
   selectedFile: File | null = null;
+  useFileFromStorage = false;
 
   regData = this.authService.getStoredRegistrationData();
 
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.selectedFile = file;
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.selectedAvatar = e.target.result; 
-      };
-      reader.readAsDataURL(file);
+  imageChangedEvent: Event | null = null;
+
+
+  fileChangeEvent(event: Event): void {
+    this.imageChangedEvent = event;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.selectedAvatar = event.objectUrl!;
+    if (event.blob) {
+      this.selectedFile = new File([event.blob], `${this.regData?.username.trim()}.png`, {type: 'image/png'});
+      this.useFileFromStorage = true;
     }
   }
+  
 
   async completeRegistration() {
     if (this.regData) {
       try {
         let avatarUrl = this.selectedAvatar;
-  
+
         if (this.selectedFile) {
-          this.storageService.uploadFile(this.selectedFile);
+          await this.storageService.uploadFile(this.selectedFile);
+          avatarUrl = this.storageService.filePath;
         }
-  
-        this.authService.register(this.regData.email, this.regData.username, this.regData.password, avatarUrl).subscribe({
-          next: () => {
-            this.authService.clearStoredRegistrationData();
-            this.showPopup = true;
-  
-            setTimeout(() => {
-              this.router.navigate(['/']);
-            }, 2000);
-          },
-          error: (err) => {
-            console.error('Registration failed:', err);
-            if (err.code === 'auth/email-already-in-use') {
-              this.registrationFailed = true;
-              this.errorMassage = 'Email existiert bereits!';
-            } else {
-              this.registrationFailed = true;
-              this.errorMassage = 'Irgendetwas ist schief gelaufen!';
-            }
-          }
-        });
+
+        this.authService
+          .register(
+            this.regData.email,
+            this.regData.username,
+            this.regData.password,
+            avatarUrl
+          )
+          .subscribe({
+            next: () => {
+              this.authService.clearStoredRegistrationData();
+              this.showPopup = true;
+
+              setTimeout(() => {
+                this.router.navigate(['/']);
+              }, 2000);
+            },
+            error: (err) => {
+              console.error('Registration failed:', err);
+              if (err.code === 'auth/email-already-in-use') {
+                this.registrationFailed = true;
+                this.errorMassage = 'Email existiert bereits!';
+              } else {
+                this.registrationFailed = true;
+                this.errorMassage = 'Irgendetwas ist schief gelaufen!';
+              }
+            },
+          });
       } catch (err) {
         console.error('Error during registration or file upload:', err);
         this.registrationFailed = true;
@@ -73,6 +91,4 @@ export class ChooseAvatarComponent {
       }
     }
   }
-
-
 }

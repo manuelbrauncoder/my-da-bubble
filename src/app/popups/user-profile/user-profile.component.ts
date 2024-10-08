@@ -40,7 +40,6 @@ export class UserProfileComponent implements OnInit {
     if (this.useUiCache) {
       this.user = this.userService.getUserData(this.uiService.currentUidForProfilePopup);
     }
-    console.log(this.user);
     
   }
 

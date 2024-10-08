@@ -17,7 +17,6 @@ export class EmojiPickerComponent {
   @Output() sendEmoji = new EventEmitter<string>();
 
   addReaction(event: any) {
-    console.log(event);
     if (this.content === 'send-message') {
       this.sendEmojiToParent(event.emoji.native);
     } else {

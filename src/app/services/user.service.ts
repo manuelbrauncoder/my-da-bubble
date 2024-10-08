@@ -7,6 +7,7 @@ import { FirestoreService } from './firestore.service';
 import { FirebaseAuthService } from './firebase-auth.service';
 import { User } from '../models/user.class';
 import { Message } from '../models/message.class';
+import { SafeUrl } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'

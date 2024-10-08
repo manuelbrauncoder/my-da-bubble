@@ -19,11 +19,22 @@
   </div>
 
   <div class="load-img-wrapper">
-    <span>Eigenes Bild verwenden</span>
+    <div class="header">
+      <span>Eigenes Bild verwenden</span>
     <button class="file-button">
       Datei hochladen
-      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+      <input type="file" accept="image/*" (change)="fileChangeEvent($event)" />
+      
     </button>
+    </div>
+    
+    <image-cropper class="image-cropper"
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="1 / 1"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+  ></image-cropper>
   </div>
   <div class="btn-wrapper">
     <span *ngIf="registrationFailed">{{ errorMassage }}</span> 
