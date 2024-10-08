@@ -47,11 +47,11 @@ export class VerifyPasswordComponent implements OnInit{
    * @param {string} email - The user's email address.
    * @param {string} password - The user's password.
    */
-  confirmPassword(name: string, email: string, password: string) {
+  confirmPassword(email: string, password: string) {
     this.authService.updateEmail = true;
     this.authService.reAuthenticateUser(email, password);
     this.closeVerifyPassword();
-    this.authService.loginTooLongAgo = false;
+    // this.authService.loginTooLongAgo = false;
   }
 
   

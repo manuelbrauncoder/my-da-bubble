@@ -195,10 +195,10 @@ export class FirebaseAuthService {
    * Call this method for updating the username
    * @param newName new username
    */
-  updateUsername(newName: string) {
+  async updateUsername(newName: string) {
     const currentUser = this.auth.currentUser;
     if (currentUser) {
-      updateProfile(currentUser, { displayName: newName })
+      await updateProfile(currentUser, { displayName: newName })
         .then(() => {
           this.currentUserSig.set({
             username: newName,

@@ -242,7 +242,7 @@ export class UiService {
     
     setTimeout(() => {
       this.showProfileChangeConfirmationPopup = false;
-    }, 4500);
+    }, 3000);
   }
 
   toggleTaggableUsersPopup() {

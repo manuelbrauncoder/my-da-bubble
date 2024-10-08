@@ -9,9 +9,8 @@ import { User } from '../../models/user.class';
 import {
   ImageCropperComponent,
   ImageCroppedEvent,
-  LoadedImage,
 } from 'ngx-image-cropper';
-
+import { FireStorageService } from '../../services/fire-storage.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -24,6 +23,7 @@ export class EditProfileComponent implements OnInit {
   uiService = inject(UiService);
   firestoreService = inject(FirestoreService);
   authService = inject(FirebaseAuthService);
+  storageService = inject(FireStorageService);
   userService = inject(UserService);
   currentUsersAvatar = this.userService.getCurrentUsersAvatar();
   selectedAvatar: string = '';
@@ -31,9 +31,13 @@ export class EditProfileComponent implements OnInit {
   nameIsChanged: boolean = false;
   emailIsChanged: boolean = false;
   selectedFile: File | null = null;
+  showCropper = false;
+  setCustomAvatar = false;
 
   updatedUser: User = new User();
   imageChangedEvent: Event | null = null;
+
+  showFormContainer = true;
 
   editProfileData = {
     name: '',
@@ -42,16 +46,20 @@ export class EditProfileComponent implements OnInit {
 
   fileChangeEvent(event: Event): void {
     this.imageChangedEvent = event;
+    this.showCropper = true;
   }
 
   imageCropped(event: ImageCroppedEvent) {
     this.currentUsersAvatar = event.objectUrl!;
-    this.selectNewAvatar(event.objectUrl!);
+    this.setCustomAvatar = true;
     if (event.blob) {
-      this.selectedFile = new File([event.blob], `${this.userService.getCurrentUser().username.trim()}.png`, {type: 'image/png'});
+      this.selectedFile = new File(
+        [event.blob],
+        `${this.userService.getCurrentUser().username.trim()}.png`,
+        { type: 'image/png' }
+      );
     }
   }
-
 
   /**
    * Initializes the component, setting the current user's name and email.
@@ -62,29 +70,36 @@ export class EditProfileComponent implements OnInit {
     this.editProfileData.email = this.authService.auth.currentUser?.email!;
   }
 
-  isGuestUser(){
+  isGuestUser() {
     return this.userService.getCurrentUser().email === 'guest@da-bubble.com';
   }
 
-
-  /**
-   * Saves the edited profile data if any changes have been made.
-   * Handles saving of the new avatar, name, and email.
-   *
-   * @param {string} newName - The new name entered by the user.
-   * @param {string} newEmail - The new email address entered by the user.
-   */
-  async saveEdit(newName: string, newEmail: string) {
-    if (this.avatarIsChanged) {
-      this.saveNewAvatar();
-      this.uiService.toggleProfileChangeConfirmationPopup();
-    } else if (this.nameIsChanged || this.emailIsChanged && !this.authService.loginTooLongAgo) {
-      this.saveNewAvatar();
+  async saveEdit(){
+    if (this.userService.getCurrentUser().username !== this.editProfileData.name) {
       await this.saveNewName();
-      this.saveNewEmailAddress(newEmail);
+      if (this.userService.getCurrentUser().email === this.editProfileData.email) {
+        this.uiService.toggleProfileChangeConfirmationPopup();
+        this.closeProfilePopup();
+        return;
+      }
     }
-  }
+    if (this.userService.getCurrentUser().email !== this.editProfileData.email) {
+      this.authService.newEmailAddress = this.editProfileData.email;
+      this.uiService.toggleVerifyPassword();
+    } else {
+      this.uiService.showEditUserAndLogoutPopup = false;
+      this.uiService.showViewProfilePopup = false;
+    }
+}
 
+  
+
+  closeProfilePopup() {
+    setTimeout(() => {
+      this.uiService.showEditUserAndLogoutPopup = false;
+      this.uiService.showViewProfilePopup = false;
+    }, 3000);
+  }
 
   /**
    * Opens the container for changing the user's avatar.
@@ -93,8 +108,8 @@ export class EditProfileComponent implements OnInit {
   openChangeAvatarContainer() {
     this.currentUsersAvatar = this.userService.getCurrentUsersAvatar();
     this.uiService.toggleChangeAvatarContainer();
+    this.showFormContainer = false;
   }
-
 
   /**
    * Selects a new avatar for the user and updates the relevant data.
@@ -110,7 +125,6 @@ export class EditProfileComponent implements OnInit {
     this.updatedUser.avatar = imgPath;
   }
 
-
   /**
    * Closes the avatar change container without saving changes.
    * Resets the avatar to the current user's avatar.
@@ -118,36 +132,32 @@ export class EditProfileComponent implements OnInit {
   closeChangeAvatarContainer() {
     this.currentUsersAvatar = this.userService.getCurrentUsersAvatar();
     this.uiService.toggleChangeAvatarContainer();
+    this.showFormContainer = true;
   }
-
 
   /**
    * Confirms the selected avatar and closes the avatar change container.
    * The avatar is not saved yet at this point.
    */
-  confirmNewSelectedAvatar() {
+  async confirmNewSelectedAvatar() {
+    if (this.setCustomAvatar) {
+      await this.saveCustomAvatar();
+    } else if (this.avatarIsChanged) {
+      await this.firestoreService.addUser(this.updatedUser);
+    }
     this.uiService.toggleChangeAvatarContainer();
+    this.showFormContainer = true;
   }
-
 
   /**
    * Saves the new avatar if it has been changed.
    * Updates the user data in Firestore.
    */
-  saveNewAvatar() {
-    if (this.avatarIsChanged) {
-      this.firestoreService.addUser(this.updatedUser);
-      this.avatarIsChanged = false;
-      this.closeEditProfile();
-    }
-  }
-
-
-  /**
-   * Marks the user's name as changed.
-   */
-  onNameChange() {
-    this.nameIsChanged = true;
+  async saveCustomAvatar() {
+    this.updatedUser = new User(this.userService.getCurrentUser());
+    await this.storageService.uploadFile(this.selectedFile!);
+    this.updatedUser.avatar = this.storageService.filePath;
+    await this.firestoreService.addUser(this.updatedUser);
   }
 
 
@@ -156,39 +166,13 @@ export class EditProfileComponent implements OnInit {
    * Updates the username in the authentication system.
    */
   async saveNewName() {
-    if (this.nameIsChanged) {
+    try {
       this.updatedUser = new User(this.userService.getCurrentUser());
       this.updatedUser.username = this.editProfileData.name;
-      await this.firestoreService.addUser(this.updatedUser);
-      this.authService.updateUsername(this.editProfileData.name);
-      console.log(this.updatedUser);
-      this.nameIsChanged = false;
-      this.closeEditProfile();
-      this.uiService.toggleProfileChangeConfirmationPopup();
-    }
-  }
-
-
-  /**
-   * Marks the user's email as changed.
-   */
-  onEmailChange() {
-    this.emailIsChanged = true;
-  }
-
-
-  /**
-   * Saves the new email address if it has been changed.
-   * Updates the user's email in Firebase Authentication.
-   *
-   * @param {string} newEmail - The new email address entered by the user.
-   */
-  saveNewEmailAddress(newEmail: string) {
-    if (this.emailIsChanged) {
-      this.authService.newEmailAddress = newEmail;
-      this.authService.updateUserEmail(newEmail);
-      this.emailIsChanged = false;
-      this.closeEditProfile();
+      await this.firestoreService.addUser(this.updatedUser); // Hier könnte ein Fehler auftreten
+      await this.authService.updateUsername(this.editProfileData.name); // Oder hier      
+    } catch (err) {
+      console.error("Error in saveNewName:", err);
     }
   }
 

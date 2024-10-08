@@ -31,20 +31,26 @@
                 </div>
 
                 <div class="upload-your-own-picture">
-                    <span>eigenes Bild verwenden</span>
+                    <div>
+                        <span>eigenes Bild verwenden</span>
 
                     <label for="fileUpload">
                         Datei hochladen
                         <input type="file" accept="image/*" id="fileUpload" (change)="fileChangeEvent($event)">
                         
                     </label>
-                    <image-cropper class="image-cropper"
+                    </div>
+                    
+                    @if (showCropper) {
+                        <image-cropper class="image-cropper"
                         [imageChangedEvent]="imageChangedEvent"
                         [maintainAspectRatio]="true"
                         [aspectRatio]="1 / 1"
                         format="png"
                         (imageCropped)="imageCropped($event)"
                     ></image-cropper>
+                    }
+                    
                 </div>
 
                 <div class="change-avatar-buttons-container">
@@ -54,39 +60,42 @@
             </div>
         }
 
-        <form action="" class="edit-name-mail-form" #editProfileForm="ngForm">
-            <div class="edit-name-mail">
-                <div class="icon-label">
-                    <img src="assets/icons/account_circle.png" style="width: 1.563rem; height: 1.563rem;">
-                    <label for="name">Vollständiger Name</label>
+        @if (showFormContainer) {
+            <form action="" class="edit-name-mail-form" #editProfileForm="ngForm">
+                <div class="edit-name-mail">
+                    <div class="icon-label">
+                        <img src="assets/icons/account_circle.png" style="width: 1.563rem; height: 1.563rem;">
+                        <label for="name">Vollständiger Name</label>
+                    </div>
+    
+                    <input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="editProfileData.name"
+                        placeholder="Vorname Nachname" pattern="[A-Z][a-z]{1,} [A-Z][a-z]{1,}" required>
+                    @if (name.invalid && (name.dirty || name.touched)) {
+                        <span>Bitte ein Vor- und Nachname eingeben</span>
+                    }
                 </div>
-
-                <input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="editProfileData.name" value="" (ngModelChange)="onNameChange()"
-                    placeholder="Vorname Nachname" pattern="[A-Z][a-z]{1,} [A-Z][a-z]{1,}" required>
-                @if (name.invalid && (name.dirty || name.touched)) {
-                    <span>Bitte ein Vor- und Nachname eingeben</span>
-                }
-            </div>
-
-            <div class="edit-name-mail" style="margin-top: 1rem">
-                <div class="icon-label">
-                    <img src="assets/icons/mail.png" style="width: 1.563rem; height: 1.25rem;">
-                    <label for="email">E-Mail-Adresse</label>
+    
+                <div class="edit-name-mail" style="margin-top: 1rem">
+                    <div class="icon-label">
+                        <img src="assets/icons/mail.png" style="width: 1.563rem; height: 1.25rem;">
+                        <label for="email">E-Mail-Adresse</label>
+                    </div>
+    
+                    <input class="email-input" [disabled]="isGuestUser()" type="email" id="email" name="email" #email="ngModel" [(ngModel)]="editProfileData.email"
+                        value="" placeholder="beispiel@bsp.de" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+                        required>
+                    @if (email.invalid && (email.dirty || email.touched)) {
+                        <span>Bitte eine gültige E-Mail-Adresse eingeben</span>
+                    }
                 </div>
-
-                <input class="email-input" [disabled]="isGuestUser()" type="email" id="email" name="email" #email="ngModel" [(ngModel)]="editProfileData.email" (ngModelChange)="onEmailChange()"
-                    value="" placeholder="beispiel@bsp.de" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
-                    required>
-                @if (email.invalid && (email.dirty || email.touched)) {
-                    <span>Bitte eine gültige E-Mail-Adresse eingeben</span>
-                }
-            </div>
-
-            <div class="buttons-container">
-                <input type="reset" value="Abbrechen" (click)="closeEditProfile()">
-                <input type="submit" value="Speichern" (click)="saveEdit(editProfileData.name, editProfileData.email)"
-                    [disabled]="!editProfileForm.valid || editProfileForm.submitted">
-            </div>
-        </form>
+    
+                <div class="buttons-container">
+                    <input type="reset" value="Abbrechen" (click)="closeEditProfile()">
+                    <input type="submit" value="Speichern" (click)="saveEdit()"
+                        [disabled]="!editProfileForm.valid || editProfileForm.submitted">
+                </div>
+            </form>
+        }
+        
     </div>
 </div>

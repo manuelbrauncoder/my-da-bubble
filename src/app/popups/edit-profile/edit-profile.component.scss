@@ -14,11 +14,11 @@
 }
 
 .image-cropper {
-  width: 250px;
-  height: auto;
+  width: auto;
+  height: 200px;
 }
 
-.email-input:disabled{
+.email-input:disabled {
   cursor: not-allowed !important;
 }
 
@@ -28,7 +28,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.813rem;
+  gap: 1.5rem;
 }
 
 .popup-bottom {
@@ -63,8 +63,7 @@
       transition: ease-in-out 250ms;
 
       img {
-        filter: invert(48%) sepia(24%) saturate(3976%) hue-rotate(216deg)
-          brightness(103%) contrast(90%);
+        filter: invert(48%) sepia(24%) saturate(3976%) hue-rotate(216deg) brightness(103%) contrast(90%);
         transition: ease-in-out 250ms;
       }
     }
@@ -227,8 +226,8 @@
   flex-direction: column;
   gap: 2rem;
   width: 100%;
-  height: 102%;
-  position: absolute;
+  // height: 102%;
+  // position: absolute;
   animation: slideIn 0.5s linear;
 }
 
@@ -264,9 +263,17 @@
 
 .upload-your-own-picture {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
   gap: 1.5rem;
+
+  >div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+  }
 
   span {
     font-weight: 400;
@@ -299,7 +306,6 @@
 .change-avatar-buttons-container {
   display: flex;
   justify-content: center;
-  margin-top: 1.5rem;
   gap: 2rem;
 
   button {

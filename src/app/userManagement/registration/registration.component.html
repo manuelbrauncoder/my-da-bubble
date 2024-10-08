@@ -16,6 +16,9 @@
       <img src="assets/icons/login/mail_grey.png" alt="mail">
       <input (keydown)="onKeyDownEnter($event, regForm)" #email="ngModel" type="email" placeholder="beispielname@email.com" [(ngModel)]="regData.email" name="email" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" required>
       <span *ngIf="email.invalid && email.touched">*Diese E-Mail-Adresse ist leider ungültig.</span>
+      @if (emailInUse) {
+        <span>*E-Mail-Adresse bereits vorhanden.</span>
+      }
     </div>
     <div>
       <label for="password"></label>

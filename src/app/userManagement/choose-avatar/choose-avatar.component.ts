@@ -7,7 +7,6 @@ import { FireStorageService } from '../../services/fire-storage.service';
 import {
   ImageCropperComponent,
   ImageCroppedEvent,
-  LoadedImage,
 } from 'ngx-image-cropper';
 
 @Component({
