@@ -82,7 +82,7 @@ export class FirebaseAuthService {
     const provider = new GoogleAuthProvider();
     const promise = signInWithPopup(this.auth, provider)
       .then((result) => {
-        const user: UserCredential = result;
+        const user: UserCredential = result;        
         this.saveGoogleUserInFirebase(user);
       })
       .then(() => {
@@ -90,6 +90,7 @@ export class FirebaseAuthService {
       })
       .catch((error) => {
         this.handleGoogleErr(error.code);
+        console.log(error.code);
       });
     return from(promise);
   }

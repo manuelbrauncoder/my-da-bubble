@@ -7,12 +7,13 @@ import { FirestoreService } from '../../services/firestore.service';
 import { UserService } from '../../services/user.service';
 import { BreakpointObserverService } from '../../services/breakpoint-observer.service';
 import { SearchBarComponent } from "../search-bar/search-bar.component";
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, EditUserAndLogoutPopupComponent, SearchBarComponent],
+  imports: [CommonModule, EditUserAndLogoutPopupComponent, SearchBarComponent, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
