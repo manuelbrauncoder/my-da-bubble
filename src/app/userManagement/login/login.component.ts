@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FirebaseAuthService } from '../../services/firebase-auth.service';
 import { Router, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   authService = inject(FirebaseAuthService);
   router = inject(Router);
   showStartScreen: boolean = true;
@@ -27,13 +27,20 @@ export class LoginComponent {
       this.logoState = 'corner';
       setTimeout(() => {
         this.showStartScreen = false;
-      }, 3000);
+      }, 2000);
     }, 1000);
+  }
+
+  onKeyDownEnter(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+        this.login();
+    }
   }
 
 
   async login() {
-    this.authService.login(this.loginData.email, this.loginData.password);
+      this.authService.login(this.loginData.email, this.loginData.password);
   }
 
   guestLogin() {

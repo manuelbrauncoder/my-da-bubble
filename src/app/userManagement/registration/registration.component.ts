@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FirebaseAuthService } from '../../services/firebase-auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
@@ -14,6 +14,13 @@ import { FormsModule } from '@angular/forms';
 export class RegistrationComponent {
   authService = inject(FirebaseAuthService);
   router = inject(Router);
+
+  onKeyDownEnter(event: KeyboardEvent, ngForm: NgForm) {
+    if (event.key === 'Enter' && ngForm.valid) {
+      event.preventDefault();
+        this.confirm();
+    }
+  }
 
   regData = {
     username: '',

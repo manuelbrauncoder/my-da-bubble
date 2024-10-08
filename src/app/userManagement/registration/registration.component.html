@@ -8,20 +8,20 @@
     <div>
       <label for="name"></label>
       <img src="assets/icons/login/person_grey.png" alt="name">
-      <input #username="ngModel" type="text" minlength="4" placeholder="Name und Nachname" [(ngModel)]="regData.username" name="username" pattern="^[A-Za-zÄÖÜäöüß]+\s+[A-Za-zÄÖÜäöüß]+$" required>
-      <span *ngIf="username.invalid && (username.dirty || username.touched)">*Bitte schreiben Sie einen vollständigen Namen.</span>
+      <input (keydown)="onKeyDownEnter($event,regForm)" #username="ngModel" type="text" minlength="4" placeholder="Name und Nachname" [(ngModel)]="regData.username" name="username" pattern="^[A-Za-zÄÖÜäöüß]+\s+[A-Za-zÄÖÜäöüß]+$" required>
+      <span *ngIf="username.invalid && username.touched">*Bitte schreiben Sie einen vollständigen Namen.</span>
     </div>
     <div>
       <label for="email"></label>
       <img src="assets/icons/login/mail_grey.png" alt="mail">
-      <input #email="ngModel" type="email" placeholder="beispielname@email.com" [(ngModel)]="regData.email" name="email" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" required>
-      <span *ngIf="email.invalid && (email.dirty || email.touched)">*Diese E-Mail-Adresse ist leider ungültig.</span>
+      <input (keydown)="onKeyDownEnter($event, regForm)" #email="ngModel" type="email" placeholder="beispielname@email.com" [(ngModel)]="regData.email" name="email" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" required>
+      <span *ngIf="email.invalid && email.touched">*Diese E-Mail-Adresse ist leider ungültig.</span>
     </div>
     <div>
       <label for="password"></label>
       <img src="assets/icons/login/lock_grey.png" alt="lock">
-      <input #password="ngModel" type="password" minlength="6" placeholder="Passwort" [(ngModel)]="regData.password" name="pwd" required>
-      <span *ngIf="password.invalid && (password.dirty || password.touched)">*Bitte geben Sie ein gültiges Passwort ein.</span>
+      <input (keydown)="onKeyDownEnter($event, regForm)" #password="ngModel" type="password" minlength="6" placeholder="Passwort" [(ngModel)]="regData.password" name="pwd" required>
+      <span *ngIf="password.invalid && password.touched">*Bitte geben Sie ein gültiges Passwort ein.</span>
     </div>
   </div>
   <div class="privacy-wrapper">
@@ -30,7 +30,7 @@
       <span></span>
     </label>
     <p>Ich stimme der <a [routerLink]="'/privacy_policy'">Datenschutzerklärung</a> zu.</p>
-    <span *ngIf="privacy.invalid && (privacy.dirty || privacy.touched)">*Bitte akzeptiere unsere Datenschutzerklärung.</span>
+    <span *ngIf="privacy.invalid && privacy.touched">*Bitte akzeptiere unsere Datenschutzerklärung.</span>
   </div>
   <span *ngIf="">WRONG EMAIL OR PASSWORD</span>
   <div class="btn-wrapper">
