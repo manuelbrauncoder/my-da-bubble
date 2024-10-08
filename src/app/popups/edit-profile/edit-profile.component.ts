@@ -6,12 +6,17 @@ import { FirebaseAuthService } from '../../services/firebase-auth.service';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.class';
+import {
+  ImageCropperComponent,
+  ImageCroppedEvent,
+  LoadedImage,
+} from 'ngx-image-cropper';
 
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ImageCropperComponent],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss',
 })
@@ -28,11 +33,24 @@ export class EditProfileComponent implements OnInit {
   selectedFile: File | null = null;
 
   updatedUser: User = new User();
+  imageChangedEvent: Event | null = null;
 
   editProfileData = {
     name: '',
     email: '',
   };
+
+  fileChangeEvent(event: Event): void {
+    this.imageChangedEvent = event;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.currentUsersAvatar = event.objectUrl!;
+    this.selectNewAvatar(event.objectUrl!);
+    if (event.blob) {
+      this.selectedFile = new File([event.blob], `${this.userService.getCurrentUser().username.trim()}.png`, {type: 'image/png'});
+    }
+  }
 
 
   /**
@@ -69,24 +87,6 @@ export class EditProfileComponent implements OnInit {
 
 
   /**
-   * Placeholder method for uploading a custom profile picture.
-   * This method is not yet implemented.
-   */
-  uploadOwnPicture(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.selectedFile = file;
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.selectedAvatar = e.target.result;
-        this.selectNewAvatar(this.selectedAvatar);
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-
-
-  /**
    * Opens the container for changing the user's avatar.
    * Retrieves the current avatar and displays the avatar selection UI.
    */
@@ -108,7 +108,6 @@ export class EditProfileComponent implements OnInit {
     this.currentUsersAvatar = imgPath;
     this.updatedUser = new User(this.userService.getCurrentUser());
     this.updatedUser.avatar = imgPath;
-    console.log(this.updatedUser);
   }
 
 

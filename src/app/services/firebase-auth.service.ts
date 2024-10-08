@@ -140,11 +140,7 @@ export class FirebaseAuthService {
    * @returns {Observable<void>} An observable that completes when the user is successfully registered and the profile is updated.
    */
   register(
-    email: string,
-    username: string,
-    password: string,
-    avatar: string
-  ): Observable<void> {
+    email: string, username: string, password: string, avatar: string): Observable<void> {
     const promise = createUserWithEmailAndPassword(this.auth, email, password)
       .then((response) => {
         this.handleUserData(response, email, username, avatar);
@@ -155,12 +151,7 @@ export class FirebaseAuthService {
     return from(promise);
   }
 
-  handleUserData(
-    response: any,
-    email: string,
-    username: string,
-    avatar: string
-  ) {
+  handleUserData(response: any, email: string, username: string, avatar: string) {
     updateProfile(response.user, { displayName: username });
     this.saveNewUserInFirestore(email, username, response.user.uid, avatar);
     this.addNewUserToWelcomeChannel(response.user.uid);
@@ -182,12 +173,7 @@ export class FirebaseAuthService {
     }
   }
 
-  async saveNewUserInFirestore(
-    email: string,
-    username: string,
-    uid: string,
-    avatar: string
-  ) {
+  async saveNewUserInFirestore(email: string, username: string, uid: string, avatar: string) {
     let newUser = {
       uid: uid,
       username: username,
@@ -225,13 +211,7 @@ export class FirebaseAuthService {
     }
   }
 
-  /**
-   * Logs in a user with Firebase Authentication.
-   *
-   * If the login is successful, it changes the login state in firestore
-   *
-   * @returns {Observable<void>} An observable that completes when the login process is successful.
-   */
+ 
   login(email: string, password: string): Observable<void> {
     const promise = signInWithEmailAndPassword(this.auth, email, password)
       .then((response) => {
@@ -248,9 +228,6 @@ export class FirebaseAuthService {
   /**
    * changes login state in firestore
    * call this method after login and logout
-   *
-   * @param loggedInState true after login, false after logout
-   * @param uid
    */
   changeLoginState(userStatus: 'online' | 'offline' | 'away', uid: string) {
     this.fireService.users.forEach((user) => {
@@ -376,9 +353,7 @@ export class FirebaseAuthService {
     console.log(err);
   }
 
-  /**
-   * This method is for reauthenticate the user
-   */
+ 
   reAuthenticateUser(email: string, password: string) {
     const credential = EmailAuthProvider.credential(email, password);
     if (this.auth.currentUser) {
