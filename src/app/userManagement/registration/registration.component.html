@@ -8,8 +8,9 @@
     <div>
       <label for="name"></label>
       <img src="assets/icons/login/person_grey.png" alt="name">
-      <input (keydown)="onKeyDownEnter($event,regForm)" #username="ngModel" type="text" minlength="4" placeholder="Name und Nachname" [(ngModel)]="regData.username" name="username" pattern="^[A-Za-zÄÖÜäöüß]+\s+[A-Za-zÄÖÜäöüß]+$" required>
-      <span *ngIf="username.invalid && username.touched">*Bitte schreiben Sie einen vollständigen Namen.</span>
+      <input (keydown)="onKeyDownEnter($event,regForm)" #username="ngModel" type="text" minlength="4" placeholder="Name und Nachname" [(ngModel)]="regData.username" name="username" required>
+      <span *ngIf="username.invalid && username.touched">*Bitte mindestens 4 Buchstaben.</span>
+      <!-- pattern="^[A-Za-zÄÖÜäöüß]+\s+[A-Za-zÄÖÜäöüß]+$" -->
     </div>
     <div>
       <label for="email"></label>
@@ -35,7 +36,7 @@
     <p>Ich stimme der <a [routerLink]="'/privacy_policy'">Datenschutzerklärung</a> zu.</p>
     <span *ngIf="privacy.invalid && privacy.touched">*Bitte akzeptiere unsere Datenschutzerklärung.</span>
   </div>
-  <span *ngIf="">WRONG EMAIL OR PASSWORD</span>
+  <span *ngIf="">Passwort oder Email falsch</span>
   <div class="btn-wrapper">
     <button (click)="confirm()" [ngClass]="{'disabled-button': regForm.invalid}" [disabled]="regForm.invalid">Weiter</button>
   </div>

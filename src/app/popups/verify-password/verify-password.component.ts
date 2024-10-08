@@ -42,16 +42,11 @@ export class VerifyPasswordComponent implements OnInit{
    * Confirms the user's password for re-authentication.
    * If the password is correct, it allows the user to update their email.
    * Also handles closing the verify password view and toggling the edit profile and logout popups.
-   *
-   * @param {string} name - The user's name.
-   * @param {string} email - The user's email address.
-   * @param {string} password - The user's password.
    */
   confirmPassword(email: string, password: string) {
     this.authService.updateEmail = true;
     this.authService.reAuthenticateUser(email, password);
     this.closeVerifyPassword();
-    // this.authService.loginTooLongAgo = false;
   }
 
   
