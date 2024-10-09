@@ -3,7 +3,7 @@
 }@else {
 <app-header *ngIf="showFooterAndHeader"></app-header>
 
-<app-header-for-usermanagement *ngIf="!showFooterAndHeader"></app-header-for-usermanagement>
+<!-- <app-header-for-usermanagement *ngIf="!showFooterAndHeader"></app-header-for-usermanagement> -->
 
 <router-outlet></router-outlet>
 
@@ -14,7 +14,7 @@
 </div>
 
 
-<app-footer *ngIf="!showFooterAndHeader"></app-footer>
+<!-- <app-footer *ngIf="!showFooterAndHeader"></app-footer> -->
 
 @if (uiService.showMobilePopup) {
 <app-mobile-popup @slideFromBottom></app-mobile-popup>

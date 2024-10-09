@@ -1,8 +1,8 @@
-<a>
+<a routerLink="">
   <img src="assets/img/smallLogo.png" class="small-logo">
 </a>
-<div *ngIf="!showHeaderLink">
+<div *ngIf="showHeaderLink">
   <span>Neu bei DABubble?</span>
-  <a [routerLink]="'/registration'">Konto erstellen</a>
+  <a routerLink="/registration">Konto erstellen</a>
 </div>
 

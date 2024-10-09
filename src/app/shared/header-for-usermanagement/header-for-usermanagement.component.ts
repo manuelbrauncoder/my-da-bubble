@@ -1,25 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header-for-usermanagement',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, RouterLink],
   templateUrl: './header-for-usermanagement.component.html',
   styleUrl: './header-for-usermanagement.component.scss'
 })
 export class HeaderForUsermanagementComponent {
-  showHeaderLink: boolean = false;
+  showHeaderLink = true;
+  private router = inject(Router)
 
-  private headerRoute: string[] = ['/registration', '/avatar', '/sendmail', '/resetpwd', '/privacy_policy', '/imprint'];
+  private headerRoute = ['/registration', '/avatar', '/sendmail', '/resetpwd', '/privacy_policy', '/imprint'];
 
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {
+  constructor(){
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.showHeaderLink = this.headerRoute.includes(event.urlAfterRedirects);
+        this.showHeaderLink = !this.headerRoute.includes(event.urlAfterRedirects);
       }
     });
   }

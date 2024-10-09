@@ -1,46 +1,56 @@
-<div *ngIf="showStartScreen" class="startScreen" [class.animate-logo]="showStartScreen">
-  <img src="assets/img/Logo.png" alt="LOGO">
-</div>
+<div class="login-wrapper">
+  <app-header-for-usermanagement></app-header-for-usermanagement>
+<main>
+  <div *ngIf="showStartScreen" class="startScreen" [class.animate-logo]="showStartScreen">
+    <img src="assets/img/Logo.png" alt="LOGO">
+  </div>
 
-<form #loginForm="ngForm" (ngSubmit)="login()">
-  <h2>Anmeldung</h2>
+  <form #loginForm="ngForm" (ngSubmit)="login()">
+    <h2>Anmeldung</h2>
     <p>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
-  @if (authService.showLoginErr) {
+    @if (authService.showLoginErr) {
     <span>Falsches Passwort oder E-Mail...Bitte noch einmal versuchen.</span>
-  }
-  @if (authService.googleErr.length > 0) {
+    }
+    @if (authService.googleErr.length > 0) {
     <span>{{ authService.googleErr }}</span>
-  }
-  <div class="input-wrapper">
-    <div>
-      <label for="email"></label>
-      <img src="assets/icons/login/mail_grey.png" alt="mail">
-      <input (keydown)="onKeyDownEnter($event)" #email="ngModel" type="email" placeholder="beispielname@email.com" [(ngModel)]="loginData.email" name="email" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" required>
-      <span *ngIf="email.invalid && email.touched">*Diese E-Mail-Adresse ist leider ungültig.</span>
-    </div>
-    
-    <div>
-      <label for="password"></label>
-      <img src="assets/icons/login/lock_grey.png" alt="lock">
-      <input (keydown)="onKeyDownEnter($event)" #password="ngModel" type="password" minlength="6" placeholder="Passwort" [(ngModel)]="loginData.password" name="password" required>
-      <span *ngIf="password.invalid && password.touched">*Bitte geben Sie ein gültiges Passwort ein.</span>
-    </div>
-    
-  </div>
-  <a [routerLink]="'/sendmail'">Passwort vergessen?</a>
-  <div class="or-wrapper"> 
-    <div></div>
-    <span>ODER</span>
-    <div></div>
-  </div>
-  <button type="button" (click)="authService.googleLogin()">
-    <img src="assets/icons/login/google.png" alt="google">
-    <span>Anmelden mit Google</span>
-  </button>
+    }
+    <div class="input-wrapper">
+      <div>
+        <label for="email"></label>
+        <img src="assets/icons/login/mail_grey.png" alt="mail">
+        <input (keydown)="onKeyDownEnter($event)" #email="ngModel" type="email" placeholder="beispielname@email.com"
+          [(ngModel)]="loginData.email" name="email" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+          required>
+        <span *ngIf="email.invalid && email.touched">*Diese E-Mail-Adresse ist leider ungültig.</span>
+      </div>
 
-  <div class="btn-wrapper">
-    <button type="submit" [ngClass]="{'disabled-button': !loginForm.valid}" [disabled]="!loginForm.valid">Anmelden</button>
-    <button type="button" (click)="guestLogin()">Gäste-Login</button>
-  </div>
- 
-</form>
+      <div>
+        <label for="password"></label>
+        <img src="assets/icons/login/lock_grey.png" alt="lock">
+        <input (keydown)="onKeyDownEnter($event)" #password="ngModel" type="password" minlength="6"
+          placeholder="Passwort" [(ngModel)]="loginData.password" name="password" required>
+        <span *ngIf="password.invalid && password.touched">*Bitte geben Sie ein gültiges Passwort ein.</span>
+      </div>
+
+    </div>
+    <a [routerLink]="'/sendmail'">Passwort vergessen?</a>
+    <div class="or-wrapper">
+      <div></div>
+      <span>ODER</span>
+      <div></div>
+    </div>
+    <button type="button" (click)="authService.googleLogin()">
+      <img src="assets/icons/login/google.png" alt="google">
+      <span>Anmelden mit Google</span>
+    </button>
+
+    <div class="btn-wrapper">
+      <button type="submit" [ngClass]="{'disabled-button': !loginForm.valid}"
+        [disabled]="!loginForm.valid">Anmelden</button>
+      <button type="button" (click)="guestLogin()">Gäste-Login</button>
+    </div>
+
+  </form>
+</main>
+<app-footer></app-footer>
+</div>

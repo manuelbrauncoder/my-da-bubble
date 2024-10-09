@@ -4,11 +4,13 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FirestoreService } from '../../services/firestore.service';
+import { FooterComponent } from '../../shared/footer/footer.component';
+import { HeaderForUsermanagementComponent } from "../../shared/header-for-usermanagement/header-for-usermanagement.component";
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, FooterComponent, HeaderForUsermanagementComponent],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
 })

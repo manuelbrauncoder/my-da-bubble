@@ -1,44 +1,52 @@
-<form #regForm="ngForm">
-  <div class="header-wrapper">
-    <img onclick="history.back(); return false;" src="assets/icons/login/arrow_back_black.png" alt="arrow">
-    <h2>Konto erstellen</h2>
-  </div>
-  <p>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</p>
-  <div class="input-wrapper">
-    <div>
-      <label for="name"></label>
-      <img src="assets/icons/login/person_grey.png" alt="name">
-      <input (keydown)="onKeyDownEnter($event,regForm)" #username="ngModel" type="text" minlength="4" placeholder="Name und Nachname" [(ngModel)]="regData.username" name="username" required>
-      <span *ngIf="username.invalid && username.touched">*Bitte mindestens 4 Buchstaben.</span>
-      <!-- pattern="^[A-Za-zÄÖÜäöüß]+\s+[A-Za-zÄÖÜäöüß]+$" -->
-    </div>
-    <div>
-      <label for="email"></label>
-      <img src="assets/icons/login/mail_grey.png" alt="mail">
-      <input (keydown)="onKeyDownEnter($event, regForm)" #email="ngModel" type="email" placeholder="beispielname@email.com" [(ngModel)]="regData.email" name="email" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" required>
-      <span *ngIf="email.invalid && email.touched">*Diese E-Mail-Adresse ist leider ungültig.</span>
-      @if (emailInUse) {
-        <span>*E-Mail-Adresse bereits vorhanden.</span>
-      }
-    </div>
-    <div>
-      <label for="password"></label>
-      <img src="assets/icons/login/lock_grey.png" alt="lock">
-      <input (keydown)="onKeyDownEnter($event, regForm)" #password="ngModel" type="password" minlength="6" placeholder="Passwort" [(ngModel)]="regData.password" name="pwd" required>
-      <span *ngIf="password.invalid && password.touched">*Bitte geben Sie ein gültiges Passwort ein.</span>
-    </div>
-  </div>
-  <div class="privacy-wrapper">
-    <label class="custom-checkbox">
-      <input type="checkbox" #privacy="ngModel" type="checkbox" [(ngModel)]="regData.privacy" name="privacy" required/>
-      <span></span>
-    </label>
-    <p>Ich stimme der <a [routerLink]="'/privacy_policy'">Datenschutzerklärung</a> zu.</p>
-    <span *ngIf="privacy.invalid && privacy.touched">*Bitte akzeptiere unsere Datenschutzerklärung.</span>
-  </div>
-  <span *ngIf="">Passwort oder Email falsch</span>
-  <div class="btn-wrapper">
-    <button (click)="confirm()" [ngClass]="{'disabled-button': regForm.invalid}" [disabled]="regForm.invalid">Weiter</button>
-  </div>
-</form>
+
+
+<div class="register-wrapper">
+  <app-header-for-usermanagement></app-header-for-usermanagement>
+  <main>
+    <form #regForm="ngForm">
+      <div class="header-wrapper">
+        <img onclick="history.back(); return false;" src="assets/icons/login/arrow_back_black.png" alt="arrow">
+        <h2>Konto erstellen</h2>
+      </div>
+      <p>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</p>
+      <div class="input-wrapper">
+        <div>
+          <label for="name"></label>
+          <img src="assets/icons/login/person_grey.png" alt="name">
+          <input (keydown)="onKeyDownEnter($event,regForm)" #username="ngModel" type="text" minlength="4" placeholder="Name und Nachname" [(ngModel)]="regData.username" name="username" required>
+          <span *ngIf="username.invalid && username.touched">*Bitte mindestens 4 Buchstaben.</span>
+        </div>
+        <div>
+          <label for="email"></label>
+          <img src="assets/icons/login/mail_grey.png" alt="mail">
+          <input (keydown)="onKeyDownEnter($event, regForm)" #email="ngModel" type="email" placeholder="beispielname@email.com" [(ngModel)]="regData.email" name="email" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" required>
+          <span *ngIf="email.invalid && email.touched">*Diese E-Mail-Adresse ist leider ungültig.</span>
+          @if (emailInUse) {
+            <span>*E-Mail-Adresse bereits vorhanden.</span>
+          }
+        </div>
+        <div>
+          <label for="password"></label>
+          <img src="assets/icons/login/lock_grey.png" alt="lock">
+          <input (keydown)="onKeyDownEnter($event, regForm)" #password="ngModel" type="password" minlength="6" placeholder="Passwort" [(ngModel)]="regData.password" name="pwd" required>
+          <span *ngIf="password.invalid && password.touched">*Bitte geben Sie ein gültiges Passwort ein.</span>
+        </div>
+      </div>
+      <div class="privacy-wrapper">
+        <label class="custom-checkbox">
+          <input type="checkbox" #privacy="ngModel" type="checkbox" [(ngModel)]="regData.privacy" name="privacy" required/>
+          <span></span>
+        </label>
+        <p>Ich stimme der <a [routerLink]="'/privacy_policy'">Datenschutzerklärung</a> zu.</p>
+        <span *ngIf="privacy.invalid && privacy.touched">*Bitte akzeptiere unsere Datenschutzerklärung.</span>
+      </div>
+      <span *ngIf="">Passwort oder Email falsch</span>
+      <div class="btn-wrapper">
+        <button (click)="confirm()" [ngClass]="{'disabled-button': regForm.invalid}" [disabled]="regForm.invalid">Weiter</button>
+      </div>
+    </form>
+  </main>
+  <app-footer></app-footer>
+</div>
+
 

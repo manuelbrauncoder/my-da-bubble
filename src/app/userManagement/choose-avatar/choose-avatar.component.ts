@@ -45,7 +45,6 @@ export class ChooseAvatarComponent {
     }
   }
   
-
   async completeRegistration() {
     if (this.regData) {
       try {
@@ -69,7 +68,7 @@ export class ChooseAvatarComponent {
               this.showPopup = true;
 
               setTimeout(() => {
-                this.router.navigate(['/']);
+                this.router.navigate(['/dabubble']);
               }, 2000);
             },
             error: (err) => {

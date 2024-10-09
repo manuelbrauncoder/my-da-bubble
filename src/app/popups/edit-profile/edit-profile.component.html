@@ -67,11 +67,9 @@
                         <img src="assets/icons/account_circle.png" style="width: 1.563rem; height: 1.563rem;">
                         <label for="name">Vollständiger Name</label>
                     </div>
-                    <!-- pattern="[A-Z][a-z]{1,} [A-Z][a-z]{1,}" -->
                     <input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="editProfileData.name"
                         placeholder="Vorname Nachname" minlength="4" required>
                     @if (name.invalid && (name.dirty || name.touched)) {
-                        <!-- <span>Bitte ein Vor- und Nachname eingeben</span> -->
                         <span>Bitte mindestens 4 Buchstaben eingeben</span>
                     }
                 </div>
