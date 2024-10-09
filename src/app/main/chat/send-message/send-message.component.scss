@@ -11,9 +11,15 @@
 
 .send-message-container {
   position: relative;
-  border: solid 0.063rem #adb0d9;
+  border: solid 0.063rem $color-purple-light;
   border-radius: 1.25rem;
   padding: 1.25rem;
+  &:hover{
+    border: solid 0.063rem $color-purple-1;
+  }
+  &:focus-within {
+    border: solid 0.063rem $color-purple-1;
+  }
 }
 
 textarea {
