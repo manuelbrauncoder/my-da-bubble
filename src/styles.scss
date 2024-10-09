@@ -383,29 +383,23 @@ $color-error-red: #ed1e79;
   background-color: $color-popup-bg;
 }
 
-*::-webkit-scrollbar {
-  width: 0.5rem;
-  max-height: 0.5rem;
-  background: #fffcf3;
-  border-radius: 4px;
+::-webkit-scrollbar {
+  width: 6px;
 }
 
-*::-webkit-scrollbar-track {
-  background: #fffcf3;
-  border: 1px solid #444df2;
-  border-radius: 4px;
+::-webkit-scrollbar-track {
+  background: $color-purple-light;
+  margin: 28px 0;
+  border-radius: 30px;
 }
 
-*::-webkit-scrollbar-thumb {
-  cursor: pointer;
-  min-height: 30px;
-  border: 1px solid black;
-  background: #444df2;
-  border-radius: 4px;
+::-webkit-scrollbar-thumb {
+  background: $color-purple-1;
+  border-radius: 30px;
 }
 
-*::-webkit-scrollbar-thumb:hover {
-  background: #797ef3;
+::-webkit-scrollbar-thumb:hover {
+  background: $color-purple-3;
 }
 
 @media (max-width: 700px) {

@@ -3,7 +3,6 @@
 @include linkUserM;
 @include inputForm;
 
-/* Start Animation */
 
 .animation-container {
   z-index: 20;
@@ -23,10 +22,10 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  animation: moveToCorner 0.7s ease forwards 1.5s;
+  // animation: moveToCorner 0.7s ease forwards 1.5s;
 
   @media(max-width: 999px) {
-    animation: moveToTopMobile 0.7s ease forwards 1.5s;
+    // animation: moveToTopMobile 0.7s ease forwards 1.5s;
   }
 }
 
@@ -34,13 +33,13 @@ h1 {
   z-index: 22;
   color: white;
   font-size: 4rem;
-  opacity: 0;
+  opacity: 1;
   transform: translateX(0);
-  animation: slideInText 0.5s ease-out forwards 0.5s, 1s reduceFontsize ease forwards 1.5s;
+  // animation: slideInText 0.5s ease-out forwards 0.5s, 1s reduceFontsize ease forwards 1.5s;
 
   @media(max-width: 999px) {
     font-size: 2rem;
-    animation: slideInText 0.5s ease-out forwards 0.5s, 1s reduceFontsizeMobile ease forwards 1.5s;
+    // animation: slideInText 0.5s ease-out forwards 0.5s, 1s reduceFontsizeMobile ease forwards 1.5s;
   }
 }
 
@@ -48,12 +47,12 @@ h1 {
   width: 180px;
   height: 180px;
   z-index: 23;
-  animation: logoAppear 0.5s ease forwards, logoSlideLeft 0.5s ease forwards 0.4s, 1s reduceLogoSize ease forwards 1.5s;
+  // animation: logoAppear 0.5s ease forwards, logoSlideLeft 0.5s ease forwards 0.4s, 1s reduceLogoSize ease forwards 1.5s;
 
   @media(max-width: 999px) {
     width: 90px;
     height: 90px;
-    animation: logoAppear 0.5s ease forwards, logoSlideLeft 0.5s ease-out forwards 0.4s, 1s reduceLogoSizeMobile ease forwards 1.5s;
+    // animation: logoAppear 0.5s ease forwards, logoSlideLeft 0.5s ease-out forwards 0.4s, 1s reduceLogoSizeMobile ease forwards 1.5s;
   }
 }
 

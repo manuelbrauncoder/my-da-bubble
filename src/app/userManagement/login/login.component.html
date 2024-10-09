@@ -11,9 +11,9 @@
   }
 
   @if (showContent) {
-  <app-header-for-usermanagement @fadeInLogin></app-header-for-usermanagement>
+  <app-header-for-usermanagement></app-header-for-usermanagement>
 
-  <main @fadeInLogin>
+  <main>
     <form #loginForm="ngForm" (ngSubmit)="login()">
       <h2>Anmeldung</h2>
       <p>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
@@ -62,8 +62,8 @@
     </form>
   </main>
 
-  <app-mobile-footer @fadeInLogin></app-mobile-footer>
-  <app-footer @fadeInLogin></app-footer>
+  <app-mobile-footer></app-mobile-footer>
+  <app-footer></app-footer>
 
   }
 
