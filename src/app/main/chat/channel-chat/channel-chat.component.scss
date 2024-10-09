@@ -160,6 +160,9 @@ header {
     @include dFlex($fd: column, $ai: flex-start, $g: 0.5rem);
     margin-right: auto;
     padding: 1rem 2.188rem 1rem 2.188rem;
+    @media(max-width: 599px) {
+        display: none;
+    }
 
     .title {
         @include dFlex($g: 0.625rem, $jc: flex-start);

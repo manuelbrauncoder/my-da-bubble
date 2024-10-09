@@ -58,6 +58,9 @@ header {
     @include dFlex($fd: column, $ai: flex-start, $g: 1.5rem);
     padding: 1rem 2.188rem;
     margin-right: auto;
+    @media(max-width: 599px) {
+        display: none;
+    }
 
     .name {
         @include dFlex($g: 1.563rem, $ai: flex-end);

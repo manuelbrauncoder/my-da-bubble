@@ -196,7 +196,6 @@ form {
   display: none;
 }
 
-// Colors
 $color-online-green: #92c83e;
 $color-away-gray: #686868;
 $color-offline-red: #ed1e79;
@@ -243,9 +242,6 @@ $color-error-red: #ed1e79;
   background-color: $color-offline-red;
 }
 
-// 
-
-// input fields for channel
 .channel-form {
   background-color: unset;
   display: flex;
@@ -278,7 +274,7 @@ $color-error-red: #ed1e79;
   }
 }
 
-// blue btn primary
+
 .primary-btn {
   background-color: $color-purple-1;
   padding: 0.75rem 1.5625rem;
@@ -391,7 +387,6 @@ $color-error-red: #ed1e79;
 
 *::-webkit-scrollbar {
   width: 0.5rem;
-  /* Breite des Scrollbalkens */
   max-height: 0.5rem;
   background: #fffcf3;
   border-radius: 4px;
@@ -399,7 +394,6 @@ $color-error-red: #ed1e79;
 
 *::-webkit-scrollbar-track {
   background: #fffcf3;
-  /* Hintergrundfarbe des Scrollbalkens */
   border: 1px solid #444df2;
   border-radius: 4px;
 }
@@ -409,14 +403,11 @@ $color-error-red: #ed1e79;
   min-height: 30px;
   border: 1px solid black;
   background: #444df2;
-  /* Farbe des Griffs des Scrollbalkens */
   border-radius: 4px;
-  /* Radius des Griffs des Scrollbalkens */
 }
 
 *::-webkit-scrollbar-thumb:hover {
   background: #797ef3;
-  /* Farbe des Griffs des Scrollbalkens bei Hover */
 }
 
 @media (max-width: 700px) {

@@ -1,5 +1,14 @@
 @use './../../mixins.scss' as *;
 
+.privacy {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 h2 {
   color: #444DF2;
   font-size: 2.8rem;
