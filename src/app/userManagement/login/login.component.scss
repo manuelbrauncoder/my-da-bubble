@@ -3,6 +3,115 @@
 @include linkUserM;
 @include inputForm;
 
+/* Start Animation */
+
+.animation-container {
+  z-index: 20;
+  position: fixed;
+  background: linear-gradient(#ECEEFE, #444DF2);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  animation: moveToCorner 0.7s ease forwards 1.5s; /* This moves the whole wrapper */
+}
+
+h1 {
+  z-index: 22;
+  color: white;
+  font-size: 5rem;
+  opacity: 0;
+  transform: translateX(0);
+  animation: slideInText 0.5s ease-out forwards 0.4s, 1s reduceFontsize ease forwards 1.5s; /* Delayed animation for the text */
+}
+
+.logo {
+  z-index: 23;
+  transform: translateX(0);
+  animation: logoAppear 0.5s ease forwards, logoSlideLeft 0.5s ease forwards, 1s reduceLogoSize ease forwards 1.5s;
+}
+
+@keyframes reduceFontsize {
+  0% {
+    font-size: 4rem;
+  }
+  100% {
+    font-size: 1.5rem;
+    color: black;
+  }
+}
+
+@keyframes reduceLogoSize {
+  0%{
+    width: 180px;
+    height: 180px;
+  }
+  100%{
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@keyframes slideInText {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes logoAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes logoSlideLeft {
+  0% {
+    transform: translateX(200px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveToCorner {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    top: 3rem;
+    left: max(-0.7rem, calc((100vw - 1920px) / 2 - 0.7rem));
+    transform: translate(0, 0);
+  }
+}
+
+/* =================== */
+
+
 .login-wrapper{
   display: flex;
   flex-direction: column;
@@ -18,43 +127,43 @@ main{
   justify-content: center;
 }
 
-.startScreen {
-  z-index: 900;
-  position: fixed;
-  background: linear-gradient(#ECEEFE ,#444DF2);
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+// .startScreen {
+//   z-index: 900;
+//   position: fixed;
+//   background: linear-gradient(#ECEEFE ,#444DF2);
+//   top: 0;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
 
 
-  >img {
-    position: absolute;
-    height: 10rem;
-    width: 10rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 1s ease-in-out;
-  }
+//   >img {
+//     position: absolute;
+//     height: 10rem;
+//     width: 10rem;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     transition: all 1s ease-in-out;
+//   }
 
-  &.animate-logo img {
-    animation: moveLogo 1s 1s forwards;
-  }
-}
+//   &.animate-logo img {
+//     animation: moveLogo 1s 1s forwards;
+//   }
+// }
 
-@keyframes moveLogo {
-  0% {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    top: -.7rem;
-    left: max(-0.7rem, calc((100vw - 1920px) / 2 - 0.7rem));
-    transform: translate(0, 0) scale(0.48);
-  }
-}
+// @keyframes moveLogo {
+//   0% {
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%) scale(1);
+//   }
+//   100% {
+//     top: -.7rem;
+//     left: max(-0.7rem, calc((100vw - 1920px) / 2 - 0.7rem));
+//     transform: translate(0, 0) scale(0.48);
+//   }
+// }
 
 form {
   max-width: 41rem;

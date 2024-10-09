@@ -3,18 +3,8 @@
 }@else {
 <app-header *ngIf="showFooterAndHeader"></app-header>
 
-<!-- <app-header-for-usermanagement *ngIf="!showFooterAndHeader"></app-header-for-usermanagement> -->
 
 <router-outlet></router-outlet>
-
-
-<div *ngIf="!showResponsiveFooter" class="responsive-container">
-    <span>Neu bei DaBubble?</span>
-    <a [routerLink]="'/registration'">Konto erstellen</a>
-</div>
-
-
-<!-- <app-footer *ngIf="!showFooterAndHeader"></app-footer> -->
 
 @if (uiService.showMobilePopup) {
 <app-mobile-popup @slideFromBottom></app-mobile-popup>

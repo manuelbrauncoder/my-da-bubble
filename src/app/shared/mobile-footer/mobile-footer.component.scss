@@ -1,0 +1,30 @@
+@use "../../../mixins.scss" as *;
+
+.responsive-container {
+    @include flexColumn;
+    display: none;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem;
+  
+    > a {
+      text-decoration: none;
+      border: 0.1rem solid #444df2;
+      border-radius: 1.5rem;
+      color: #444df2;
+      background-color: white;
+      padding: 0.8rem 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+  
+      &:hover {
+        border: 0.1rem solid #535af1;
+        color: white;
+        background-color: #535af1;
+      }
+    }
+  
+    @media (max-width: 500px) {
+      display: flex;
+    }
+  }

@@ -5,32 +5,39 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderForUsermanagementComponent } from '../../shared/header-for-usermanagement/header-for-usermanagement.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
+import { fadeIn } from "../../shared/animations";
+import { BreakpointObserverService } from '../../services/breakpoint-observer.service';
+import { MobileFooterComponent } from "../../shared/mobile-footer/mobile-footer.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, HeaderForUsermanagementComponent, FooterComponent],
+  animations: [fadeIn],
+  imports: [CommonModule, FormsModule, RouterModule, HeaderForUsermanagementComponent, FooterComponent, MobileFooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
   authService = inject(FirebaseAuthService);
+  breakpointService = inject(BreakpointObserverService);
   router = inject(Router);
-  showStartScreen: boolean = true;
-  logoState: 'center' | 'corner' = 'center';
+  showAnimation = true;
+  showContent = false;
 
   loginData = {
     email: '',
     password: '',
   };
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.startAnimation();
+  }
+
+  startAnimation(){
     setTimeout(() => {
-      this.logoState = 'corner';
-      setTimeout(() => {
-        this.showStartScreen = false;
-      }, 2000);
-    }, 1000);
+      this.showContent = true;
+      this.showAnimation = false;
+    }, 2600);
   }
 
   onKeyDownEnter(event: KeyboardEvent) {

@@ -19,3 +19,17 @@ div {
 
 }
 
+.logo-wrapper{
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
+  h1{
+    font-size: 1.5rem;
+    color: black;
+  }
+}
+
