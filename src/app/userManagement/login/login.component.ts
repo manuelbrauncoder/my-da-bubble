@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FirebaseAuthService } from '../../services/firebase-auth.service';
 import { Router, RouterModule } from '@angular/router';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderForUsermanagementComponent } from '../../shared/header-for-usermanagement/header-for-usermanagement.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
         this.login();
     }
   }
-
 
   async login() {
       this.authService.login(this.loginData.email, this.loginData.password);

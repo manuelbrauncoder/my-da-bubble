@@ -37,7 +37,7 @@
 <div class="popup-wrapper">
     <div class="profile-menu" (click)="togglePopup()">
         @if (!observerService.isMobile) {
-            <span class="user-name">{{ authService.currentUserSig()?.username }}</span>
+            <span class="user-name">{{ userService.getCurrentUser().username }}</span>
         }
 
         <div class="avatar-container">
