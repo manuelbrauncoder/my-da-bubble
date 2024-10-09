@@ -3,11 +3,12 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Auth, sendPasswordResetEmail } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
+import { HeaderForUsermanagementComponent } from "../../shared/header-for-usermanagement/header-for-usermanagement.component";
 
 @Component({
   selector: 'app-send-mail',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HeaderForUsermanagementComponent],
   templateUrl: './send-mail.component.html',
   styleUrl: './send-mail.component.scss',
 })

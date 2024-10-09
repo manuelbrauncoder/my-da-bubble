@@ -22,43 +22,84 @@
   transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   animation: moveToCorner 0.7s ease forwards 1.5s;
+
+  @media(max-width: 999px) {
+    animation: moveToTopMobile 0.7s ease forwards 1.5s;
+  }
 }
 
 h1 {
   z-index: 22;
   color: white;
-  font-size: 5rem;
+  font-size: 4rem;
   opacity: 0;
   transform: translateX(0);
-  animation: slideInText 0.5s ease-out forwards 0.4s, 1s reduceFontsize ease forwards 1.5s;
+  animation: slideInText 0.5s ease-out forwards 0.5s, 1s reduceFontsize ease forwards 1.5s;
+
+  @media(max-width: 999px) {
+    font-size: 2rem;
+    animation: slideInText 0.5s ease-out forwards 0.5s, 1s reduceFontsizeMobile ease forwards 1.5s;
+  }
 }
 
 .logo {
+  width: 180px;
+  height: 180px;
   z-index: 23;
-  transform: translateX(0);
-  animation: logoAppear 0.5s ease forwards, logoSlideLeft 0.5s ease forwards, 1s reduceLogoSize ease forwards 1.5s;
+  animation: logoAppear 0.5s ease forwards, logoSlideLeft 0.5s ease forwards 0.4s, 1s reduceLogoSize ease forwards 1.5s;
+
+  @media(max-width: 999px) {
+    width: 90px;
+    height: 90px;
+    animation: logoAppear 0.5s ease forwards, logoSlideLeft 0.5s ease-out forwards 0.4s, 1s reduceLogoSizeMobile ease forwards 1.5s;
+  }
 }
 
 @keyframes reduceFontsize {
   0% {
     font-size: 4rem;
   }
+
   100% {
     font-size: 1.5rem;
     color: black;
   }
 }
 
+@keyframes reduceFontsizeMobile {
+  0% {
+    font-size: 2rem;
+  }
+
+  100% {
+    font-size: 1.2rem;
+    color: black;
+  }
+}
+
 @keyframes reduceLogoSize {
-  0%{
+  0% {
     width: 180px;
     height: 180px;
   }
-  100%{
+
+  100% {
     width: 70px;
     height: 70px;
+  }
+}
+
+@keyframes reduceLogoSizeMobile {
+  0% {
+    width: 90px;
+    height: 90px;
+  }
+
+  100% {
+    width: 56px;
+    height: 56px;
   }
 }
 
@@ -67,9 +108,11 @@ h1 {
     opacity: 0;
     transform: translateX(-100px);
   }
+
   50% {
     opacity: 1;
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
@@ -81,6 +124,7 @@ h1 {
     opacity: 0;
     transform: scale(0.8);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -91,6 +135,7 @@ h1 {
   0% {
     transform: translateX(200px);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -102,6 +147,7 @@ h1 {
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
   100% {
     top: 3rem;
     left: max(-2rem, calc(100vw - 1920px) / 2 - 2rem);
@@ -109,10 +155,21 @@ h1 {
   }
 }
 
-/* =================== max(-0.7rem, calc((100vw - 1920px) / 2 - 0.7rem))*/
+@keyframes moveToTopMobile {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
+  100% {
+    top: 3rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+}
 
-.login-wrapper{
+.login-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -122,7 +179,7 @@ h1 {
   gap: 2rem;
 }
 
-main{
+main {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -135,6 +192,7 @@ form {
     font-size: 1.2rem;
     text-align: center;
     max-width: 41ch;
+
     @media(max-width: 999px) {
       max-width: 31ch;
     }
@@ -172,6 +230,7 @@ form {
         left: 1rem;
       }
     }
+
     @media(max-width: 999px) {
       gap: 1.5rem;
     }
@@ -199,7 +258,7 @@ form {
     font-size: 1rem;
     font-weight: 400;
     border: .1rem solid #ECEEFE;
-        
+
     &:hover {
       border: .1rem solid #444DF2;
       font-weight: 700;
@@ -238,7 +297,11 @@ form {
 }
 
 @media(max-width: 700px) {
-  span, a, button, input {
+
+  span,
+  a,
+  button,
+  input {
     font-size: .8rem;
   }
 
