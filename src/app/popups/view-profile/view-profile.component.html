@@ -13,7 +13,7 @@
 
     <div class="name-editBtn-onlineStatus">
         <div class="name-editBtn">
-            <p class="name">{{ authService.currentUserSig()?.username }}</p>
+            <p class="name">{{ userService.getCurrentUser().username }}</p>
             <p (click)="editProfile()" class="editBtn">Bearbeiten</p>
             <div class="editBtn-mobile" (click)="editProfile()">
                 <img src="assets/icons/edit.svg">
@@ -31,7 +31,7 @@
 
         <div class="address">
             <p>E-Mail-Adresse</p>
-            <p>{{ authService.currentUserSig()?.email }}</p>
+            <p>{{ userService.getCurrentUser().email }}</p>
         </div>
     </div>
 </div>

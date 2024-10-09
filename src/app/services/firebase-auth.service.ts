@@ -115,7 +115,7 @@ export class FirebaseAuthService {
       }
     } else {
       await this.saveNewUserInFirestore(
-        user.user.email!,
+        user.user.email || 'Angemeldet mit Google',
         user.user.displayName!,
         user.user.uid,
         user.user.photoURL!
