@@ -7,8 +7,13 @@ main {
     padding: 0.1875rem 0.9375rem 0.1875rem 1.25rem;
     border-radius: 1.5625rem 1.5625rem 0 1.5625rem;
     border: 0.0625rem solid $color-purple-light;
+    &:hover {
+        border: 0.0625rem solid $color-purple-1;
+    }
+    
 
     .icon-wrapper {
+        cursor: pointer;
         width: 2.5rem;
         height: 2.5rem;
         border-radius: 100%;

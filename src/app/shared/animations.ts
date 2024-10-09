@@ -7,11 +7,17 @@
 
 import { animate, style, transition, trigger } from '@angular/animations';
 
-const timing = '225ms ease-in';
+const timing = '225ms ease';
+const timingLogin = '400ms ease';
 
 export const fadeIn = trigger('fadeIn', [
     transition(':enter', [style({ opacity: '0' }), animate(timing, style({ opacity: '1' }))]),
     transition(':leave', [style({ opacity: '1' }), animate(timing, style({ opacity: '0' }))]),
+]);
+
+export const fadeInLogin = trigger('fadeInLogin', [
+    transition(':enter', [style({ opacity: '0' }), animate(timingLogin, style({ opacity: '1' }))]),
+    transition(':leave', [style({ opacity: '1' }), animate(timingLogin, style({ opacity: '0' }))]),
 ]);
 
 export const toggleWorkspace = trigger('toggleWorkspace', [

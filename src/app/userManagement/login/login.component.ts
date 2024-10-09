@@ -5,14 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderForUsermanagementComponent } from '../../shared/header-for-usermanagement/header-for-usermanagement.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
-import { fadeIn } from "../../shared/animations";
+import { fadeInLogin } from "../../shared/animations";
 import { BreakpointObserverService } from '../../services/breakpoint-observer.service';
 import { MobileFooterComponent } from "../../shared/mobile-footer/mobile-footer.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  animations: [fadeIn],
+  animations: [fadeInLogin],
   imports: [CommonModule, FormsModule, RouterModule, HeaderForUsermanagementComponent, FooterComponent, MobileFooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     setTimeout(() => {
       this.showContent = true;
       this.showAnimation = false;
-    }, 2600);
+    }, 2100);
   }
 
   onKeyDownEnter(event: KeyboardEvent) {

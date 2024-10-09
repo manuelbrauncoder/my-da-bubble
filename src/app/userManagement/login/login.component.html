@@ -5,15 +5,15 @@
   <div class="animation-container">
     <div class="wrapper">
       <img class="logo" src="assets/img/logo.svg" alt="">
-      <h1>DaBubble</h1>
+      <h1>DABubble</h1>
     </div>
   </div>
   }
 
   @if (showContent) {
-  <app-header-for-usermanagement @fadeIn></app-header-for-usermanagement>
+  <app-header-for-usermanagement @fadeInLogin></app-header-for-usermanagement>
 
-  <main @fadeIn>
+  <main @fadeInLogin>
     <form #loginForm="ngForm" (ngSubmit)="login()">
       <h2>Anmeldung</h2>
       <p>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
@@ -62,8 +62,8 @@
     </form>
   </main>
 
-  <app-mobile-footer @fadeIn></app-mobile-footer>
-  <app-footer @fadeIn></app-footer>
+  <app-mobile-footer @fadeInLogin></app-mobile-footer>
+  <app-footer @fadeInLogin></app-footer>
 
   }
 

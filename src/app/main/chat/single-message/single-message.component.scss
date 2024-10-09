@@ -15,7 +15,6 @@
     width: 100%;
     display: flex;
     gap: 1.875rem;
-    cursor: pointer;
     padding: 1.5rem;
     transition: ease 225ms;
 
@@ -60,6 +59,8 @@
     border-radius: 100%;
     background-color: white;
     object-fit: cover;
+    cursor: pointer;
+
 
     @media(max-width: 999px) {
         width: 3.125rem;
@@ -84,6 +85,7 @@
         text-align: left;
         color: black;
         transition: 125ms ease-out;
+        cursor: pointer;
 
         &:hover {
             color: $color-purple-1;
@@ -303,11 +305,13 @@
     width: 6rem;
     height: 4rem;
     object-fit: cover;
-    transition: all 300ms ease-out;
+    transition: all 150ms ease-out;
+    border-radius: 0.5rem;
+    cursor: pointer;
 
     &:hover {
-        transition: all 300ms ease-out;
-        scale: 1.2;
+        transition: all 150ms ease-out;
+        scale: 1.05;
     }
 }
 
@@ -371,6 +375,7 @@ app-data-detail-view {
     border: 1px solid $color-purple-light;
     padding: 0.3125rem 0.625rem;
     border-radius: 100vw;
+    cursor: pointer;
 
     span {
         font-family: Nunito;
@@ -381,6 +386,10 @@ app-data-detail-view {
 
     ngx-emoji {
         @include dFlex();
+    }
+
+    &:hover {
+        border: 1px solid $color-purple-1;
     }
 }
 

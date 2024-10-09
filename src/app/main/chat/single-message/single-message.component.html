@@ -1,6 +1,6 @@
 <div [ngStyle]="{'flex-direction': userService.isMessageFromCurrentUser(currentMessage) ? 'row-reverse' : 'row'}"
     class="message-container">
-    <img class="avatar" [src]="userService.getUserData(currentMessage.sender).avatar" alt="">
+    <img (click)="openUserProfile()" class="avatar" [src]="userService.getUserData(currentMessage.sender).avatar" alt="">
 
     <div [ngStyle]="{'align-items': userService.isMessageFromCurrentUser(currentMessage) ? 'flex-end' : 'flex-start'}"
         class="message">
