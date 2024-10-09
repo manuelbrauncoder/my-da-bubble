@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-      this.authService.login(this.loginData.email, this.loginData.password);
+    this.authService.login(this.loginData.email, this.loginData.password);
   }
 
   guestLogin() {
