@@ -30,10 +30,17 @@ export class AddChannelPopup2Component implements OnInit {
   ngOnInit(): void {
     this.newChannel = new Channel(this.currentChannel);
     this.availableUsers = this.setAvailableUserUids();
+    this.pushCurrentUserToSelectedUsers();
   }
 
   setAvailableUserUids(){
     return this.channelService.fireService.users.map(user => user.uid);
+  }
+
+  pushCurrentUserToSelectedUsers(){
+    const currentUserIndex = this.availableUsers.findIndex(u => u === this.userService.getCurrentUser().uid);
+    this.availableUsers.splice(currentUserIndex, 1);
+    this.selectedUsers.push(this.userService.getCurrentUser().uid);
   }
 
   /**

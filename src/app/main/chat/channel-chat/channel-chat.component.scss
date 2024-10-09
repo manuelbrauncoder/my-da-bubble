@@ -3,6 +3,7 @@
 
 .channel-request {
     box-shadow: 0rem 0.125rem 0.625rem 0rem #00000014;
+    border-radius: 1.875rem;
     padding: 1rem;
     margin: 0 1rem;
     @include dFlex($fd: column, $g: 1rem);
