@@ -74,13 +74,13 @@
 
         </div>
         @if (uiService.showChannels) {
-        <div class="channel-list">
+        <div @toggleConversations class="channel-list">
             @for (channel of fireService.channels; track $index; let index = $index) {
             <span (click)="toggleChannels(channel)"
                 [ngClass]="{'chat-active': channel.channelActive}" class="channel"># {{ channel.name }}</span>
             }
         </div>
-        <div class="add-channel">
+        <div  class="add-channel">
             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <mask id="mask0_72208_10681" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24"
                     height="25">
@@ -130,7 +130,7 @@
             </div>
         </div>
         @if (uiService.showDirectMessages) {
-        <div class="users">
+        <div @fadeIn class="users">
             @if (authService.auth.currentUser) {
             <div (click)="openConversation(authService.auth.currentUser.uid)" class="user"
                 [ngClass]="{'chat-active': userService.getCurrentUser().userChatActive}">

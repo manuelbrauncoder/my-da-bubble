@@ -28,7 +28,6 @@
         </div>
         }
 
-        <!-- edit area -->
         @if (editMode) {
         <div class="edit-container">
             <form id="editForm" name="editForm" #editForm="ngForm" (ngSubmit)="onSubmit(editForm)">
@@ -65,7 +64,6 @@
             
         </div>
         }
-        <!-- edit area -->
 
         @if (!threadMessage && messageHasAnswers()) {
         <div class="answers">

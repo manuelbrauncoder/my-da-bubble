@@ -9,10 +9,12 @@ import { ConversationService } from '../../services/conversation.service';
 import { BreakpointObserverService } from '../../services/breakpoint-observer.service';
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 import { Channel } from '../../models/channel.class';
+import { fadeIn, toggleConversations } from "../../shared/animations";
 
 @Component({
   selector: 'app-workspace-menu',
   standalone: true,
+  animations: [fadeIn, toggleConversations],
   imports: [CommonModule, SearchBarComponent],
   templateUrl: './workspace-menu.component.html',
   styleUrl: './workspace-menu.component.scss'

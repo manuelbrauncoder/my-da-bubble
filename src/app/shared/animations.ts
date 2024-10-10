@@ -43,4 +43,14 @@ export const toggleThread = trigger('toggleThread', [
 export const slideFromBottom = trigger('slideFromBottom', [
     transition(':enter', [style({ transform: 'translateY( 1000px)' }), animate('0.2s ease-out', style({ transform: 'translateY( 0)' }))]),
     transition(':leave', [style({ transform: 'translateY( 0)' }), animate('0.2s ease-out', style({ transform: 'translateY( 1000px)' }))]),
-])
+]);
+
+export const toggleConversations = trigger('toggleConversations', [
+    transition(':enter', [
+        style({ height: '0', opacity: 0 }),
+        animate('0.2s ease', style({ height: '*', opacity: 1 }))
+    ]),
+    transition(':leave', [
+        animate('0.2s ease', style({ height: '0', opacity: 0 })),
+    ])
+]);

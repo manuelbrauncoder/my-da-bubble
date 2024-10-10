@@ -23,14 +23,18 @@
                 <img src="assets/icons/channel-chat/addReactionIcon.svg">
             </div>
 
-            <div class="popup-wrapper">
-                <div class="bounding-box" (click)="showTaggableUsers()">
-                    <img src="assets/icons/channel-chat/tagPersonIcon.svg">
+            @if (isRecipientChannel()) {
+                <div class="popup-wrapper">
+                    <div class="bounding-box" (click)="showTaggableUsers()">
+                        <img src="assets/icons/channel-chat/tagPersonIcon.svg">
+                    </div>
+                    @if (uiService.showTaggableUsersPopup) {
+                        <app-popup-taggable-users @fadeIn [currentRecipient]="currentRecipient" (userTagged)="displayTaggedUser($event)"></app-popup-taggable-users>
+                    }
                 </div>
-                @if (uiService.showTaggableUsersPopup) {
-                    <app-popup-taggable-users @fadeIn [currentRecipient]="currentRecipient" (userTagged)="displayTaggedUser($event)"></app-popup-taggable-users>
-                }
-            </div>
+            }
+            
+
         </div>
         
         <div class="preview-btn-wrapper">

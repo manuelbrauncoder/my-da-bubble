@@ -35,7 +35,7 @@ export class SendMessageComponent implements OnInit, OnChanges {
   conversationService = inject(ConversationService);
   threadService = inject(ThreadService);
 
-  @Input() currentRecipient: Conversation | Channel = new Channel; // Empfänger der Nachricht
+  @Input() currentRecipient: Conversation | Channel = new Channel;
   @Input() threadMessage = false;
   @Input() newMessage = false;
   @Input() newPlaceholder = '';
@@ -50,10 +50,14 @@ export class SendMessageComponent implements OnInit, OnChanges {
   filePreview: string | ArrayBuffer | null | undefined = null;
   fileErrMsg = '';
 
-  content: string = ''; // content of the message
-  data = ''; // message data, e.g. photos
+  content: string = '';
+  data = '';
 
   showEmojiPicker = false;
+
+  isRecipientChannel(){
+    return this.currentRecipient instanceof Channel;
+  }
 
   onKeyDownEnter(event: KeyboardEvent) {
     if (event.key === 'Enter' && !this.isBtnDisabled()) {

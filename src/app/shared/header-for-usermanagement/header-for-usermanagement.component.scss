@@ -12,12 +12,6 @@ div {
   }
 }
 
-@media(max-width: 1000px) {
-  a {
-    padding: 2rem;
-  }
-
-}
 
 .logo-wrapper{
   display: flex;
@@ -30,6 +24,10 @@ div {
   h1{
     font-size: 1.5rem;
     color: black;
+  }
+
+  @media(max-width: 999px) {
+    padding: 1rem;
   }
 }
 
