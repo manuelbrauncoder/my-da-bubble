@@ -16,6 +16,9 @@
 .image-cropper {
   width: auto;
   max-height: 200px;
+  @media(max-width: 999px) {
+    max-height: 150px;
+  }
 }
 
 .email-input:disabled {
@@ -82,6 +85,10 @@
   display: flex;
   justify-content: center;
   transition: all ease-in-out 250ms;
+  @media(max-width: 999px) {
+    width: 6rem;
+    height: 6rem;
+  }
 
   &:hover {
     opacity: 0.8;

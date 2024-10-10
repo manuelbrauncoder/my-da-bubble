@@ -34,5 +34,6 @@ export class ViewProfileComponent {
    */
   editProfile() {
     this.uiService.toggleEditProfile();
+    this.uiService.toggleViewProfile();
   }
 }

@@ -27,14 +27,20 @@ export class ChooseAvatarComponent {
   errorMassage: String = '';
   selectedFile: File | null = null;
   useFileFromStorage = false;
+  showCropper = false;
 
   regData = this.authService.getStoredRegistrationData();
 
   imageChangedEvent: Event | null = null;
 
+  hideCropper(){
+    this.showCropper = false;
+  }
+
 
   fileChangeEvent(event: Event): void {
     this.imageChangedEvent = event;
+    this.showCropper = true;
   }
 
   imageCropped(event: ImageCroppedEvent) {

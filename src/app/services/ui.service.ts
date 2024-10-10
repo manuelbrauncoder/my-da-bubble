@@ -179,7 +179,7 @@ export class UiService {
     this.showWorkspaceMenu = !this.showWorkspaceMenu;
   }
 
-  toggleDirectMessages(){
+  toggleDirectMessages(){ 
     this.showDirectMessages = !this.showDirectMessages;
   }
 

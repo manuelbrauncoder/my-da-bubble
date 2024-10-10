@@ -17,29 +17,35 @@
     <div class="popup-bottom">
         @if (this.uiService.showChangeAvatarContainer) {
             <div class="change-avatar-container">
-                <div class="span-avatarList">
-                    <span>Aus der Liste wählen</span>
-
-                    <div class="avatarList">
-                        <img src="assets/img/chars/char1.png" (click)="selectNewAvatar('assets/img/chars/char1.png')">
-                        <img src="assets/img/chars/char2.png" (click)="selectNewAvatar('assets/img/chars/char2.png')">
-                        <img src="assets/img/chars/char3.png" (click)="selectNewAvatar('assets/img/chars/char3.png')">
-                        <img src="assets/img/chars/char4.png" (click)="selectNewAvatar('assets/img/chars/char4.png')">
-                        <img src="assets/img/chars/char5.png" (click)="selectNewAvatar('assets/img/chars/char5.png')">
-                        <img src="assets/img/chars/char6.png" (click)="selectNewAvatar('assets/img/chars/char6.png')">
+                @if(!showCropper) {
+                    <div class="span-avatarList">
+                        <span>Aus der Liste wählen</span>
+    
+                        <div class="avatarList">
+                            <img src="assets/img/chars/char1.png" (click)="selectNewAvatar('assets/img/chars/char1.png')">
+                            <img src="assets/img/chars/char2.png" (click)="selectNewAvatar('assets/img/chars/char2.png')">
+                            <img src="assets/img/chars/char3.png" (click)="selectNewAvatar('assets/img/chars/char3.png')">
+                            <img src="assets/img/chars/char4.png" (click)="selectNewAvatar('assets/img/chars/char4.png')">
+                            <img src="assets/img/chars/char5.png" (click)="selectNewAvatar('assets/img/chars/char5.png')">
+                            <img src="assets/img/chars/char6.png" (click)="selectNewAvatar('assets/img/chars/char6.png')">
+                        </div>
                     </div>
-                </div>
+                }
+                
 
                 <div class="upload-your-own-picture">
-                    <div>
-                        <span>eigenes Bild verwenden</span>
-
-                    <label for="fileUpload">
-                        Datei hochladen
-                        <input type="file" accept="image/*" id="fileUpload" (change)="fileChangeEvent($event)">
-                        
-                    </label>
-                    </div>
+                    @if (!showCropper) {
+                        <div>
+                            <span>eigenes Bild verwenden</span>
+    
+                        <label for="fileUpload">
+                            Datei hochladen
+                            <input type="file" accept="image/*" id="fileUpload" (change)="fileChangeEvent($event)">
+                            
+                        </label>
+                        </div>
+                    }
+                    
                     
                     @if (showCropper) {
                         <image-cropper class="image-cropper"

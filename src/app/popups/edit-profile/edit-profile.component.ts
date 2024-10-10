@@ -182,6 +182,5 @@ export class EditProfileComponent implements OnInit {
    */
   closeEditProfile() {
     this.uiService.toggleEditProfile();
-    this.uiService.toggleViewProfile();
   }
 }
