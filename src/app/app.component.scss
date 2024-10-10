@@ -1,25 +1,4 @@
-@use "./../mixins.scss" as *;
 
-app-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  @media (max-width: 999px) {
-    padding: 0.938rem 1rem 0.938rem 1rem;
-  }
-}
 
-.test-btn {
-  color: red;
-}
-
-.router-outlet-wrapper {
-  width: 100%;
-  height: calc(100% - 120px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 

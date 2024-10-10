@@ -1,47 +1,72 @@
-a {
-  padding: 0;
-  height: 4.375rem;
-  width: 15.132rem;
-  @media(max-width: 999px) {
-    width: 10.094rem;
-    height: 2.813rem;
+@import '../../../mixins.scss';
+
+.logo-wrapper {
+  width: 380px;
+  @include dFlex($jc: flex-start);
+
+  >a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .logo {
+      width: 4.375rem;
+      height: 4.375rem;
+
+      @media(max-width: 999px) {
+        width: 2.813rem;
+        height: 2.813rem;
+      }
+     }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: black;
+      @media(max-width: 999px) {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media(max-width: 999px) {
+      padding: 1rem;
+    }
+  }
+
+  @media(max-width: 1399px) {
+    width: unset;
   }
 }
 
-.small-logo {
-  @media(max-width: 999px) {
-    width: 10.094rem;
-    height: 2.813rem;
-  }
+app-search-bar {
+  // width: 100%;
+  flex: 2;
 }
 
-app-search-bar{
-  width: 100%;
-}
-
-.mobile-navigation{
+.mobile-navigation {
   display: flex;
   align-items: center;
   gap: 0.625rem;
 
-  >div{
+  >div {
     display: flex;
     align-items: center;
     gap: 0.625rem;
 
-    h1{
+    h1 {
       font-size: 1.5rem;
     }
   }
 
-  img{
+  img {
     height: 3.125rem;
     width: 3.125rem;
     border-radius: 100%;
     cursor: default;
   }
 
-  svg{
+  svg {
     cursor: pointer;
   }
 }
@@ -61,8 +86,7 @@ app-search-bar{
     }
 
     .arrow-down {
-      filter: invert(48%) sepia(24%) saturate(3976%) hue-rotate(216deg)
-        brightness(103%) contrast(90%);
+      filter: invert(48%) sepia(24%) saturate(3976%) hue-rotate(216deg) brightness(103%) contrast(90%);
       transition: ease-in-out 250ms;
     }
   }
@@ -80,6 +104,7 @@ app-search-bar{
   position: relative;
   width: 4.375rem;
   height: 4.375rem;
+
   @media(max-width: 999px) {
     width: 3.125rem;
     height: 3.125rem;
@@ -96,6 +121,7 @@ app-search-bar{
     position: absolute;
     right: 0;
     bottom: 0;
+
     @media(max-width: 999px) {
       display: none;
     }
@@ -111,6 +137,11 @@ app-search-bar{
 
 .popup-wrapper {
   position: relative;
+  width: 440px;
+  @include dFlex($jc: flex-end);
+  @media(max-width: 1399px) {
+    width: unset;
+  }
 }
 
 app-edit-user-and-logout-popup {
