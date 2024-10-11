@@ -13,7 +13,7 @@ export class HeaderForUsermanagementComponent {
   showHeaderLink = true;
   private router = inject(Router)
 
-  private headerRoute = ['/registration', '/avatar', '/sendmail', '/resetpwd', '/privacy_policy', '/imprint'];
+  private headerRoute = ['/registration', '/avatar', '/sendmail', '/resetpwd/__/auth/action', '/privacy_policy', '/imprint'];
 
   constructor(){
     this.router.events.subscribe(event => {

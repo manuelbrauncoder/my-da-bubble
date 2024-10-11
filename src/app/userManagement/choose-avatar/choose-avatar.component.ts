@@ -8,11 +8,12 @@ import {
   ImageCropperComponent,
   ImageCroppedEvent,
 } from 'ngx-image-cropper';
+import { HeaderForUsermanagementComponent } from "../../shared/header-for-usermanagement/header-for-usermanagement.component";
 
 @Component({
   selector: 'app-choose-avatar',
   standalone: true,
-  imports: [CommonModule, FormsModule, ImageCropperComponent],
+  imports: [CommonModule, FormsModule, ImageCropperComponent, HeaderForUsermanagementComponent],
   templateUrl: './choose-avatar.component.html',
   styleUrl: './choose-avatar.component.scss',
 })

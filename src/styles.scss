@@ -92,7 +92,10 @@ app-choose-avatar {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
+  @media(max-width: 600px) {
+    height: unset;
+    margin: auto 0;
+  }
 }
 
 app-header-for-usermanagement {

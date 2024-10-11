@@ -1,22 +1,57 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './userManagement/login/login.component';
-import { RegistrationComponent } from './userManagement/registration/registration.component';
-import { MainContentComponent } from './main/main-content/main-content.component';
-import { ChooseAvatarComponent } from './userManagement/choose-avatar/choose-avatar.component';
-import { SendMailComponent } from './userManagement/send-mail/send-mail.component';
-import { ResetPasswordComponent } from './userManagement/reset-password/reset-password.component';
-import { PrivacyComponent } from './privacy/privacy.component';
-import { ImprintComponent } from './imprint/imprint.component';
-
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent},
-  { path: 'dabubble', component: MainContentComponent},
-  { path: 'registration', component: RegistrationComponent },
-  { path: 'avatar', component: ChooseAvatarComponent },
-  { path: 'sendmail', component: SendMailComponent },
-  { path: 'resetpwd/__/auth/action', component: ResetPasswordComponent },
-  { path: 'privacy_policy', component: PrivacyComponent },
-  { path: 'imprint', component: ImprintComponent },
-
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./userManagement/login/login.component').then(
+        (m) => m.LoginComponent
+      ),
+  },
+  {
+    path: 'dabubble',
+    loadComponent: () =>
+      import('./main/main-content/main-content.component').then(
+        (m) => m.MainContentComponent
+      ),
+  },
+  {
+    path: 'registration',
+    loadComponent: () =>
+      import('./userManagement/registration/registration.component').then(
+        (m) => m.RegistrationComponent
+      ),
+  },
+  {
+    path: 'avatar',
+    loadComponent: () =>
+      import('./userManagement/choose-avatar/choose-avatar.component').then(
+        (m) => m.ChooseAvatarComponent
+      ),
+  },
+  {
+    path: 'sendmail',
+    loadComponent: () =>
+      import('./userManagement/send-mail/send-mail.component').then(
+        (m) => m.SendMailComponent
+      ),
+  },
+  {
+    path: 'resetpwd/__/auth/action',
+    loadComponent: () =>
+      import('./userManagement/reset-password/reset-password.component').then(
+        (m) => m.ResetPasswordComponent
+      ),
+  },
+  {
+    path: 'privacy_policy',
+    loadComponent: () =>
+      import('./privacy/privacy.component').then((m) => m.PrivacyComponent),
+  },
+  {
+    path: 'imprint',
+    loadComponent: () =>
+      import('./imprint/imprint.component').then((m) => m.ImprintComponent),
+  }
 ];

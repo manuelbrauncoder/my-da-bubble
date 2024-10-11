@@ -8,6 +8,13 @@
   @include arrowBack;
 }
 
+app-header-for-usermanagement{
+  margin-bottom: auto;
+  @media(max-width: 999px) {
+    margin-bottom: unset;
+  }
+}
+
 .avatar-wrapper {
   display: flex;
   flex-direction: column;
@@ -21,6 +28,10 @@ form {
   max-width: 41rem;
   gap: 2rem;
   padding: 2rem;
+  margin-bottom: auto;
+  @media(max-width: 999px) {
+    margin-bottom: unset;
+  }
 
   >.header-wrapper {
     position: relative;
