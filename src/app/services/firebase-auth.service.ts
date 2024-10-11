@@ -219,6 +219,7 @@ export class FirebaseAuthService {
         this.changeLoginState('online', response.user.uid);
         this.idleService.startWatching();
         this.router.navigate(['/dabubble']);
+        this.showLoginErr = false;
       })
       .catch((error) => {
         this.showLoginErr = true;
