@@ -4,7 +4,21 @@
             <app-emoji-picker (sendEmoji)="addEmojiToInput($event)" [content]="'send-message'"></app-emoji-picker>
         </div>
     }
-    <textarea appAutofocus #textArea (keydown)="onKeyDownEnter($event)" [disabled]="disableInput" type="text" [(ngModel)]="content" [placeholder]="getPlaceholderText()"></textarea>
+    @if (taggedChannels.length > 0 || taggedUsers.length > 0 || allUsers.length > 0) {
+        <div class="search-results">
+            @for (user of taggedUsers; track $index) {
+                <span (click)="setTaggedUser(user)" class="result">&#64;{{ user }}</span>
+            }
+            @for (channel of taggedChannels; track $index) {
+                <span (click)="setTaggedChannel(channel)" class="result">#{{ channel }}</span>
+            }
+            @for (user of allUsers; track $index) {
+                <span (click)="setTaggedUserFromAll(user)" class="result">&#64;{{ user }}</span>
+            }
+        </div>
+        
+    }
+    <textarea appAutofocus #textArea (input)="search()" (keydown)="onKeyDownEnter($event)" [disabled]="disableInput" type="text" [(ngModel)]="content" [placeholder]="getPlaceholderText()"></textarea>
 
     <div class="icons">
         <div class="add-elements">
@@ -23,16 +37,11 @@
                 <img src="assets/icons/channel-chat/addReactionIcon.svg">
             </div>
 
-            @if (isRecipientChannel()) {
                 <div class="popup-wrapper">
-                    <div class="bounding-box" (click)="showTaggableUsers()">
+                    <div class="bounding-box" (click)="toggleTagged()">
                         <img src="assets/icons/channel-chat/tagPersonIcon.svg">
-                    </div>
-                    @if (uiService.showTaggableUsersPopup) {
-                        <app-popup-taggable-users @fadeIn [currentRecipient]="currentRecipient" (userTagged)="displayTaggedUser($event)"></app-popup-taggable-users>
-                    }
+                    </div>    
                 </div>
-            }
             
 
         </div>
@@ -54,7 +63,3 @@
         <img src="assets/icons/channel-chat/sendIcon.svg" [ngStyle]="{ cursor: isBtnDisabled() }" class="send-btn" (click)="saveNewMessage()" [class.disabled]="isBtnDisabled()" [attr.disabled]="isBtnDisabled() ? true : null">
     </div>
 </div>
-
-@if (uiService.showTaggableUsersPopup) {
-    <div @fadeIn class="popup-background" (click)="showTaggableUsers()"></div>
-}

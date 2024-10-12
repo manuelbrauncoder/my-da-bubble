@@ -9,6 +9,26 @@
   }
 }
 
+.search-results {
+  @include dFlex($jc: flex-start, $g: 0.5rem);
+  position: absolute;
+  top: -2.2rem;
+  left: 0;
+  max-width: 400px;
+
+  .result {
+    padding: 4px 8px;
+    border-radius: 100vw;
+    background-color: $color-active-channel;
+    color: $color-purple-1 !important;
+    font-size: 1rem;
+    font-weight: 500;
+    color: black;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+}
+
 .send-message-container {
   position: relative;
   border: solid 0.063rem $color-purple-light;

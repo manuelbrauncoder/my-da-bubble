@@ -142,7 +142,7 @@
                       }">
                     <img class="profile-img" [src]="userService.getCurrentUsersAvatar()" alt="">
                 </div>
-                <span class="user-name">{{ authService.currentUserSig()?.username }} (Du)</span>
+                <span class="user-name">{{ userService.getCurrentUser().username }} (Du)</span>
             </div>
             }
             @for (user of authService.fireService.users; track $index) {

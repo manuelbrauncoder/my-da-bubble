@@ -9,6 +9,7 @@ import {
   ImageCroppedEvent,
 } from 'ngx-image-cropper';
 import { HeaderForUsermanagementComponent } from "../../shared/header-for-usermanagement/header-for-usermanagement.component";
+import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-choose-avatar',
@@ -20,6 +21,7 @@ import { HeaderForUsermanagementComponent } from "../../shared/header-for-userma
 export class ChooseAvatarComponent {
   authService = inject(FirebaseAuthService);
   storageService = inject(FireStorageService);
+  uiService = inject(UiService);
   router = inject(Router);
   selectedAvatar: string = '';
   avatarIsSelected: boolean = false;
@@ -76,6 +78,7 @@ export class ChooseAvatarComponent {
 
               setTimeout(() => {
                 this.router.navigate(['/dabubble']);
+                this.uiService.changeMainContent('newMessage');
               }, 2000);
             },
             error: (err) => {
