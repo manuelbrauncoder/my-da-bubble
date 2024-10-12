@@ -74,6 +74,9 @@ export class SendMessageComponent implements OnInit, OnChanges {
   taggedChannels: string[] = [];
   allUsers: string[] = [];
 
+  /**
+   * show all available users
+   */
   toggleTagged() {
     this.clearTaggedArrays();
     this.allUsers = [
@@ -81,6 +84,9 @@ export class SendMessageComponent implements OnInit, OnChanges {
     ];
   }
 
+  /**
+   * push the username from allUsers to textarea
+   */
   setTaggedUserFromAll(username: string) {
     this.content += `@${username} `;
     this.clearTaggedArrays();
@@ -93,6 +99,10 @@ export class SendMessageComponent implements OnInit, OnChanges {
     this.allUsers = [];
   }
 
+  /**
+   * Replaces the last '@' search term in the content with the selected username,
+   * or appends the username if no search term is found.
+   */
   setTaggedUser(username: string) {
     const searchTerm = this.getTermAfterAt(this.content);
     if (searchTerm) {
@@ -108,6 +118,10 @@ export class SendMessageComponent implements OnInit, OnChanges {
     this.clearTaggedArrays();
   }
 
+  /**
+   * Replaces the last '#' search term in the content with the selected channelname,
+   * or appends the username if no search term is found.
+   */
   setTaggedChannel(channelName: string) {
     const searchTerm = this.getTermAfterHash(this.content);
     if (searchTerm) {
@@ -124,7 +138,7 @@ export class SendMessageComponent implements OnInit, OnChanges {
   }
 
   /**
-   * search for channels or users
+   * search for channels and users
    */
   search() {
     this.clearTaggedArrays();
@@ -155,6 +169,10 @@ export class SendMessageComponent implements OnInit, OnChanges {
     return hashIndex !== -1 ? term.substring(hashIndex + 1).trim() : '';
   }
 
+  /**
+   * Filters users based on the provided search term and adds matching usernames
+   * to the `taggedUsers` array.
+   */
   searchUsers(searchTerm: string) {
     const users: User[] = this.userService.fireService.users.filter((u) =>
       u.username.toLowerCase().trim().includes(searchTerm)
@@ -163,6 +181,10 @@ export class SendMessageComponent implements OnInit, OnChanges {
     this.taggedUsers = [...this.taggedUsers, ...userNames];
   }
 
+  /**
+   * Filters channels based on the provided search term and adds matching channelnames
+   * to the `taggedChannels` array.
+   */
   searchChannels(searchTerm: string) {
     const channels: Channel[] = this.userService.fireService.channels.filter(
       (ch) => ch.name.toLowerCase().trim().includes(searchTerm)
@@ -244,21 +266,6 @@ export class SendMessageComponent implements OnInit, OnChanges {
       return `Nachricht an # ${this.currentRecipient.name}`;
     }
   }
-
-  // /**
-  //  * Toggles the popup for selecting taggable users.
-  //  */
-  // showTaggableUsers() {
-  //   this.uiService.toggleTaggableUsersPopup();
-  // }
-
-  // /**
-  //  * Adds a tagged user's username to the message content.
-  //  * @param {string} username - The username of the tagged user.
-  //  */
-  // displayTaggedUser(username: string) {
-  //   this.content += `@${username} `;
-  // }
 
   /**
    * create of copy of User or Channel
