@@ -14,7 +14,12 @@
   position: absolute;
   top: -2.2rem;
   left: 0;
-  max-width: 400px;
+  max-width: 600px;
+  overflow-x: auto;
+  @media(max-width: 999px) {
+    max-width: 85vw;
+    top: -3.5rem;
+  }
 
   .result {
     padding: 4px 8px;
