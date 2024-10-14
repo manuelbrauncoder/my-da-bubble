@@ -34,10 +34,18 @@ export class LoginComponent implements OnInit {
   }
 
   startAnimation(){
-    setTimeout(() => {
-      this.showContent = true;
-      this.showAnimation = false;
-    }, 2800);
+    if (this.breakpointService.isMobile) {
+      setTimeout(() => {
+        this.showContent = true;
+        this.showAnimation = false;
+      }, 2600);
+    } else {
+      setTimeout(() => {
+        this.showContent = true;
+        this.showAnimation = false;
+      }, 2800);
+    }
+    
   }
 
   onKeyDownEnter(event: KeyboardEvent) {

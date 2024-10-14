@@ -20,8 +20,9 @@
   align-items: center;
   gap: 1rem;
   animation: 1.5s fly-to-corner forwards 2s;
+  
   @media(max-width: 999px) {
-    animation: 1.5s fly-to-top-mobile forwards 2s;
+    animation: unset;
   }
 }
 
@@ -118,8 +119,8 @@
     height: 90px;
   }
   100%{
-    width: 70px;
-    height: 70px;
+    width: 0;
+    height: 0;
   }
 }
 
@@ -137,17 +138,7 @@
     font-size: 2rem;
   }
   100%{
-    font-size: 1.5rem;
-  }
-}
-
-@keyframes turn-title {
-  0% {
-    transform: rotate(0);
-  }
-
-  100% {
-    transform: rotateX(360deg);
+    font-size: 0;
   }
 }
 
@@ -184,8 +175,6 @@
   left: 0;
   right: 0;
 }
-
-
 
 .login-wrapper {
   display: flex;
