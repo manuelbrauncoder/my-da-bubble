@@ -35,5 +35,5 @@
 
 @if (uiService.showUserProfile) {
     <div (click)="togglePopup()" class="popup-background"></div>
-    <app-user-profile [user]="getUserForChild()"></app-user-profile>
+    <app-user-profile @fadeIn [user]="getUserForChild()"></app-user-profile>
 }

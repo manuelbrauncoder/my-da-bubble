@@ -14,10 +14,12 @@ import { CommonModule } from '@angular/common';
 import { DateDividerComponent } from '../single-message/date-divider/date-divider.component';
 import { UiService } from '../../../services/ui.service';
 import { UserProfileComponent } from '../../../popups/user-profile/user-profile.component';
+import { fadeIn } from "../../../shared/animations";
 
 @Component({
   selector: 'app-direct-message',
   standalone: true,
+  animations: [fadeIn],
   imports: [
     SingleMessageComponent,
     SendMessageComponent,

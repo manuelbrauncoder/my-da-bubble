@@ -4,16 +4,13 @@
             <app-emoji-picker (sendEmoji)="addEmojiToInput($event)" [content]="'send-message'"></app-emoji-picker>
         </div>
     }
-    @if (taggedChannels.length > 0 || taggedUsers.length > 0 || allUsers.length > 0) {
+    @if (taggedChannels.length > 0 || taggedUsers.length > 0) {
         <div class="search-results">
             @for (user of taggedUsers; track $index) {
                 <span (click)="setTaggedUser(user)" class="result">&#64;{{ user }}</span>
             }
             @for (channel of taggedChannels; track $index) {
                 <span (click)="setTaggedChannel(channel)" class="result">#{{ channel }}</span>
-            }
-            @for (user of allUsers; track $index) {
-                <span (click)="setTaggedUserFromAll(user)" class="result">&#64;{{ user }}</span>
             }
         </div>
         

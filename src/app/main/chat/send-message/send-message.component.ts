@@ -72,7 +72,6 @@ export class SendMessageComponent implements OnInit, OnChanges {
 
   taggedUsers: string[] = [];
   taggedChannels: string[] = [];
-  allUsers: string[] = [];
 
   /**
    * show all available users
@@ -82,19 +81,10 @@ export class SendMessageComponent implements OnInit, OnChanges {
     this.search();
   }
 
-  /**
-   * push the username from allUsers to textarea
-   */
-  setTaggedUserFromAll(username: string) {
-    this.content += `@${username} `;
-    this.clearTaggedArrays();
-    this.setFocus();
-  }
 
   clearTaggedArrays() {
     this.taggedChannels = [];
     this.taggedUsers = [];
-    this.allUsers = [];
   }
 
   /**
