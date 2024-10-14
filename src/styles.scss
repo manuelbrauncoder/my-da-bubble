@@ -1,6 +1,21 @@
 @use "./fonts.scss" as *;
 @import "./mixins.scss";
 
+$color-online-green: #92c83e;
+$color-away-gray: #686868;
+$color-offline-red: #ed1e79;
+$color-purple-3: #535af1;
+$color-active-channel: #eceefe;
+$color-main-bg: #eceefe;
+$color-purple-1: #444df2;
+$color-purple-2: #797ef3;
+$color-purple-light: #adb0d9;
+$color-disabled-grey: #686868;
+$color-popup-bg: #eceefe80;
+$color-error-red: #ed1e79;
+
+$content-limit: 1920px;
+
 * {
   box-sizing: border-box;
   font-family: "Nunito", sans-serif;
@@ -27,7 +42,7 @@ html {
 
 body {
   background-color: #eceefe;
-  max-width: 1920px;
+  max-width: $content-limit;
   margin: 0 auto;
 }
 
@@ -239,19 +254,6 @@ app-header {
 .d-none {
   display: none;
 }
-
-$color-online-green: #92c83e;
-$color-away-gray: #686868;
-$color-offline-red: #ed1e79;
-$color-purple-3: #535af1;
-$color-active-channel: #eceefe;
-$color-main-bg: #eceefe;
-$color-purple-1: #444df2;
-$color-purple-2: #797ef3;
-$color-purple-light: #adb0d9;
-$color-disabled-grey: #686868;
-$color-popup-bg: #eceefe80;
-$color-error-red: #ed1e79;
 
 .state-icon {
   position: absolute;

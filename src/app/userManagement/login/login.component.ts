@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     setTimeout(() => {
       this.showContent = true;
       this.showAnimation = false;
-    }, 1700);
+    }, 2800);
   }
 
   onKeyDownEnter(event: KeyboardEvent) {
