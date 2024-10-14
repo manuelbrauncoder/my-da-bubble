@@ -78,10 +78,8 @@ export class SendMessageComponent implements OnInit, OnChanges {
    * show all available users
    */
   toggleTagged() {
-    this.clearTaggedArrays();
-    this.allUsers = [
-      ...this.userService.fireService.users.map((u) => `${u.username}`),
-    ];
+    this.content += '@';
+    this.search();
   }
 
   /**

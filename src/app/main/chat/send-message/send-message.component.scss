@@ -31,6 +31,11 @@
     color: black;
     white-space: nowrap;
     cursor: pointer;
+    transition: 125ms ease-in;
+    &:hover {
+      font-weight: 700;
+      transition: 125ms ease-in;
+    }
   }
 }
 

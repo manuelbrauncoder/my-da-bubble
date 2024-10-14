@@ -44,6 +44,10 @@ export class EditProfileComponent implements OnInit {
     email: '',
   };
 
+  doesProfileDataChanged(){
+    return this.editProfileData.name !== this.userService.getCurrentUser().username && this.editProfileData.email !== this.userService.getCurrentUser().email;
+  }
+
   fileChangeEvent(event: Event): void {
     this.imageChangedEvent = event;
     this.showCropper = true;
@@ -91,8 +95,6 @@ export class EditProfileComponent implements OnInit {
       this.uiService.showViewProfilePopup = false;
     }
 }
-
-  
 
   closeProfilePopup() {
     setTimeout(() => {
@@ -175,7 +177,6 @@ export class EditProfileComponent implements OnInit {
       console.error("Error in saveNewName:", err);
     }
   }
-
 
   /**
    * Closes the edit profile view and the view profile view.
