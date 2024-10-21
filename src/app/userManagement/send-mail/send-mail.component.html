@@ -2,7 +2,7 @@
 <div class="send-mail-wrapper">
   <app-header-for-usermanagement></app-header-for-usermanagement>
 <form #mailForm="ngForm">
-  <img onclick="history.back(); return false;" src="assets/icons/login/arrow_back_black.png" alt="arrow">
+  <img (click)="goBack()" src="assets/icons/login/arrow_back_black.png" alt="arrow">
   <div class="header-wrapper">
     <h2>Passwort zurücksetzen</h2>
   </div>

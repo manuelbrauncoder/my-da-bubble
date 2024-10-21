@@ -17,6 +17,8 @@ export class UiService {
   currentDataPath = '';
   currentUidForProfilePopup = '';
 
+  startAnimationPlayed = false;
+
   showWorkspaceMenu = true; // workspace menu in main-content
   showDirectMessages = true; // user list in workspace menu
   showChannels = true; // channel list in workspace menu

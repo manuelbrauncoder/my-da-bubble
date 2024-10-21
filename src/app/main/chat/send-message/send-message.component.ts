@@ -79,6 +79,7 @@ export class SendMessageComponent implements OnInit, OnChanges {
   toggleTagged() {
     this.content += '@';
     this.search();
+    this.setFocus()
   }
 
 

@@ -5,7 +5,7 @@
   <main>
     <form #regForm="ngForm">
       <div class="header-wrapper">
-        <img onclick="history.back(); return false;" src="assets/icons/login/arrow_back_black.png" alt="arrow">
+        <img (click)="goBack()" src="assets/icons/login/arrow_back_black.png" alt="arrow">
         <h2>Konto erstellen</h2>
       </div>
       <p>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</p>

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FirebaseAuthService } from '../../services/firebase-auth.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Auth, confirmPasswordReset } from '@angular/fire/auth';
@@ -17,6 +17,7 @@ export class ResetPasswordComponent {
   private auth = inject(Auth);
   router = inject(Router);
   route = inject(ActivatedRoute);
+  private location = inject(Location);
 
   firstPassword = '';
   secondPassword = '';
@@ -26,6 +27,10 @@ export class ResetPasswordComponent {
 
   constructor(){
     this.oobCode = this.route.snapshot.queryParamMap.get('oobCode') || '';
+  }
+
+  goBack(){
+    this.location.back();
   }
   
 

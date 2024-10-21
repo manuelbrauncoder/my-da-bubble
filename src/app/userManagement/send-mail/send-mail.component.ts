@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Auth, sendPasswordResetEmail } from '@angular/fire/auth';
@@ -14,11 +14,16 @@ import { HeaderForUsermanagementComponent } from "../../shared/header-for-userma
 })
 export class SendMailComponent {
   private auth = inject(Auth);
+  private location = inject(Location);
   email: string = '';
   confirmPopup = false;
 
   sendMail() {
     this.sendPasswordResetMail(this.email);
+  }
+
+  goBack(){
+    this.location.back();
   }
 
   sendPasswordResetMail(email: string): Observable<void> {

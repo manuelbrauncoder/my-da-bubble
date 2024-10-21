@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FirebaseAuthService } from '../../services/firebase-auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +8,7 @@ import { FooterComponent } from '../../shared/footer/footer.component';
 import { fadeInLogin } from "../../shared/animations";
 import { BreakpointObserverService } from '../../services/breakpoint-observer.service';
 import { MobileFooterComponent } from "../../shared/mobile-footer/mobile-footer.component";
+import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ import { MobileFooterComponent } from "../../shared/mobile-footer/mobile-footer.
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+  uiService = inject(UiService);
   authService = inject(FirebaseAuthService);
   breakpointService = inject(BreakpointObserverService);
   router = inject(Router);
@@ -29,8 +31,14 @@ export class LoginComponent implements OnInit {
     password: '',
   };
 
-  ngOnInit(): void {
-    this.startAnimation();
+  constructor(){
+    if (this.uiService.startAnimationPlayed) {
+      this.showAnimation = false;
+      this.showContent = true;
+    } else {
+      this.startAnimation();
+      this.uiService.startAnimationPlayed = true;
+    }
   }
 
   startAnimation(){

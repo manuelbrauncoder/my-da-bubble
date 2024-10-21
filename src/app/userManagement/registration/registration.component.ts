@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FirebaseAuthService } from '../../services/firebase-auth.service';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FirestoreService } from '../../services/firestore.service';
 import { FooterComponent } from '../../shared/footer/footer.component';
@@ -18,6 +18,7 @@ export class RegistrationComponent {
   authService = inject(FirebaseAuthService);
   firestoreService = inject(FirestoreService);
   router = inject(Router);
+  private location = inject(Location);
 
   emailInUse = false;
 
@@ -26,6 +27,10 @@ export class RegistrationComponent {
       event.preventDefault();
       this.confirm();
     }
+  }
+
+  goBack(){
+    this.location.back();
   }
 
   regData = {
