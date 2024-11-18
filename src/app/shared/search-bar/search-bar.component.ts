@@ -72,6 +72,11 @@ export class SearchBarComponent {
     }
   }
 
+  /**
+   * open the conversation/thread where the message is stored
+   * @param secondUid the id for the conversation partner
+   * @param messageId 
+   */
   async redirectToThreadInConversation(secondUid: string, messageId: string) {
     await this.conversationService.openConversation(secondUid);
     this.fireService.currentConversation.messages.forEach(message => {
@@ -88,6 +93,11 @@ export class SearchBarComponent {
     })
   }
 
+  /**
+   * open the channel where the message is stored
+   * @param channel where the message is stored
+   * @param messageId 
+   */
   async redirectToThreadInChannel(channel: Channel, messageId: string) {
     this.channelService.toggleActiveChannel(channel, false);
     this.fireService.currentChannel.messages.forEach(message => {
@@ -104,6 +114,13 @@ export class SearchBarComponent {
     });
   }
 
+  /**
+   * scroll to selected message,
+   * highlight the message and
+   * reset the search arrays
+   * @param messageId 
+   * @param scrollContainer the scrollable container
+   */
   scrollToMessage(messageId: string, scrollContainer: string) {
     setTimeout(() => {
       const offset = 200;
@@ -120,6 +137,10 @@ export class SearchBarComponent {
     }, 300);
   }
 
+  /**
+   * highlight messsage for 2 seconds
+   * @param messageId 
+   */
   highlightMessage(messageId: string){
     const message = document.getElementById(messageId);
     if (message) {
@@ -132,7 +153,7 @@ export class SearchBarComponent {
 
   redirectToMessage(message: Message) {
     this.isMessageInChannel(message);  // search message in channel
-    this.isMessageInConversation(message);   // search message in conersation
+    this.isMessageInConversation(message);   // search message in conversation
   }
 
   /**
@@ -194,7 +215,6 @@ export class SearchBarComponent {
     }
   }
 
-  // for search function
 
   search() {
     const searchTerm = this.searchInput.toLowerCase();
