@@ -33,7 +33,6 @@ export class ResetPasswordComponent {
     this.location.back();
   }
   
-
   isFormValid(): boolean {
     return this.firstPassword.length >= 6 && this.secondPassword.length >= 6 && this.firstPassword === this.secondPassword;
   }

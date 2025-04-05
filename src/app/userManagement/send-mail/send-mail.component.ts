@@ -15,8 +15,9 @@ import { HeaderForUsermanagementComponent } from "../../shared/header-for-userma
 export class SendMailComponent {
   private auth = inject(Auth);
   private location = inject(Location);
-  email: string = '';
+  email = '';
   confirmPopup = false;
+  errorMessage = '';
 
   sendMail() {
     this.sendPasswordResetMail(this.email);
@@ -35,8 +36,7 @@ export class SendMailComponent {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.error('Error Code:', errorCode);
-        console.error('Error Message:', errorMessage);
+        this.handleError(errorCode);
       });
       return from(promise);
   }
@@ -45,5 +45,11 @@ export class SendMailComponent {
     setTimeout(() => {
       this.confirmPopup = false;
     }, 3000);
+  }
+
+  handleError(errorCode: String) {
+    if (errorCode === 'auth/user-not-found') {
+        this.errorMessage = 'Email-Adresse nicht gefunden.'
+    }
   }
 }

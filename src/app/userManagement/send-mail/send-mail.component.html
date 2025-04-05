@@ -13,6 +13,7 @@
       <img src="assets/icons/login/mail_grey.png" alt="mail">
       <input #mail="ngModel" type="email" placeholder="beispielname@email.com" [(ngModel)]="email" name="email" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" required>
       <span *ngIf="mail.invalid && (mail.dirty || mail.touched)">*Diese E-Mail-Adresse ist leider ungültig.</span>
+      <span *ngIf="errorMessage.length !== 0">*{{ errorMessage }}</span>
     </div>
   </div>
   <span>Wir senden Ihnen eine E-Mail, über die 

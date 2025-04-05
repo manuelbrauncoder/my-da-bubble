@@ -6,7 +6,6 @@ import {
   OnInit,
 } from '@angular/core';
 import {
-  ActivatedRoute,
   NavigationEnd,
   Router,
   RouterModule,
@@ -16,11 +15,7 @@ import { FirebaseAuthService } from './services/firebase-auth.service';
 import { HeaderComponent } from './shared/header/header.component';
 import { FirestoreService } from './services/firestore.service';
 import { UserService } from './services/user.service';
-import { WorkspaceMenuComponent } from './main/workspace-menu/workspace-menu.component';
-import { LoginComponent } from './userManagement/login/login.component';
-import { FooterComponent } from './shared/footer/footer.component';
 import { CommonModule } from '@angular/common';
-import { HeaderForUsermanagementComponent } from './shared/header-for-usermanagement/header-for-usermanagement.component';
 import { UiService } from './services/ui.service';
 import { BreakpointObserverService } from './services/breakpoint-observer.service';
 import { MobilePopupComponent } from './shared/mobile-popup/mobile-popup.component';
@@ -38,11 +33,7 @@ import { MobileLandscapeComponent } from "./shared/mobile-landscape/mobile-lands
     RouterModule,
     RouterOutlet,
     HeaderComponent,
-    WorkspaceMenuComponent,
-    LoginComponent,
-    FooterComponent,
     CommonModule,
-    HeaderForUsermanagementComponent,
     MobilePopupComponent,
     AwayPopupComponent,
     MobileLandscapeComponent
@@ -185,6 +176,7 @@ export class AppComponent implements OnInit, OnDestroy {
       );
     }
   }
+
   logUserOut() {
     if (this.router.url === '/dabubble') {
       this.showAwayPopup = false;
