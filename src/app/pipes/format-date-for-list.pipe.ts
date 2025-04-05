@@ -1,3 +1,10 @@
+/**
+ * FormatDateForListPipe
+ * 
+ * Returns 'Heute' or the Date
+ * 
+ */
+
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({

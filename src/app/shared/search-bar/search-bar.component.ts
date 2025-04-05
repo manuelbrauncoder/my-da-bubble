@@ -56,6 +56,11 @@ export class SearchBarComponent {
     this.filteredMessages = [];
   }
 
+  /**
+   * Redirects to the channel and highlight the message
+   * @param channel 
+   * @param messageId 
+   */
   redirectToChannel(channel: Channel, messageId?: string) {
     this.channelService.toggleActiveChannel(channel, true);
     this.resetSearch();
@@ -64,6 +69,11 @@ export class SearchBarComponent {
     }
   }
 
+  /**
+   * Redirect to conversation and highlights the message
+   * @param secondUserUid 
+   * @param messageId 
+   */
   redirectToConversation(secondUserUid: string, messageId?: string) {
     this.conversationService.openConversation(secondUserUid);
     this.resetSearch();
@@ -202,14 +212,12 @@ export class SearchBarComponent {
   searchMessageInChannel(message: Message, messageIdToFind: string, channel: Channel) {
     if (message.id === messageIdToFind) { // wenn die message in messages gefunden wurde
       this.redirectToChannel(channel, `channel-${messageIdToFind}`);
-      console.log('Message is in Channel');
       return; // funktion abbrechen wenn message gefunden wurde
     }
     if (message.thread) {  // message im thread suchen
       const matchingThreadMessages = message.thread.messages.filter(tm => tm.id === messageIdToFind); // sucht die thread messages nach der message ab
       if (matchingThreadMessages.length > 0) {
         this.redirectToThreadInChannel(channel, messageIdToFind);
-        console.log('Message in thread');
         return;
       }
     }
@@ -228,6 +236,11 @@ export class SearchBarComponent {
     }
   }
 
+  /**
+   * Search for messages in channels and conversations
+   * push matching messages in filteredMessages array
+   * @param searchTerm 
+   */
   searchMessages(searchTerm: string) {
     this.fireService.channels.forEach(channel => {
       channel.messages.forEach(message => {
@@ -245,7 +258,7 @@ export class SearchBarComponent {
     });
   }
 
-  isMessageMatching(message: Message, searchTerm: string) {
+  isMessageMatching(message: Message, searchTerm: string): boolean {
     if (message.content.toLowerCase().includes(searchTerm)) {
       return true;
     }

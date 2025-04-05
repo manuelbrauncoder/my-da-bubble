@@ -52,7 +52,6 @@ export class FireStorageService {
     deleteObject(fileRef)
       .then(() => {
         this.deleteFileInFirestore(`${fileName}`);
-        console.log('deleted');
       })
       .catch((err) => {
         console.log('Error deleting file:', err, fileName);

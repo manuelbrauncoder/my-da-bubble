@@ -9,7 +9,7 @@ import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user.class';
 import { CommonModule } from '@angular/common';
 import { BreakpointObserverService } from '../../../services/breakpoint-observer.service';
-import { AutofocusDirective } from '../../../shared/directives/autofocus.directive';
+import { AutofocusDirective } from '../../../directives/autofocus.directive';
 
 @Component({
   selector: 'app-new-message',

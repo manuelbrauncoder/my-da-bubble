@@ -16,8 +16,8 @@ import { fadeIn } from '../../../shared/animations';
 import { FireStorageService } from '../../../services/fire-storage.service';
 import { EmojiPickerComponent } from '../../../shared/emoji-picker/emoji-picker.component';
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
-import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
-import { AutofocusDirective } from '../../../shared/directives/autofocus.directive';
+import { ClickOutsideDirective } from '../../../directives/click-outside.directive';
+import { AutofocusDirective } from '../../../directives/autofocus.directive';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { UserProfileComponent } from '../../../popups/user-profile/user-profile.component';
 
@@ -453,8 +453,6 @@ export class SingleMessageComponent implements OnInit {
     } else if (this.uiService.mainContent === 'channelChat') {
       this.setCurrentThreadForChannel();
       this.fireService.currentMessage = new Message(this.currentMessage);
-    } else {
-      console.log('no option choosed');
     }
   }
 
@@ -475,11 +473,9 @@ export class SingleMessageComponent implements OnInit {
   async setCurrentThreadForChannel() {
     if (this.currentMessage.thread) {
       if (this.currentMessage.thread.messages.length > 0) {
-        console.log('Thread gefunden');
         this.fireService.currentThread = new Thread(this.currentMessage.thread);
         this.fireService.getMessagesPerDayForThread();
       } else {
-        console.log('Keinen Thread gefunden, erstelle neuen');
         this.fireService.currentThread = this.createThread();
         this.currentMessage.thread = this.fireService.currentThread;
         await this.saveUpdatedChannel();
@@ -497,11 +493,9 @@ export class SingleMessageComponent implements OnInit {
   async setCurrentThreadForDm() {
     if (this.currentMessage.thread) {
       if (this.currentMessage.thread.messages.length > 0) {
-        console.log('Thread gefunden');
         this.fireService.currentThread = new Thread(this.currentMessage.thread);
         this.fireService.getMessagesPerDayForThread();
       } else {
-        console.log('Keinen Thread gefunden, erstelle neuen');
         this.fireService.currentThread = this.createThread();
         this.currentMessage.thread = this.fireService.currentThread;
         await this.saveUpdatedConversation();

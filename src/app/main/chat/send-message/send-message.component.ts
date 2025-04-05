@@ -23,8 +23,8 @@ import { ThreadService } from '../../../services/thread.service';
 import { fadeIn } from '../../../shared/animations';
 import { FireStorageService } from '../../../services/fire-storage.service';
 import { EmojiPickerComponent } from '../../../shared/emoji-picker/emoji-picker.component';
-import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
-import { AutofocusDirective } from '../../../shared/directives/autofocus.directive';
+import { ClickOutsideDirective } from '../../../directives/click-outside.directive';
+import { AutofocusDirective } from '../../../directives/autofocus.directive';
 import { User } from '../../../models/user.class';
 
 @Component({
@@ -81,7 +81,6 @@ export class SendMessageComponent implements OnInit, OnChanges {
     this.search();
     this.setFocus()
   }
-
 
   clearTaggedArrays() {
     this.taggedChannels = [];
@@ -292,7 +291,6 @@ export class SendMessageComponent implements OnInit, OnChanges {
    * @param {Message} message - The message to be added to the thread.
    */
   createThreadInChannelMessage(message: Message) {
-    console.log('thread channel message!');
     this.userService.fireService.currentThread.messages.push(message);
     const messageIndex = this.findChannelMessageToUpdate();
     this.userService.fireService.currentChannel.messages[messageIndex].thread =

@@ -87,10 +87,13 @@ export class ChannelChatComponent implements AfterViewChecked {
     }
   }
 
+  /**
+   * Sends a Channel join request
+   */
   async sendJoinRequest() {
     const requestRecipient = this.setRecipient();
     if (requestRecipient === '') {
-      console.log('no members in this channel');
+      // no members in channel
     } else {
       const userUid = this.userService.getCurrentUser().uid;
       let conversation = this.conversationService.findConversation(userUid, requestRecipient);

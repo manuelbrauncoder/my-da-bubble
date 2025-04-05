@@ -1,5 +1,5 @@
 import { AfterViewInit, Directive, ElementRef, inject } from '@angular/core';
-import { BreakpointObserverService } from '../../services/breakpoint-observer.service';
+import { BreakpointObserverService } from '../services/breakpoint-observer.service';
 
 @Directive({
   selector: '[appAutofocus]',

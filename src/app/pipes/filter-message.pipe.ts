@@ -1,3 +1,9 @@
+/**
+ * FilterMessagePipe
+ * 
+ * This pipe filters the messages and returns only those for which the current user has permission
+ */
+
 import { inject, Pipe, PipeTransform } from '@angular/core';
 import { Message } from '../models/message.class';
 import { FirestoreService } from '../services/firestore.service';
@@ -33,7 +39,12 @@ export class FilterMessagePipe implements PipeTransform {
     })
   }
 
-  isUserInConversation(message: Message) {
+  /**
+   * Checks if the user is part of the conversation
+   * @param message 
+   * @returns 
+   */
+  isUserInConversation(message: Message): boolean {
     for (const conversation of this.fireService.conversations) {
       if (conversation.messages.some(m => m.id === message.id)) {
         if (conversation.participants.first === this.userService.getCurrentUser().uid || conversation.participants.second === this.userService.getCurrentUser().uid) {
@@ -44,7 +55,12 @@ export class FilterMessagePipe implements PipeTransform {
     return false;
   }
 
-  isUserInChannelMessage(message: Message) {
+  /**
+   * check if the user is member in the channel
+   * @param message 
+   * @returns 
+   */
+  isUserInChannelMessage(message: Message): boolean {
     for (const channel of this.fireService.channels) {
       if (channel.messages.some(m => m.id === message.id)) {
         if (this.channelService.isUserInChannel(this.userService.getCurrentUser(), channel)) {

@@ -90,7 +90,6 @@ export class FirebaseAuthService {
       })
       .catch((error) => {
         this.handleGoogleErr(error.code);
-        console.log(error.code);
       });
     return from(promise);
   }
@@ -293,7 +292,6 @@ export class FirebaseAuthService {
     if (currentUser) {
       deleteUser(currentUser)
         .then(() => {
-          console.log('User deleted', currentUser);
           this.deleteUserInFirestore(currentUser.uid);
         })
         .catch((err) => {

@@ -1,3 +1,11 @@
+/**
+ * TruncateStringPipe
+ *
+ * Truncates a string to a specified length. If the string exceeds the limit,
+ * it is shortened to the limit and an ellipsis (default: '...') is appended.
+ */
+
+
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
