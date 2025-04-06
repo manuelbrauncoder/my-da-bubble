@@ -22,22 +22,21 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { UserProfileComponent } from '../../../popups/user-profile/user-profile.component';
 
 @Component({
-  selector: 'app-single-message',
-  standalone: true,
-  animations: [fadeIn],
-  imports: [
-    CommonModule,
-    ReactionBarComponent,
-    FormsModule,
-    DataDetailViewComponent,
-    EmojiPickerComponent,
-    EmojiComponent,
-    ClickOutsideDirective,
-    AutofocusDirective,
-    UserProfileComponent,
-  ],
-  templateUrl: './single-message.component.html',
-  styleUrl: './single-message.component.scss',
+    selector: 'app-single-message',
+    animations: [fadeIn],
+    imports: [
+        CommonModule,
+        ReactionBarComponent,
+        FormsModule,
+        DataDetailViewComponent,
+        EmojiPickerComponent,
+        EmojiComponent,
+        ClickOutsideDirective,
+        AutofocusDirective,
+        UserProfileComponent,
+    ],
+    templateUrl: './single-message.component.html',
+    styleUrl: './single-message.component.scss'
 })
 export class SingleMessageComponent implements OnInit {
   uiService = inject(UiService);

@@ -9,11 +9,10 @@ import { UserService } from '../../services/user.service';
 
 
 @Component({
-  selector: 'app-verify-password',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './verify-password.component.html',
-  styleUrl: './verify-password.component.scss'
+    selector: 'app-verify-password',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './verify-password.component.html',
+    styleUrl: './verify-password.component.scss'
 })
 export class VerifyPasswordComponent implements OnInit{
   uiService = inject(UiService);

@@ -16,11 +16,10 @@ import { UiService } from '../../services/ui.service';
 import { Thread } from '../../models/thread.class';
 
 @Component({
-  selector: 'app-search-bar',
-  standalone: true,
-  imports: [CommonModule, FormsModule, FilterMessagePipe, TruncateStringPipe],
-  templateUrl: './search-bar.component.html',
-  styleUrl: './search-bar.component.scss'
+    selector: 'app-search-bar',
+    imports: [CommonModule, FormsModule, FilterMessagePipe, TruncateStringPipe],
+    templateUrl: './search-bar.component.html',
+    styleUrl: './search-bar.component.scss'
 })
 export class SearchBarComponent {
   @Input() showInWorkspaceMenu = false;

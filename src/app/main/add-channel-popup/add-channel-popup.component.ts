@@ -8,11 +8,10 @@ import { AddChannelPopup2Component } from "../add-channel-popup-2/add-channel-po
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-add-channel-popup',
-  standalone: true,
-  imports: [FormsModule, AddChannelPopup2Component],
-  templateUrl: './add-channel-popup.component.html',
-  styleUrl: './add-channel-popup.component.scss'
+    selector: 'app-add-channel-popup',
+    imports: [FormsModule, AddChannelPopup2Component],
+    templateUrl: './add-channel-popup.component.html',
+    styleUrl: './add-channel-popup.component.scss'
 })
 export class AddChannelPopupComponent {
   uiService = inject(UiService);

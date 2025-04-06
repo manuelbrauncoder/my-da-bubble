@@ -4,11 +4,10 @@ import { FireStorageService } from '../../../../services/fire-storage.service';
 import { FirestoreService } from '../../../../services/firestore.service';
 
 @Component({
-  selector: 'app-data-detail-view',
-  standalone: true,
-  imports: [],
-  templateUrl: './data-detail-view.component.html',
-  styleUrl: './data-detail-view.component.scss',
+    selector: 'app-data-detail-view',
+    imports: [],
+    templateUrl: './data-detail-view.component.html',
+    styleUrl: './data-detail-view.component.scss'
 })
 export class DataDetailViewComponent {
   uiService = inject(UiService);

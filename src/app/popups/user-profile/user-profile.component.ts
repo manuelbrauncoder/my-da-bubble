@@ -5,11 +5,10 @@ import { ConversationService } from '../../services/conversation.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-user-profile',
-  standalone: true,
-  imports: [],
-  templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.scss'
+    selector: 'app-user-profile',
+    imports: [],
+    templateUrl: './user-profile.component.html',
+    styleUrl: './user-profile.component.scss'
 })
 export class UserProfileComponent implements OnInit {
   @Input() user: User | null = null

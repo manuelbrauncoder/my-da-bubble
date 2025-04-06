@@ -11,12 +11,11 @@ import { MobileFooterComponent } from "../../shared/mobile-footer/mobile-footer.
 import { UiService } from '../../services/ui.service';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  animations: [fadeInLogin],
-  imports: [CommonModule, FormsModule, RouterModule, HeaderForUsermanagementComponent, FooterComponent, MobileFooterComponent],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+    selector: 'app-login',
+    animations: [fadeInLogin],
+    imports: [CommonModule, FormsModule, RouterModule, HeaderForUsermanagementComponent, FooterComponent, MobileFooterComponent],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   uiService = inject(UiService);

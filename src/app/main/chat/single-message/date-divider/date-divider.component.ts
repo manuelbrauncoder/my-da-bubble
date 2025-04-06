@@ -4,11 +4,10 @@ import { FormatDateForListPipe } from '../../../../pipes/format-date-for-list.pi
 import { FirestoreService } from '../../../../services/firestore.service';
 
 @Component({
-  selector: 'app-date-divider',
-  standalone: true,
-  imports: [FormatDateForListPipe],
-  templateUrl: './date-divider.component.html',
-  styleUrl: './date-divider.component.scss'
+    selector: 'app-date-divider',
+    imports: [FormatDateForListPipe],
+    templateUrl: './date-divider.component.html',
+    styleUrl: './date-divider.component.scss'
 })
 export class DateDividerComponent {
   fireService = inject(FirestoreService);

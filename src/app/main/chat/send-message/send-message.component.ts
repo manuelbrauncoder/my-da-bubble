@@ -28,18 +28,17 @@ import { AutofocusDirective } from '../../../directives/autofocus.directive';
 import { User } from '../../../models/user.class';
 
 @Component({
-  selector: 'app-send-message',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    EmojiPickerComponent,
-    ClickOutsideDirective,
-    AutofocusDirective,
-  ],
-  animations: [fadeIn],
-  templateUrl: './send-message.component.html',
-  styleUrl: './send-message.component.scss',
+    selector: 'app-send-message',
+    imports: [
+        CommonModule,
+        FormsModule,
+        EmojiPickerComponent,
+        ClickOutsideDirective,
+        AutofocusDirective,
+    ],
+    animations: [fadeIn],
+    templateUrl: './send-message.component.html',
+    styleUrl: './send-message.component.scss'
 })
 export class SendMessageComponent implements OnInit, OnChanges {
   authService = inject(FirebaseAuthService);

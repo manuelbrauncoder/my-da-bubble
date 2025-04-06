@@ -10,12 +10,11 @@ import { slideFromBottom } from '../../shared/animations';
 
 
 @Component({
-  selector: 'app-edit-user-and-logout-popup',
-  standalone: true,
-  imports: [CommonModule, ViewProfileComponent, EditProfileComponent, VerifyPasswordComponent, ProfileChangeConfirmationComponent],
-  animations: [slideFromBottom],
-  templateUrl: './edit-user-and-logout-popup.component.html',
-  styleUrl: './edit-user-and-logout-popup.component.scss'
+    selector: 'app-edit-user-and-logout-popup',
+    imports: [CommonModule, ViewProfileComponent, EditProfileComponent, VerifyPasswordComponent, ProfileChangeConfirmationComponent],
+    animations: [slideFromBottom],
+    templateUrl: './edit-user-and-logout-popup.component.html',
+    styleUrl: './edit-user-and-logout-popup.component.scss'
 })
 export class EditUserAndLogoutPopupComponent {
   uiService = inject(UiService);

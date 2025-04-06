@@ -12,11 +12,10 @@ import { BreakpointObserverService } from '../../../services/breakpoint-observer
 import { AutofocusDirective } from '../../../directives/autofocus.directive';
 
 @Component({
-  selector: 'app-new-message',
-  standalone: true,
-  imports: [SendMessageComponent, FormsModule, CommonModule, AutofocusDirective],
-  templateUrl: './new-message.component.html',
-  styleUrl: './new-message.component.scss'
+    selector: 'app-new-message',
+    imports: [SendMessageComponent, FormsModule, CommonModule, AutofocusDirective],
+    templateUrl: './new-message.component.html',
+    styleUrl: './new-message.component.scss'
 })
 export class NewMessageComponent {
   fireService = inject(FirestoreService);

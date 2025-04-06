@@ -7,11 +7,10 @@ import { Auth, confirmPasswordReset } from '@angular/fire/auth';
 import { HeaderForUsermanagementComponent } from "../../shared/header-for-usermanagement/header-for-usermanagement.component";
 
 @Component({
-  selector: 'app-reset-password',
-  standalone: true,
-  imports: [CommonModule, FormsModule, HeaderForUsermanagementComponent],
-  templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.scss'
+    selector: 'app-reset-password',
+    imports: [CommonModule, FormsModule, HeaderForUsermanagementComponent],
+    templateUrl: './reset-password.component.html',
+    styleUrl: './reset-password.component.scss'
 })
 export class ResetPasswordComponent {
   private auth = inject(Auth);

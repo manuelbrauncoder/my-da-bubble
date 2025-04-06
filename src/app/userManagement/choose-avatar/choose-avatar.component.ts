@@ -12,11 +12,10 @@ import { HeaderForUsermanagementComponent } from "../../shared/header-for-userma
 import { UiService } from '../../services/ui.service';
 
 @Component({
-  selector: 'app-choose-avatar',
-  standalone: true,
-  imports: [CommonModule, FormsModule, ImageCropperComponent, HeaderForUsermanagementComponent],
-  templateUrl: './choose-avatar.component.html',
-  styleUrl: './choose-avatar.component.scss',
+    selector: 'app-choose-avatar',
+    imports: [CommonModule, FormsModule, ImageCropperComponent, HeaderForUsermanagementComponent],
+    templateUrl: './choose-avatar.component.html',
+    styleUrl: './choose-avatar.component.scss'
 })
 export class ChooseAvatarComponent {
   authService = inject(FirebaseAuthService);

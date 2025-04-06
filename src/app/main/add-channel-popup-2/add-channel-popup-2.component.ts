@@ -7,11 +7,10 @@ import { ChannelService } from '../../services/channel.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-add-channel-popup-2',
-  standalone: true,
-  imports: [FormsModule, CommonModule],
-  templateUrl: './add-channel-popup-2.component.html',
-  styleUrl: './add-channel-popup-2.component.scss'
+    selector: 'app-add-channel-popup-2',
+    imports: [FormsModule, CommonModule],
+    templateUrl: './add-channel-popup-2.component.html',
+    styleUrl: './add-channel-popup-2.component.scss'
 })
 export class AddChannelPopup2Component implements OnInit {
   @Input() currentChannel = new Channel();

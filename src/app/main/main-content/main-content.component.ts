@@ -9,18 +9,17 @@ import { fadeIn, toggleWorkspace, toggleThread } from '../../shared/animations';
 import { BreakpointObserverService } from '../../services/breakpoint-observer.service';
 
 @Component({
-  selector: 'app-main-content',
-  animations: [fadeIn, toggleWorkspace, toggleThread],
-  standalone: true,
-  imports: [
-    WorkspaceMenuComponent,
-    WorkspaceMenuButtonComponent,
-    ChatComponent,
-    ThreadComponent,
-    AddChannelPopupComponent,
-  ],
-  templateUrl: './main-content.component.html',
-  styleUrl: './main-content.component.scss',
+    selector: 'app-main-content',
+    animations: [fadeIn, toggleWorkspace, toggleThread],
+    imports: [
+        WorkspaceMenuComponent,
+        WorkspaceMenuButtonComponent,
+        ChatComponent,
+        ThreadComponent,
+        AddChannelPopupComponent,
+    ],
+    templateUrl: './main-content.component.html',
+    styleUrl: './main-content.component.scss'
 })
 export class MainContentComponent implements OnInit {
   uiService = inject(UiService);

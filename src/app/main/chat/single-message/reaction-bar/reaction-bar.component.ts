@@ -6,11 +6,10 @@ import { UiService } from '../../../../services/ui.service';
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 @Component({
-  selector: 'app-reaction-bar',
-  standalone: true,
-  imports: [EmojiComponent],
-  templateUrl: './reaction-bar.component.html',
-  styleUrl: './reaction-bar.component.scss'
+    selector: 'app-reaction-bar',
+    imports: [EmojiComponent],
+    templateUrl: './reaction-bar.component.html',
+    styleUrl: './reaction-bar.component.scss'
 })
 export class ReactionBarComponent implements OnInit {
   threadService = inject(ThreadService);

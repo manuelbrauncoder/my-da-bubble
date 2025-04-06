@@ -17,19 +17,18 @@ import { UserProfileComponent } from '../../../popups/user-profile/user-profile.
 import { fadeIn } from "../../../shared/animations";
 
 @Component({
-  selector: 'app-direct-message',
-  standalone: true,
-  animations: [fadeIn],
-  imports: [
-    SingleMessageComponent,
-    SendMessageComponent,
-    FormatDateForListPipe,
-    CommonModule,
-    DateDividerComponent,
-    UserProfileComponent,
-  ],
-  templateUrl: './direct-message.component.html',
-  styleUrl: './direct-message.component.scss',
+    selector: 'app-direct-message',
+    animations: [fadeIn],
+    imports: [
+        SingleMessageComponent,
+        SendMessageComponent,
+        FormatDateForListPipe,
+        CommonModule,
+        DateDividerComponent,
+        UserProfileComponent,
+    ],
+    templateUrl: './direct-message.component.html',
+    styleUrl: './direct-message.component.scss'
 })
 export class DirectMessageComponent implements AfterViewChecked {
   conversationService = inject(ConversationService);

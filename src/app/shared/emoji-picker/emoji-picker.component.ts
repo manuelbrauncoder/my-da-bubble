@@ -4,11 +4,10 @@ import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { Message } from '../../models/message.class';
 
 @Component({
-  selector: 'app-emoji-picker',
-  standalone: true,
-  imports: [PickerComponent, PickerModule, EmojiComponent],
-  templateUrl: './emoji-picker.component.html',
-  styleUrl: './emoji-picker.component.scss'
+    selector: 'app-emoji-picker',
+    imports: [PickerComponent, PickerModule, EmojiComponent],
+    templateUrl: './emoji-picker.component.html',
+    styleUrl: './emoji-picker.component.scss'
 })
 export class EmojiPickerComponent {
 

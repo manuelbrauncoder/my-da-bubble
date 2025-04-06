@@ -8,11 +8,10 @@ import { FooterComponent } from '../../shared/footer/footer.component';
 import { HeaderForUsermanagementComponent } from "../../shared/header-for-usermanagement/header-for-usermanagement.component";
 
 @Component({
-  selector: 'app-registration',
-  standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, FooterComponent, HeaderForUsermanagementComponent],
-  templateUrl: './registration.component.html',
-  styleUrl: './registration.component.scss',
+    selector: 'app-registration',
+    imports: [CommonModule, FormsModule, RouterModule, FooterComponent, HeaderForUsermanagementComponent],
+    templateUrl: './registration.component.html',
+    styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent {
   authService = inject(FirebaseAuthService);

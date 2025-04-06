@@ -8,11 +8,10 @@ import { FormsModule } from '@angular/forms';
 import { BreakpointObserverService } from '../../../services/breakpoint-observer.service';
 
 @Component({
-  selector: 'app-popup-add-user',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './popup-add-user.component.html',
-  styleUrl: './popup-add-user.component.scss'
+    selector: 'app-popup-add-user',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './popup-add-user.component.html',
+    styleUrl: './popup-add-user.component.scss'
 })
 export class PopupAddUserComponent implements OnInit {
   channelService = inject(ChannelService);

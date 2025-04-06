@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-away-popup',
-  standalone: true,
-  imports: [],
-  templateUrl: './away-popup.component.html',
-  styleUrl: './away-popup.component.scss',
+    selector: 'app-away-popup',
+    imports: [],
+    templateUrl: './away-popup.component.html',
+    styleUrl: './away-popup.component.scss'
 })
 export class AwayPopupComponent {
   remainingTime: number = 5 * 60; // 5 Minuten in Sekunden

@@ -10,11 +10,10 @@ import { DateDividerComponent } from "../chat/single-message/date-divider/date-d
 import { BreakpointObserverService } from '../../services/breakpoint-observer.service';
 
 @Component({
-  selector: 'app-thread',
-  standalone: true,
-  imports: [SingleMessageComponent, SendMessageComponent, FormatDateForListPipe, DateDividerComponent],
-  templateUrl: './thread.component.html',
-  styleUrl: './thread.component.scss'
+    selector: 'app-thread',
+    imports: [SingleMessageComponent, SendMessageComponent, FormatDateForListPipe, DateDividerComponent],
+    templateUrl: './thread.component.html',
+    styleUrl: './thread.component.scss'
 })
 export class ThreadComponent implements AfterViewChecked {
   fireService = inject(FirestoreService);

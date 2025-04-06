@@ -18,12 +18,11 @@ import { Message } from '../../../models/message.class';
 import { Thread } from '../../../models/thread.class';
 
 @Component({
-  selector: 'app-channel-chat',
-  standalone: true,
-  animations: [fadeIn],
-  imports: [PopupAddUserComponent, PopupEditChannelComponent, PopupChannelUsersComponent, SendMessageComponent, SingleMessageComponent, FormatDateForListPipe, CommonModule, DateDividerComponent],
-  templateUrl: './channel-chat.component.html',
-  styleUrl: './channel-chat.component.scss'
+    selector: 'app-channel-chat',
+    animations: [fadeIn],
+    imports: [PopupAddUserComponent, PopupEditChannelComponent, PopupChannelUsersComponent, SendMessageComponent, SingleMessageComponent, FormatDateForListPipe, CommonModule, DateDividerComponent],
+    templateUrl: './channel-chat.component.html',
+    styleUrl: './channel-chat.component.scss'
 })
 export class ChannelChatComponent implements AfterViewChecked {
   channelService = inject(ChannelService);

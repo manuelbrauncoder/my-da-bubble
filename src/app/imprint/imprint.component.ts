@@ -4,11 +4,10 @@ import { FooterComponent } from "../shared/footer/footer.component";
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-imprint',
-  standalone: true,
-  imports: [HeaderForUsermanagementComponent, FooterComponent],
-  templateUrl: './imprint.component.html',
-  styleUrl: './imprint.component.scss'
+    selector: 'app-imprint',
+    imports: [HeaderForUsermanagementComponent, FooterComponent],
+    templateUrl: './imprint.component.html',
+    styleUrl: './imprint.component.scss'
 })
 export class ImprintComponent {
 

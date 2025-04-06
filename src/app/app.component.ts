@@ -26,20 +26,19 @@ import { AwayPopupComponent } from './shared/away-popup/away-popup.component';
 import { MobileLandscapeComponent } from "./shared/mobile-landscape/mobile-landscape.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  animations: [slideFromBottom, fadeIn],
-  imports: [
-    RouterModule,
-    RouterOutlet,
-    HeaderComponent,
-    CommonModule,
-    MobilePopupComponent,
-    AwayPopupComponent,
-    MobileLandscapeComponent
-],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+    selector: 'app-root',
+    animations: [slideFromBottom, fadeIn],
+    imports: [
+        RouterModule,
+        RouterOutlet,
+        HeaderComponent,
+        CommonModule,
+        MobilePopupComponent,
+        AwayPopupComponent,
+        MobileLandscapeComponent
+    ],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'da-bubble';

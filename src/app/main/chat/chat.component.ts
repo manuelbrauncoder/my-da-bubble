@@ -6,11 +6,10 @@ import { DirectMessageComponent } from './direct-message/direct-message.componen
 import { NewMessageComponent } from './new-message/new-message.component';
 
 @Component({
-  selector: 'app-chat',
-  standalone: true,
-  imports: [ChannelChatComponent, DirectMessageComponent, NewMessageComponent],
-  templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss'
+    selector: 'app-chat',
+    imports: [ChannelChatComponent, DirectMessageComponent, NewMessageComponent],
+    templateUrl: './chat.component.html',
+    styleUrl: './chat.component.scss'
 })
 export class ChatComponent {
   channelService = inject(ChannelService);

@@ -8,11 +8,10 @@ import {
 } from '@angular/router';
 
 @Component({
-  selector: 'app-header-for-usermanagement',
-  standalone: true,
-  imports: [RouterModule, CommonModule, RouterLink],
-  templateUrl: './header-for-usermanagement.component.html',
-  styleUrl: './header-for-usermanagement.component.scss',
+    selector: 'app-header-for-usermanagement',
+    imports: [RouterModule, CommonModule, RouterLink],
+    templateUrl: './header-for-usermanagement.component.html',
+    styleUrl: './header-for-usermanagement.component.scss'
 })
 export class HeaderForUsermanagementComponent {
   showHeaderLink = true;

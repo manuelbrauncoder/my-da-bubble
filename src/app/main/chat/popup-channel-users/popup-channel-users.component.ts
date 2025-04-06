@@ -11,11 +11,10 @@ import { UserProfileComponent } from '../../../popups/user-profile/user-profile.
 import { User } from '../../../models/user.class';
 
 @Component({
-  selector: 'app-popup-channel-users',
-  standalone: true,
-  imports: [CommonModule, PopupAddUserComponent, UserProfileComponent],
-  templateUrl: './popup-channel-users.component.html',
-  styleUrl: './popup-channel-users.component.scss'
+    selector: 'app-popup-channel-users',
+    imports: [CommonModule, PopupAddUserComponent, UserProfileComponent],
+    templateUrl: './popup-channel-users.component.html',
+    styleUrl: './popup-channel-users.component.scss'
 })
 export class PopupChannelUsersComponent {
   uiService = inject(UiService);

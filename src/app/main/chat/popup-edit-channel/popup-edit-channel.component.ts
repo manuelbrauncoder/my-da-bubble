@@ -10,11 +10,10 @@ import { PopupChannelUsersComponent } from "../popup-channel-users/popup-channel
 import { BreakpointObserverService } from '../../../services/breakpoint-observer.service';
 
 @Component({
-  selector: 'app-popup-edit-channel',
-  standalone: true,
-  imports: [CommonModule, FormsModule, PopupChannelUsersComponent],
-  templateUrl: './popup-edit-channel.component.html',
-  styleUrl: './popup-edit-channel.component.scss'
+    selector: 'app-popup-edit-channel',
+    imports: [CommonModule, FormsModule, PopupChannelUsersComponent],
+    templateUrl: './popup-edit-channel.component.html',
+    styleUrl: './popup-edit-channel.component.scss'
 })
 export class PopupEditChannelComponent {
   channelService = inject(ChannelService);

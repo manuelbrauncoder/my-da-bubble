@@ -13,11 +13,10 @@ import {
 import { FireStorageService } from '../../services/fire-storage.service';
 
 @Component({
-  selector: 'app-edit-profile',
-  standalone: true,
-  imports: [CommonModule, FormsModule, ImageCropperComponent],
-  templateUrl: './edit-profile.component.html',
-  styleUrl: './edit-profile.component.scss',
+    selector: 'app-edit-profile',
+    imports: [CommonModule, FormsModule, ImageCropperComponent],
+    templateUrl: './edit-profile.component.html',
+    styleUrl: './edit-profile.component.scss'
 })
 export class EditProfileComponent implements OnInit {
   uiService = inject(UiService);

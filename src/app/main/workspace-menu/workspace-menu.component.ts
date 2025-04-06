@@ -12,12 +12,11 @@ import { Channel } from '../../models/channel.class';
 import { fadeIn, toggleConversations } from "../../shared/animations";
 
 @Component({
-  selector: 'app-workspace-menu',
-  standalone: true,
-  animations: [fadeIn, toggleConversations],
-  imports: [CommonModule, SearchBarComponent],
-  templateUrl: './workspace-menu.component.html',
-  styleUrl: './workspace-menu.component.scss'
+    selector: 'app-workspace-menu',
+    animations: [fadeIn, toggleConversations],
+    imports: [CommonModule, SearchBarComponent],
+    templateUrl: './workspace-menu.component.html',
+    styleUrl: './workspace-menu.component.scss'
 })
 export class WorkspaceMenuComponent {
   authService = inject(FirebaseAuthService);
