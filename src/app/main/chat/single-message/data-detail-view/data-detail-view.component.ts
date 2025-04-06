@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output, input } from '@angular/core';
 import { UiService } from '../../../../services/ui.service';
 import { FireStorageService } from '../../../../services/fire-storage.service';
 import { FirestoreService } from '../../../../services/firestore.service';
@@ -14,7 +14,7 @@ export class DataDetailViewComponent {
   fireStorageService = inject(FireStorageService);
   firestoreService = inject(FirestoreService);
 
-  @Input() data = '';
+  readonly data = input('');
   @Output() closeDetailView = new EventEmitter<boolean>();
 
   triggerCloseDetailViewInParent() {
@@ -22,7 +22,7 @@ export class DataDetailViewComponent {
   }
 
   async downloadFile() {
-    await this.fireStorageService.downloadFile(this.data);
+    await this.fireStorageService.downloadFile(this.data());
     
   }
 }

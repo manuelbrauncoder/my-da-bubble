@@ -15,7 +15,7 @@
         </div>
         
     }
-    <textarea appAutofocus #textArea (input)="search()" (keydown)="onKeyDownEnter($event)" [disabled]="disableInput" type="text" [(ngModel)]="content" [placeholder]="getPlaceholderText()"></textarea>
+    <textarea appAutofocus #textArea (input)="search()" (keydown)="onKeyDownEnter($event)" [disabled]="disableInput()" type="text" [(ngModel)]="content" [placeholder]="getPlaceholderText()"></textarea>
 
     <div class="icons">
         <div class="add-elements">

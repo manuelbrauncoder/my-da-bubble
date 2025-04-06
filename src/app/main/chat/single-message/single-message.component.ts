@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, input } from '@angular/core';
 import { Message, Reaction } from '../../../models/message.class';
 import { UiService } from '../../../services/ui.service';
 import { FirestoreService } from '../../../services/firestore.service';
@@ -46,8 +46,10 @@ export class SingleMessageComponent implements OnInit {
   threadService = inject(ThreadService);
   fireStorageService = inject(FireStorageService);
 
+  // TODO: Skipped for migration because:
+  //  Your application code writes to the input. This prevents migration.
   @Input() currentMessage: Message = new Message();
-  @Input() threadMessage: boolean = false;
+  readonly threadMessage = input<boolean>(false);
 
   showMenuPopup = false;
   editMode = false;

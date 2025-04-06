@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FirestoreService } from '../../services/firestore.service';
 import { Channel } from '../../models/channel.class';
@@ -22,8 +22,8 @@ import { Thread } from '../../models/thread.class';
     styleUrl: './search-bar.component.scss'
 })
 export class SearchBarComponent {
-  @Input() showInWorkspaceMenu = false;
-  @Input() placeholderText = 'Devspace durchsuchen';
+  readonly showInWorkspaceMenu = input(false);
+  readonly placeholderText = input('Devspace durchsuchen');
 
   fireService = inject(FirestoreService);
   userService = inject(UserService);

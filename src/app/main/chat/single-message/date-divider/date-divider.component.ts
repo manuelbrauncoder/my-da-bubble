@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { DateMessages } from '../../../../models/message.class';
 import { FormatDateForListPipe } from '../../../../pipes/format-date-for-list.pipe';
 import { FirestoreService } from '../../../../services/firestore.service';
@@ -12,18 +12,18 @@ import { FirestoreService } from '../../../../services/firestore.service';
 export class DateDividerComponent {
   fireService = inject(FirestoreService);
 
-  @Input() day: DateMessages = {
+  readonly day = input<DateMessages>({
     date: '',
     messages: []
-  }
+});
 
-  @Input() rootMessage = false;
+  readonly rootMessage = input(false);
 
   getTime(){
-    if (this.rootMessage) {
+    if (this.rootMessage()) {
       return this.fireService.getMessageFromId(this.fireService.currentThread.rootMessage).time;
     } else {
-      return this.day.messages[0].time;
+      return this.day().messages[0].time;
     }
   }
 }

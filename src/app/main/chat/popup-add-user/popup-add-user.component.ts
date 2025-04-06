@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, OnInit, input } from '@angular/core';
 import { ChannelService } from '../../../services/channel.service';
 import { UiService } from '../../../services/ui.service';
 import { Channel } from '../../../models/channel.class';
@@ -19,7 +19,7 @@ export class PopupAddUserComponent implements OnInit {
   userService = inject(UserService);
   observerService = inject(BreakpointObserverService);
 
-  @Input() shownInMobilePopup = false;
+  readonly shownInMobilePopup = input(false);
 
   updatedChannel: Channel = new Channel();
   searchInput = '';

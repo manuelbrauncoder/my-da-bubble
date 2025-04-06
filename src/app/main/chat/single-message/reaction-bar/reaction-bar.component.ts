@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, input } from '@angular/core';
 import { Message } from '../../../../models/message.class';
 import { ThreadService } from '../../../../services/thread.service';
 import { UserService } from '../../../../services/user.service';
@@ -16,7 +16,9 @@ export class ReactionBarComponent implements OnInit {
   userService = inject(UserService);
   uiService = inject(UiService);
 
-  @Input() threadMessage = false;
+  readonly threadMessage = input(false);
+  // TODO: Skipped for migration because:
+  //  Your application code writes to the input. This prevents migration.
   @Input() currentMessage: Message = new Message()
   @Output() triggerAnswer = new EventEmitter<void>();
   @Output() triggerMenuPopup = new EventEmitter<void>();

@@ -1,10 +1,10 @@
 <main>
     @if (uiService.showChannelUsers) {
-        <section [ngClass]="showInEditChannelPopup ? '' : 'user-wrapper'">
-            <div [ngStyle]="{'margin-bottom': showInEditChannelPopup ? '1rem' : ''}" class="title">
+        <section [ngClass]="showInEditChannelPopup() ? '' : 'user-wrapper'">
+            <div [ngStyle]="{'margin-bottom': showInEditChannelPopup() ? '1rem' : ''}" class="title">
                 <h3>Mitglieder</h3>
                 
-                @if (!showInEditChannelPopup) {
+                @if (!showInEditChannelPopup()) {
                     <svg (click)="uiService.toggleChannelUsersPopup()" class="icon" width="50" height="50" viewBox="0 0 40 40"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask id="mask0_72825_6602" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="8" y="8" width="24"
@@ -21,7 +21,7 @@
                 
             </div>
         
-                    <div [ngClass]="showInEditChannelPopup ? 'users-in-edit-channel' : 'users'">
+                    <div [ngClass]="showInEditChannelPopup() ? 'users-in-edit-channel' : 'users'">
                         @if (authService.auth.currentUser) {
                             <div (click)="uiService.toggleCurrentUserPopup()" class="user">
                                 <div class="img-wrapper">

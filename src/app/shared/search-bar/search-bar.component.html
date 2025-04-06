@@ -1,6 +1,6 @@
 <div class="input-wrapper">
-    <input (input)="search()" [(ngModel)]="searchInput" [ngClass]="showInWorkspaceMenu ? 'workspace-input' : ''"
-        type="text" [placeholder]="placeholderText">
+    <input (input)="search()" [(ngModel)]="searchInput" [ngClass]="showInWorkspaceMenu() ? 'workspace-input' : ''"
+        type="text" [placeholder]="placeholderText()">
 
     @if (filteredUsers.length > 0 || filteredChannels.length > 0 || (filteredMessages | filterMessage).length > 0) {
         <div class="search-results">

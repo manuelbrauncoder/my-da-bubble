@@ -7,6 +7,7 @@ import {
   OnInit,
   SimpleChanges,
   ViewChild,
+  input
 } from '@angular/core';
 import { Channel } from '../../../models/channel.class';
 import { CommonModule } from '@angular/common';
@@ -49,12 +50,14 @@ export class SendMessageComponent implements OnInit, OnChanges {
   conversationService = inject(ConversationService);
   threadService = inject(ThreadService);
 
+  // TODO: Skipped for migration because:
+  //  Your application code writes to the input. This prevents migration.
   @Input() currentRecipient: Conversation | Channel = new Channel();
-  @Input() threadMessage = false;
-  @Input() newMessage = false;
-  @Input() newPlaceholder = '';
-  @Input() userUid = '';
-  @Input() disableInput = false;
+  readonly threadMessage = input(false);
+  readonly newMessage = input(false);
+  readonly newPlaceholder = input('');
+  readonly userUid = input('');
+  readonly disableInput = input(false);
 
   @ViewChild('textArea') textArea!: ElementRef;
 
@@ -234,7 +237,7 @@ export class SendMessageComponent implements OnInit, OnChanges {
    */
   isBtnDisabled() {
     return (
-      this.disableInput ||
+      this.disableInput() ||
       (this.content.trim().length === 0 && this.selectedFile === null)
     );
   }
@@ -243,8 +246,8 @@ export class SendMessageComponent implements OnInit, OnChanges {
    * @returns different strings with channel name or user name
    */
   getPlaceholderText() {
-    if (this.newMessage) {
-      return this.newPlaceholder;
+    if (this.newMessage()) {
+      return this.newPlaceholder();
     } else if (this.currentRecipient instanceof Conversation) {
       return `Nachricht an ${
         this.conversationService.getConversationPartner().username
@@ -274,7 +277,7 @@ export class SendMessageComponent implements OnInit, OnChanges {
   async handleChannelMessage() {
     this.currentRecipient = new Channel(this.currentRecipient as Channel);
     const message = this.createMessage(this.content, this.data);
-    if (!this.threadMessage) {
+    if (!this.threadMessage()) {
       this.currentRecipient.messages.push(message);
     } else {
       this.createThreadInChannelMessage(message);
@@ -307,7 +310,7 @@ export class SendMessageComponent implements OnInit, OnChanges {
       this.currentRecipient as Conversation
     );
     const message = this.createMessage(this.content, this.data);
-    if (!this.threadMessage) {
+    if (!this.threadMessage()) {
       this.currentRecipient.messages.push(message);
     } else {
       this.createThreadInConversationMessage(message);
@@ -401,11 +404,11 @@ export class SendMessageComponent implements OnInit, OnChanges {
    * Redirects the user back to the chat after sending a message.
    */
   redirectToChat() {
-    if (!this.newMessage) {
+    if (!this.newMessage()) {
       return;
     } else {
       if (this.currentRecipient instanceof Conversation) {
-        this.conversationService.openConversation(this.userUid);
+        this.conversationService.openConversation(this.userUid());
       } else {
         this.channelService.toggleActiveChannel(this.currentRecipient, true);
       }
@@ -450,7 +453,7 @@ export class SendMessageComponent implements OnInit, OnChanges {
    * @returns The input ID.
    */
   setidforFileInput() {
-    if (this.threadMessage) {
+    if (this.threadMessage()) {
       return 'thread';
     } else {
       return 'chat';

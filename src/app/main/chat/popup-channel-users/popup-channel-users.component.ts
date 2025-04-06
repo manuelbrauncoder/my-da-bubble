@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { UiService } from '../../../services/ui.service';
 import { ChannelService } from '../../../services/channel.service';
 import { UserService } from '../../../services/user.service';
@@ -25,7 +25,7 @@ export class PopupChannelUsersComponent {
   conversationService = inject(ConversationService);
   userForProfilePupup: User | null = null;
 
-  @Input() showInEditChannelPopup = false;
+  readonly showInEditChannelPopup = input(false);
 
   toggleAddUserToChannel(){
     if (!this.observerService.isMobile) {

@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, OnInit, input } from '@angular/core';
 import { Channel } from '../../models/channel.class';
 import { UiService } from '../../services/ui.service';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +13,7 @@ import { UserService } from '../../services/user.service';
     styleUrl: './add-channel-popup-2.component.scss'
 })
 export class AddChannelPopup2Component implements OnInit {
-  @Input() currentChannel = new Channel();
+  readonly currentChannel = input(new Channel());
   newChannel = new Channel();
   uiService = inject(UiService);
   userService = inject(UserService);
@@ -27,7 +27,7 @@ export class AddChannelPopup2Component implements OnInit {
   users: 'all' | 'certain' = 'all';
 
   ngOnInit(): void {
-    this.newChannel = new Channel(this.currentChannel);
+    this.newChannel = new Channel(this.currentChannel());
     this.availableUsers = this.setAvailableUserUids();
     this.pushCurrentUserToSelectedUsers();
   }
