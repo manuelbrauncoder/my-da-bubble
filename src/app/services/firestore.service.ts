@@ -95,8 +95,7 @@ export class FirestoreService {
           date,
           messages
         })
-    );
-    
+    ); 
   }
 
   getMessagesPerDayForConversation() {
@@ -119,7 +118,6 @@ export class FirestoreService {
           messages
         })
     );
-    
   }
 
   getMessagesPerDayForThread() {
@@ -142,7 +140,6 @@ export class FirestoreService {
           messages
         })
     );
-    
   }
 
   // ================= Helper Methods ========================

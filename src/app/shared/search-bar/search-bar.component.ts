@@ -207,7 +207,6 @@ export class SearchBarComponent {
     });
   }
 
-
   searchMessageInChannel(message: Message, messageIdToFind: string, channel: Channel) {
     if (message.id === messageIdToFind) { // wenn die message in messages gefunden wurde
       this.redirectToChannel(channel, `channel-${messageIdToFind}`);
@@ -221,7 +220,6 @@ export class SearchBarComponent {
       }
     }
   }
-
 
   search() {
     const searchTerm = this.searchInput.toLowerCase();
@@ -271,7 +269,6 @@ export class SearchBarComponent {
     }
     return false;
   }
-
 
   searchUsers(searchTerm: string) {
     this.filteredUsers = this.fireService.users
